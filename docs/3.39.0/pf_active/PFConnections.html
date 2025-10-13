@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>PF Connections</h1>
+
+S: <font color="red">Supply</font><br>
+C:  <font color="blue">Coil</font><br>
+1-5: <font color="green">Circuit nodes</font><br>
+
+<br>
+
+<svg width="800" height="300">
+  <rect x="50"  y="40"  rx="10" ry="10" width="60" height="60" style="fill:none;stroke:black;stroke-width:3" />
+  <text x="70"  y="75"  fill="red">S1</text>
+  <rect x="225" y="40"  rx="10" ry="10" width="60" height="60" style="fill:none;stroke:black;stroke-width:3" />
+  <text x="245" y="75"  fill="blue">C1</text>
+  <rect x="400" y="40"  rx="10" ry="10" width="60" height="60" style="fill:none;stroke:black;stroke-width:3" />
+  <text x="420" y="75"  fill="blue">C2</text>
+  <rect x="312" y="120" rx="10" ry="10" width="60" height="60" style="fill:none;stroke:black;stroke-width:3" />
+  <text x="332" y="155" fill="blue">C3</text>
+  <rect x="50"  y="200" rx="10" ry="10" width="60" height="60" style="fill:none;stroke:black;stroke-width:3" />
+  <text x="70"  y="235" fill="red">S2</text>
+  <rect x="225" y="200" rx="10" ry="10" width="60" height="60" style="fill:none;stroke:black;stroke-width:3" />
+  <text x="245" y="235" fill="blue">C4</text>
+  <rect x="400" y="200" rx="10" ry="10" width="60" height="60" style="fill:none;stroke:black;stroke-width:3" />
+  <text x="420" y="235" fill="blue">C5</text>
+
+  <polyline points="80,40 80,20 430,20 430,40" style="fill:none;stroke:black;stroke-width:2" />
+  <polyline points="255,50 255,30" style="fill:none;stroke:black;stroke-width:2" />
+
+  <polyline points="80,100 80,200" style="fill:none;stroke:black;stroke-width:2" />
+  <polyline points="255,100 255,200" style="fill:none;stroke:black;stroke-width:2" />
+  <polyline points="430,100 430,200" style="fill:none;stroke:black;stroke-width:2" />
+
+  <polyline points="255,150 312,150" style="fill:none;stroke:black;stroke-width:2" />
+  <polyline points="372,150 430,150" style="fill:none;stroke:black;stroke-width:2" />
+
+  <polyline points="80,260   80,280 430,280 430,260" style="fill:none;stroke:black;stroke-width:2" />
+  <polyline points="255,260 255,280" style="fill:none;stroke:black;stroke-width:2" />
+
+  <circle cx="255" cy="20"  r="10" stroke="none" fill="green" />
+  <text    x="252"  y="25"  fill="white">1</text>
+  <circle  cx="80" cy="150" r="10" stroke="none" fill="green" />
+  <text     x="77"  y="155" fill="white">2</text>
+  <circle cx="255" cy="150" r="10" stroke="none" fill="green" />
+  <text    x="252"  y="155" fill="white">3</text>
+  <circle cx="430" cy="150" r="10" stroke="none" fill="green" />
+  <text    x="427"  y="155" fill="white">4</text>
+  <circle cx="255" cy="280" r="10" stroke="none" fill="green" />
+  <text    x="252"  y="285" fill="white">5</text>
+  
+  Sorry, your browser does not support inline SVG.
+</svg>
+
+<br>
+
+The connection matrix is of size N<sub>nodes</sub> &times; 2(N<sub>supplies</sub> + N<sub>coils</sub>) which for the above circuit is 5 &times; 14 and reads:
+
+<table>
+  <tr>
+    <th></th>
+    <th>S1(1)</th>
+    <th>S1(2)</th>
+    <th>S2(1)</th>
+    <th>S2(2)</th>
+    <th>C1(1)</th>
+    <th>C1(2)</th>
+    <th>C2(1)</th>
+    <th>C2(2)</th>
+    <th>C3(1)</th>
+    <th>C3(2)</th>
+    <th>C4(1)</th>
+    <th>C4(2)</th>
+    <th>C5(1)</th>
+    <th>C5(2)</th>
+  </tr>
+  <tr>
+    <td><font color="green">1</font></td>
+    <td>[[ 1</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>1</td>
+    <td>0</td> 
+    <td>1</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0 ]</td> 
+  </tr>
+  <tr>
+    <td><font color="green">2</font></td>
+    <td>[ 0</td>
+    <td>1</td> 
+    <td>1</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0 ]</td> 
+  </tr>
+  <tr>
+    <td><font color="green">3</font></td>
+    <td>[ 0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>1</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>1</td>
+    <td>0</td> 
+    <td>1</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0 ]</td> 
+  </tr>
+  <tr>
+    <td><font color="green">4</font></td>
+    <td>[ 0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>1</td> 
+    <td>0</td>
+    <td>1</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>1</td>
+    <td>0 ]</td> 
+  </tr>
+  <tr>
+    <td><font color="green">5</font></td>
+    <td>[ 0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>1</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>0</td> 
+    <td>0</td>
+    <td>1</td> 
+    <td>0</td>
+    <td>1 ]]</td> 
+  </tr>
+</table>
+
+</body>
+</html>

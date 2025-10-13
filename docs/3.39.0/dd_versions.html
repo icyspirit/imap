@@ -1,0 +1,337 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Data Dictionary version history</title>
+		<style type="text/css">
+			p {color:black;font-size:12pt;font-weight:normal;}
+			p.name {color:red;font-size:18pt;font-weight:bold;}
+			p.welcome {color:#3333aa; font-size:20pt; font-weight:bold; text-align:center;}
+			span.head {color:#3333aa; font-size:12pt; font-weight:bold; }
+       </style>
+	</head>
+	<body>
+		<p class="welcome">Data Dictionary version history</p>
+		<table border="1">
+			<thead style="color:#ff0000">
+				<td>DD version</td>
+				<td>List of changes w.r.t. previous version</td>
+			</thead>
+			<p><a href="html_documentation.html">Back to top IDS list</a></p>
+			<tr>
+				<td>3.39.0</td>
+				<td>Mark all *_error_index fields as obsolescent. Add plugin provenance structure in ids_properties. Extension to the EDGE_PROFILES IDS. Adding n_tor to the coordinate_identifier list and clarify its definition throughout the Data Dictionary. Add a description node in all code structures. Extension to the SPECTROMETER_X_RAY_CRYSTAL IDS. Changes to the PLASMA_INITIATION IDS. Initial version of the new FOCS IDS. Add a new constraint in the EQUILIBRIUM IDS, as well as more constraint positions. Extension to the CORE_PROFILES IDS: new profiles_2d structure. New B_FIELD_NON_AXISYMMETRIC IDS. Revision and simplification of the filter_spectrometer structure in the SPECTROMETER_VISIBLE IDS. Correction of triangularity definition in the EQUILIBRIUM IDS and introduction of new quantities similar to the triangularity. Extension to the PULSE_SCHEDULE IDS. In the WAVES IDS, change node types to complex numbers in the full_wave structure to describe adequately the e_field and b_field components. Extension to the LANGMUIR_PROBES IDS. Add optical elements and fibre bundle description in CAMERA_IR, CAMERA_VISIBLE and SPECTROMETER_VISIBLE IDSs. Extension to the REFLECTOMETER_PROFILE IDS and new REFLECTOMETER_FLUCTUATION IDS. New RUNAWAY_ELECTRONS IDS. Extension to the EDGE_TRANSPORT IDS. Extensions to the WAVES IDS. Revision of the SPECTROMETER_MASS IDS. </td>
+			</tr>
+			<tr>
+				<td>3.38.1</td>
+				<td>Clarify flux definitions and conventions in the EDGE_TRANSPORT IDS. Modification of the NEUTRON_DIAGNOSTIC IDS.</td>
+			</tr>
+			<tr>
+				<td>3.38.0</td>
+				<td>Extension to the SUMMARY IDS. Extension to the EQUILIBRIUM IDS. Extension to the EDGE_* IDSs. New PLASMA_INITIATION IDS. Refactoring the geometry matrix in the CAMERA_VISIBLE and SPECTROMETER_VISIBLE IDSs. Correct some units in the distributions IDS. Extension of the WALL IDS.</td>
+			</tr>
+			<tr>
+				<td>3.37.2</td>
+				<td>Increase the max size of coherent_wave in the WAVES IDS.</td>
+			</tr>
+			<tr>
+				<td>3.37.1</td>
+				<td>Modification to the PULSE_SCHEDULE IDS (typo in pf_active/coil/current).</td>
+			</tr>
+			<tr>
+				<td>3.37.0</td>
+				<td>Modifications to the GYROKINETICS IDS. Extension to the SPECTROMETER_VISIBLE IDS. Extension of the SUMMARY IDS with local/separatrix_average. Extension to the PULSE_SCHEDULE and PF_ACTIVE IDS. Moving a global quantity from the PF_ACTIVE IDS to the SUMMARY IDS. Addition of a new geometry type for 2D contours (PF_ACTIVE, PF_PASSIVE). Extension to the MHD IDS. Renaming of the main array of structure of the EC_LAUNCHERS IDS and simplification of time bases. Extension to the EQUILIBRIUM IDS. Modifications to the WALL IDS.</td>
+			</tr>
+			<tr>
+				<td>3.36.0</td>
+				<td>Extension of the GAS_INJECTION IDS. Extend the GGD with a new geometry_2d node, for describing high order finite elements parameters. Extension of the SPECTROMETER_X_RAY_CRYSTAL IDS (description of vertical binning).</td>
+			</tr>
+			<tr>
+				<td>3.35.0</td>
+				<td>Extension of the DISTRIBUTIONS IDS. Renaming local/divertor_plate in local/divertor_target in the SUMMARY IDS (keeping the obsolescent structure). Add an instrumention function in the SPECTROMETER_X_CRYSTAL IDS, as well as modifications to this IDS. Extension of the PULSE_SCHEDULE IDS. Extension of the PF_ACTIVE and PF_PASSIVE IDS. New CAMERA_X_RAYS IDS. Improve the filter_window structure in utilities and use it as an AoS in the SPECTROMETER_X_CRYSTAL, HARD_X_RAYS and SOFT_X_RAYS IDS. Modification of the CAMERA_IR IDS.</td>
+			</tr>
+			<tr>
+				<td>3.34.0</td>
+				<td>Extension of the CORE_PROFILES IDS with volume averaged densities and temperatures. Add a geometry_content identifier in the GGD. Restructuring of the SPECTROMETER_X_RAY_CRYSTAL IDS. Modification of the GAS_INJECTION IDS. Renaming of the SDN IDS into REAL_TIME_DATA IDS. Modification of the source/provenance information in all IDSs (new provenance structure and source becomes obsolescent in ids_properties). Renaming of neutron_fluxes into neutron_rates in the SUMMARY IDS. New WORKFLOW IDS (replaces the NUMERICS IDS).</td>
+			</tr>
+			<tr>
+				<td>3.33.0</td>
+				<td>Refactoring of the REFRACTOMETER IDS. Adding new distances and strike points for separatrices in the EQUILIBRIUM IDS. Extensions to the EDGE_PROFILES and DIVERTORS IDS and MAGNETICS IDSs for edge currents and related shunt measurements. Extension of the WALL IDS. Add a latency node to all diagnostic and actuator IDSs. Extensions to the THOMSON_SCATTERING, CAMERA_IR, EQUILIBRIUM and LANGMUIR_PROBES IDSs with an outboard midplane radial coordinate.</td>
+			</tr>
+			<tr>
+				<td>3.32.1</td>
+				<td>Add a geometry matrix to the SPECTROMETER_VISIBLE IDS. Clarification of the definition of coil current versus turns_with_sign in the PF_ACTIVE IDSs, and of the oblique angles in PF_ACTIVE and PF_PASSIVE IDSs. Increase max size of unit_source AoS and remove superfluous index nodes in the NEUTRON_DIAGNOSTIC IDS. Addition in the REFLECTOMETER_PROFILE IDS. Add Gaussian beam and polarizer structures to the ECE IDS.</td>
+			</tr>
+			<tr>
+				<td>3.32.0</td>
+				<td>Modification to the LH_ANTENNAS IDS and addition to the IC_ANTENNAS IDS. Clarification and extension of the SUMMARY/local/divertor_plate structure. Extension of CORE_PROFILES, SUMMARY, EQUILIBRIUM and PF_ACTIVE IDSs. Increase the maximum number of channels in the BOLOMETER IDS. Addition of orbit integrals of markers in the DISTRIBUTION and DISTRIBUTION_SOURCES IDS. Modification of the GYROKINETICS IDS./td>
+			</tr>
+			<tr>
+				<td>3.31.0</td>
+				<td>Refactoring of the reciprocating probe part of the LANGMUIR_PROBES IDS and extension of the embedded probes structure. Extension to DISTRIBUTIONS IDS. New REFRACTOMETER IDS. Addition of gaps to the EQUILIBRIUM IDS. Extension to the SUMMARY IDS. Extension to the DISRUPTION IDS. Modification of the CALORIMETRY IDS. Addition in the CORE_SOURCES IDS. New DIVERTORS IDS and a few additions to the WALL IDS. Extension to the NEUTRON_DIAGNOSTIC IDS. Additions and clarifications to the PELLETS IDS. New GAS_PUMPING IDS.</td>
+			</tr>
+			<tr>
+				<td>3.30.0</td>
+				<td>Extension to the MHD_LINEAR IDS. Increase maximum number of ec_launchers.launcher and waves.coherent_wave. Extend SPECTROMETER_VISIBLE to include polarized light characteristics. Add list of libraries to the code structure and allow for implicit declaration of trivial grid_subsets for the GGD. Improvement of the MAGNETICS IDS. Modification of LANGMUIR_PROBES IDS. Increase the maximum number of occurrences of the MHD_LINEAR IDS. Addition of code parameters for each transport model to the EDGE_TRANSPORT IDS. Extension of the DATASET_DESCRIPTION IDS. New DATASET_FAIR IDS.</td>
+			</tr>
+			<tr>
+				<td>3.29.0</td>
+				<td>New SPECTROMETER_UV and SPECTROMETER_MASS IDSs. Correction of a few units. Increase number of channels in the THOMSON_SCATTERING IDS. Remove confusing periodicity nodes in COILS_NON_AXISYMMETRIC IDS. Extension of LANGMUIR_PROBES IDS. Additions to SUMMARY IDS. Extension of PF_ACTIVE IDS. Addition of surface to CORE_* IDSs radial grid. Extension of the MHD_LINEAR IDS. Extension of the LH_ANTENNAS IDS.</td>
+			</tr>
+			<tr>
+				<td>3.28.1</td>
+				<td>Change the launching_position structure in the EC_LAUNCHERS IDS. Introduction of COCOS transforms metadata in the Data Dictionary. Clarify definitions of D and v in CORE_TRANSPORT IDS.</td>
+			</tr>
+			<tr>
+				<td>3.28.0</td>
+				<td>Addition of new physics constraints to EQUILIBRIUM IDS. Additions to WALL IDS. New CRYOSTAT IDS.</td>
+			</tr>
+			<tr>
+				<td>3.27.0</td>
+				<td>Modification of launcher/launching_position in EC_LAUNCHERS IDS (make it static instead of dynamic). Addition to the THOMSON_SCATTERING IDS. Addition to the PF_PASSIVE IDS. Clarification of definitions in the MAGNETICS IDS. Modification of the coordinate_system grid in the MHD_LINEAR IDS. Addition of a new CAMERA_VISIBLE IDS.</td>
+			</tr>
+			<tr>
+				<td>3.26.0</td>
+				<td>Update PULSE_SCHEDULE IDS with recent modifications made to EC_LAUNCHERS IDS. Extend CALORIMETRY IDS. Rationalize time bases in the ECE IDS. Addition to the SPECTROMETER_VISIBLE IDS. Extension to the MAGNETICS IDS. Add aperture and source surface descriptions to the NBI IDS. New NUMERICS IDS. Change center to centre in SPECTROMETER_X_RAY_CRYSTAL.</td>
+			</tr>
+			<tr>
+				<td>3.25.0</td>
+				<td>Technical fix and small update of HARD_X_RAYS IDS. Additions in radial grid of CORE_*, EDGE_PROFILE IDSs, and to ECE and REFLECTOMETER_PROFILE IDSs. Extend ggd_subset identifiers list. Type fixing in RADIATION IDS. New DISRUPTION IDS and additions to SUMMARY and WALL IDSs. Extension of ECE IDS. Addition to CORE_SOURCES IDS. Renaming of EC_ANTENNAS IDS into EC_LAUNCHERS and a few modifications therein. New SPECTROMETER_X_RAY_CRYSTAL IDS. Type fixing in PULSE_SCHEDULE and GAS_INJECTION IDSs. Addition to MHD IDS. Addition to MHD_LINEAR IDS.</td>
+			</tr>
+			<tr>
+				<td>3.24.0</td>
+				<td>Add wavelength calibration information to SPECTROMETER_VISIBLE IDS. Extend MAGNETICS and TF IDSs, making the MAGNETICS IDS active. New CAMERA_IR IDS. Update of CORE_SOURCES identifiers. Modification of HARD_X_RAYS IDS. New CALORIMETRY IDS. Addition to SUMMARY IDS. Significant modifications to LANGMUIR_PROBES IDS.</td>
+			</tr>
+			<tr>
+				<td>3.23.3</td>
+				<td>Modification of the position structure in the REFLECTOMETER_PROFILE IDS. New HARD_X_RAYS IDS.</td>
+			</tr>
+			<tr>
+				<td>3.23.2</td>
+				<td>Update of the physics constants module. Increase of number of occurrences for the INTERFEROMETER IDS.</td>
+			</tr>
+			<tr>
+				<td>3.23.1</td>
+				<td>Modification of IC_ANTENNA IDS. Update of PF_ACTIVE node descriptions and MHD_LINEAR units encoding. Update of GGD identifiers.</td>
+			</tr>
+			<tr>
+				<td>3.23.0</td>
+				<td>Additions in the CORE_PROFILES and EDGE_PROFILES IDS. Extension of the WALL IDS. Modifications to the SOFT_X_RAYS IDS.</td>
+			</tr>
+			<tr>
+				<td>3.22.0</td>
+				<td>Extension of the RADIATION IDS with GGD structures. EDGE_PROFILES, EDGE_TRANSPORT, EDGE_SOURCES and SUMMARY IDSs moved to "active" lifecycle status. Increase maximum number of occurrences of COILS_NON_AXISYMMETRIC IDS, increase maximum number of forces in PF_ACTIVE, clarify current convention in TF and COILS_NON_AXISYMMETRIC IDS. New BREMSSTRAHLUNG_VISIBLE IDS. Extension to the TRANSPORT_SOLVER_NUMERICS IDS. New GYROKINETICS IDS. Addition of isotope ratio information in the SPECTROMETER_VISIBLE IDS. New LANGMUIR_PROBES IDS. Extension to the ECE IDS. Significant update of the MHD_LINEAR IDS.</td>
+			</tr>
+			<tr>
+				<td>3.21.1</td>
+				<td>First version compatible with v4 of Access Layer with new low-level routines. Usage of a new signal + timed validity flag structure in the ECE, INTERFEROMETER, MAGNETICS, MSE and POLARIMETER IDSs.</td>
+			</tr>
+			<tr>
+				<td>3.21.0</td>
+				<td>Renamed power nodes in all actuator IDSs (EC_ANTENNAS, IC_ANTENNAS, LH_ANTENNAS, NBI) and added a power_type node in PULSE_SCHEDULE IDS. Added a few charge state profiles and toroidal rotation frequency to CORE_PROFILES IDS and marked velocities as obsolescent. Updated CORE_TRANSPORT model identifiers and added a few nodes to this IDS. Restructured IC_ANTENNAS IDS (new "module" structure). Added coil names and id to COILS_NON_AXISYMMETRIC and TF IDS. Modified AMNS_DATA IDS to use a generic structure for process/reactant/element. Extended SOFT_X_RAYS, BOLOMETER, CHARGE_EXCHANGE and SPECTROMETER_VISIBLE IDSs. Relocated fast_filter/energy within DISTRIBUTION IDS. Added documentation on definitions of geometrical moments to EQUILIBRIUM IDS</td>
+			</tr>
+			<tr>
+				<td>3.20.0</td>
+				<td>Extension to SUMMARY IDS. Added a number of identifier files related to the GGD. Clarification of definitions used for constraints in EQUILIBRIUM IDS. Added model and source identifier files for EDGE_TRANSPORT and EDGE_SOURCES IDSs. New MHD IDS. Addition of profile fitting information in CORE_PROFILES IDS. Increase pf_active/circuit maximum size. Add coordinate_system structure in the MHD_LINEAR IDS. Significant modification of the CHARGE_EXCHANGE IDS.</td>
+			</tr>
+			<tr>
+				<td>3.19.1</td>
+				<td>New LH_ANTENNAS IDS. Modifications of the SPECTROMETER_VISIBLE IDS. New COIL_NON_AXISYMMETRIC IDS. Small extension to the GAS_INJECTION IDS. Extension to the ECE IDS. Removal of the "oblique" type of 2D geometry for IC_ANTENNAS and PF_ACTIVE IDS. Small extension to the INTERFEROMETER IDS.</td>
+			</tr>
+			<tr>
+				<td>3.19.0</td>
+				<td>Modifications of SPECTROMETER_VISIBLE IDS. Improve definition of CORE_SOURCES IDS (thermal sources). Remove obsolescent nodes from RADIATION IDS (in alpha state). Add 3D wall description using the GGD to WALL IDS.</td>
+			</tr>
+			<tr>
+				<td>3.18.0</td>
+				<td>Add position of geometric axis for each surface in EQUILIBRIUM IDS. Add neoclassical specific fields in the CORE_TRANSPORT IDS. Additions to AMNS IDS. Make clear distinction between fixed boundary codes LCFS and separatrix in the EQUILIBRIUM IDS and add the possibility to provide both in the same IDS. Update pedestal stability information in the SUMMARY IDS. Add squareness in EQUILIBRIUM IDS.</td>
+			</tr>
+			<tr>
+				<td>3.17.2</td>
+				<td>Add new BAROMETRY IDS. Replace alpha grid_ggd array by grids_ggd array (with multiple grids) in EQUILIBRIUM IDS. Add validity flags to magnetics signals in MAGNETICS IDS.</td>
+			</tr>
+			<tr>
+				<td>3.17.1</td>
+				<td>Add pedestal fits to the SUMMARY IDS. New RADIATION IDS</td>
+			</tr>
+			<tr>
+				<td>3.17.0</td>
+				<td>Add events to the PULSE_SCHEDULE IDS. Add ion, neutral and state indices to the TRANSPORT_SOLVER_NUMERICS IDS. In the EQUILIBRIUM IDS, move the GGD grid outside of the main time array of the structure to enable it having its own time base. Add equilibrium constraints structure in the EQUILIBRIUM IDS. Add "species" structure to CORE_SOURCES and EDGE_SOURCES. Increase number of coils and power-supplies in PF_ACTIVE IDS.</td>
+			</tr>
+			<tr>
+				<td>3.16.0</td>
+				<td>Bug fixes on edge_profiles and edge_sources IDS. Add convergence information in the EQUILIBRIUM IDS. Adding validity information for main profiles in the CORE_PROFILE IDS</td>
+			</tr>
+			<tr>
+				<td>3.15.1</td>
+				<td>Separation of GGD grid, physical quantities and fast varying quantities in edge_profiles, edge_transport and edge_sources. Extensions to the neutron_diagnostic IDS. Correction of some coordinate metadata. Correction of types in the charge-exchange IDS. New MSE IDS.</td>
+			</tr>
+				<td>3.15.0</td>
+				<td>Addition of decomposed source terms in CORE_SOURCES IDS. Split the INTERFERO_POLARIMETER IDS into two IDSs, INTERFEROMETER and POLARIMETER. Extension of the PF_ACTIVE IDS (coil current limits). New node to declare the number of atoms in a molecule in all IDSs, due to a wrong type declaration on the previous node (declared as obsolescent).</td>
+			</tr>
+			<tr>
+				<td>3.14.0</td>
+				<td>New TURBULENCE IDS. Add field to SUMMARY IDS. Improve definition for coordinate_system Jacobian (absolute value) and make a variable consistent with IMAS naming conventions in equilibrium IDS. Extension of maximum coil/element, coil and supply numbers in PF_ACTIVE IDS. Correction of velocity type in EDGE_PROFILES IDS.</td>
+			</tr>
+			<tr>
+				<td>3.13.0</td>
+				<td>Added a few quantities in CORE_PROFILES and CORE_SOURCES IDSs. Extension of maximum model number in CORE_TRANSPORT</td>
+			</tr>
+			<tr>
+				<td>3.12.1</td>
+				<td>Renaming of a few fields in the BOLOMETER IDS. Addition of the reference major radius in the TF IDS.</td>
+			</tr>
+			<tr>
+				<td>3.12.0</td>
+				<td>Addition of radiated power reconstruction data in the BOLOMETER IDS. Type fix in TRANSPORT_SOLVER_NUMERIC IDS. Extension of maximum source number in CORE_SOURCES</td>
+			</tr>
+			<tr>
+				<td>3.11.0</td>
+				<td>Modification of the PF_ACTIVE IDS (turns_with_sign changes type to FLT_0D). Redesign of the PF_PASSIVE loops geometry (PF_PASSIVE IDS) to make it identical to the PF_ACTIVE geometric elements description. Extension of the outline_2d_geometry_static complex type to add the description by a list of arcs of circle (extends all IDSs using this complex type). Addition of thermal density and pressure to CORE_PROFILES and CORE_INSTANT_CHANGES IDS. Addition of momentum sources and transport terms at ion level in CORE_TRANSPORT and CORE_SOURCES. Modifications (including bugfix C++ present in 3.10.2) in TRANSPORT_SOLVER_NUMERICS IDS. Correct spelling of vacuum in MHD_LINEAR IDS. Addition of mobile limiting surfaces in the WALL IDS. New REFLECTOMETER_PROFILE IDS.</td>
+			</tr>
+			<tr>
+				<td>3.10.2</td>
+				<td>New GAS_INJECTION and SOFT_X_RAYS IDSs. Removal of ACTUATOR IDS. Redesign of 1D solver part of TRANSPORT_SOLVER_NUMERICS IDS. Extension of NBI IDS for dynamic beam tilting. Extension of SPECTROMETER_VISIBLE IDS for detailed optical system description linked to beam emission spectrocopy modelling.</td>
+			</tr>
+			<tr>
+				<td>3.10.1</td>
+				<td>Extension of the SUMMARY, EDGE_PROFILE IDSs. Modifications of the ECE and BOLOMETER IDSs</td>
+			</tr>
+			<tr>
+				<td>3.10.0</td>
+				<td>Revision of the TRANSPORT_SOLVER_NUMERICS IDS. Additions to the SAWTEETH IDS. Additions to the CORE_INSTANT_CHANGES IDS, making it mirror the CORE_PROFILES/profiles_1d structure and turn it to ACTIVE lifecycle status. Increase charge_state maximum number in the AMNS_DATA IDS. Clarify documentation of the PF_ACTIVE IDS. Changed positions of grids in the MHD_LINEAR IDS.</td>
+			</tr>
+			<tr>
+				<td>3.9.1</td>
+				<td>Technical fix in IDSDef generation (fixes a bug introduced by 3.9.0)</td>
+			</tr>
+			<tr>
+				<td>3.9.0</td>
+				<td>Addition of integrated quantities to the CORE_SOURCES IDS. Add a resistivity node to the PF_PASSIVE IDS, correction of resistivity node definition in the WALL IDS. Add disruption-related parameters to the SUMMARY IDS. Technical modifications of the include mechanism in some of the IDS schemas, to enable comiling of the Access Layer with recent version of the IFORT compiler. Modification of the ordering of the wave identifier in the distributions IDS</td>
+			</tr>
+			<tr>
+				<td>3.8.0</td>
+				<td>Addition of rho_volume_norm and beta_pol profile to the EQUILIBRIUM IDS. New BOLOMETER IDS. Add temporary (real, imaginary) 2D complex numbers structures in the mhd_linear IDS. Add "code" structure in the SDN IDS. Correct some units in the SUMMARY IDS. Turn poloidal_grid into a FLT_2D in the MHD_LINEAR IDS. Add restart file description in transport_solver_numerics. Add mass density to the equilibrium IDS. Renaming atomic_data IDS into amns_data IDS. Increased number of occurences for the EDGE_* IDSs. Additions to the AMNS_DATA IDS. Additions of 1D ion charge and square charge to the CORE_* IDSs.</td>
+			</tr>
+			<tr>
+				<td>3.7.4</td>
+				<td>Addition to the INTERFERO-POLARIMETER IDS. Additions of shinetrough losses to the distribution_sources IDS</td>
+			</tr>
+			<tr>
+				<td>3.7.3</td>
+				<td>Modifications to the WAVES IDS</td>
+			</tr>
+			<tr>
+				<td>3.7.2</td>
+				<td>Modifications to the SDN IDS. Modification to the IC_ANTENNAS IDS</td>
+			</tr>
+			<tr>
+				<td>3.7.1</td>
+				<td>Increase maxOccurs of some IDSs to support HCD workflow</td>
+			</tr>
+			<tr>
+				<td>3.7.0</td>
+				<td>Extension of PULSE_SCHEDULE IDS. Replacement of li (becomes obsolescent) by li_3 in core_profiles. Sign conventions in documentation of core_* IDSs clarified. Split ANTENNAS IDS into EC_ANTENNAS and IC_ANTENNAS</td>
+			</tr>
+			<tr>
+				<td>3.6.1</td>
+				<td>Changes to NEUTRON_DIAGNOSTIC IDS to solve hashed name conflict in MDS+ files.</td>
+			</tr>
+			<tr>
+				<td>3.6.0</td>
+				<td>Addition of an elementary volume element in equilibrium/time_slice/profiles_2d. New SUMMARY and NEUTRON_DIAGNOSTIC IDSs. Redesigned and renamed SCHEDULE IDS to PULSE_SCHEDULE. Update of code parameters.</td>
+			</tr>
+			<tr>
+				<td>3.5.3</td>
+				<td>New WAVES IDS, with related micro-update of DISTRIBUTIONS IDS.</td>
+			</tr>
+			<tr>
+				<td>3.5.2</td>
+				<td>Increased the number of sources from 10 to 33 in distributions IDS</td>
+			</tr>
+			<tr>
+				<td>3.5.1</td>
+				<td>Increase number of sources from 10 to 33 in distribution_sources IDS</td>
+			</tr>
+			<tr>
+				<td>3.5.0</td>
+				<td>Changed documentation of the spectrometer_visible IDS: wavelengths must be given in m. Addition of a node in the equilibrium IDS for the value of normalised poloidal flux at which the boundary is taken together with clarification of the rho_tor definition in the core_radial_grid complex type. Change tf, mhd_linear and equilibrium IDSs to follow naming conventions for a_field and b_field. Addition of a field in tf IDS, and possibility of multiple GGD representations in equilibrium.</td>
+			</tr>
+			<tr>
+				<td>3.4.0</td>
+				<td>Modifications in the TF IDS structure, including addition of the field_map structure. Bugfix in distributions and distribution_sources IDSs. Modifications of the GGD metric coefficients and of the equilibrium/time_slice/coordinate_system metric coefficients. Additions to the equilibrium/time_slice/ggd structure. Addition of interpolation coefficients to all GGD physical types (generic_grid_scalar, generic_grid_vector, ...). Automated addition of errorbar fields in the DD</td>
+			</tr>
+			<tr>
+				<td>3.3.1</td>
+				<td>Bugfix and upgrade of the DD validation script (illegal nested AoS type 3). One addition to the GGD generic type. New IDS: spectrometer_visible</td>
+			</tr>
+			<tr>
+				<td>3.3.0</td>
+				<td>Harmonization of the core_*, distributions and distribution_sources IDSs with the edge_* IDSs: separation of ion and neutral species into 2 similar structures, utilisation of generic structure for vector components applied to electric field and velocity</td>
+			</tr>
+
+			<tr>
+				<td>3.2.5</td>
+				<td>Technical modification: modularization of the HTML documentation (one HTML file per IDS)</td>
+			</tr>
+
+			<tr>
+				<td>3.2.4</td>
+				<td>Technical modifications to cope with the AUG and JET machine descriptions</td>
+			</tr>
+
+			<tr>
+				<td>3.2.3</td>
+				<td>Addition of the iron_core IDS. Addition of a wall outline structure in the wall IDS. Correction of errors in the ece IDS.</td>
+			</tr>
+
+			<tr>
+				<td>3.2.2</td>
+				<td>Technical bugfix on distribution_sources and distributions IDSs.</td>
+			</tr>
+
+			<tr>
+				<td>3.2.1</td>
+				<td>Addition of new IDSs: edge_sources, edge_transport, distribution_sources, distributions, ece. Addition of a ggd structure in the equilibrium IDS. Changes in the wall and transport_solver_numerics IDSs</td>
+			</tr>
+
+			<tr>
+				<td>3.2.0</td>
+				<td>Addition of a few nodes in the following IDS: core_profiles, core_sources, transport_solver_numerics, equilibrium, wall, nbi</td>
+			</tr>
+
+			<tr>
+				<td>3.1.0</td>
+				<td>Addition of IDSs (edge_profiles, transport_solver_numerics, wall), revision of the core_* IDSs to have the same structure as the edge_profiles IDS. A few IDSs moved to the active status: core_profiles, core_transport, core_sources, equilibrium</td>
+			</tr>
+			
+			<tr>
+				<td>3.0.4</td>
+				<td>Addition of several new IDSs (antennas, charge_exchange, core_instant_changes, dataset_description, interfero_polarimeter, mhd_linear, nbi, ntms, pellets, sawteeth, thomson_scattering)</td>
+			</tr>
+			
+			<tr>
+				<td>3.0.3</td>
+				<td>Utilities: Strings in the "code" structure change type, from 1D to 0D (time-dependent strings are not yet supported)</td>
+			</tr>
+
+			<tr>
+				<td>3.0.2</td>
+				<td>Core*_ IDSs: corrected the usage of plural for array of structures (rule R1.8): ions -> ion, charge_states -> charge_state; multiple_charge_state_flag -> multiple_charge_states_flag</td>
+			</tr>
+
+			<tr>
+				<td>3.0.1</td>
+				<td>
+				<table>
+				<tr><td>Equilibrium IDS: time_slice(:)/global_quantities/b_tor_axis moved to time_slice(:)/global_quantities/magnetic_axis/b_tor</td></tr>
+				<tr><td>Lifecycle version information updated to new convention (dots only, no underscore) in all IDSs</td></tr>
+				</table>
+</td>
+			</tr>
+
+			<tr>
+				<td>3.0.0</td>
+				<td>Initial release of DD major version 3, implementing arrays of structure indexed on time</td>
+			</tr>
+		</table>
+</html>

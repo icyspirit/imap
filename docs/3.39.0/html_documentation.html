@@ -1,0 +1,1161 @@
+<html xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Data Dictionary HTML documentation</title>
+      <style type="text/css">
+			p {color:black;font-size:12pt;font-weight:normal;}
+			p.name {color:red;font-size:18pt;font-weight:bold;}
+			p.welcome {color:#3333aa; font-size:20pt; font-weight:bold; text-align:center;}
+			span.head {color:#3333aa; font-size:12pt; font-weight:bold; }
+       </style>
+   </head>
+   <body>
+      <p class="welcome">ITER Physics Data Model Documentation : Top level (list of all IDSs)</p>
+      <p>This version of the ITER Physics Data Model follows the COCOS = 11 coordinate convention. The COCOS conventions are defined in [O. Sauter and S.Yu.
+         Medvedev, Computer Physics Communications 184 (2013) 293]</p>
+      <p>Mathematical operators :
+         			  
+         <ul>
+            <li><a href="http://www-fusion.ciemat.es/wiki/Flux_coordinates#Flux_Surface_Average">Flux surface average</a></li>
+         </ul>
+      </p>
+      <p><a href="dd_versions.html">Data Dictionary version history</a></p>
+      <table border="1">
+         <thead style="color:#ff0000">
+            <td>IDS name</td>
+            <td>Description</td>
+            <td>Max. occurrence number (limited in MDS+ backend only)</td>
+         </thead>
+         <tr>
+            <td><a href="amns_data.html">amns_data</a></td>
+            <td>Atomic, molecular, nuclear and surface physics data. Each occurrence contains the
+               data for a given element (nuclear charge), describing various physical processes.
+               For each process, data tables are organized by charge states. The coordinate system
+               used by the data tables is described under the coordinate_system node.</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="barometry.html">barometry</a></td>
+            <td>Pressure measurements in the vacuum vessel. NB will need to change the type of the
+               pressure node to signal_1d when moving to the new LL.</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="b_field_non_axisymmetric.html">b_field_non_axisymmetric</a></td>
+            <td>Vacuum 3d error magnetic field (the full 3d magnetic field with the axisymmetric components
+               subtracted)</td>
+            <td>20</td>
+         </tr>
+         <tr>
+            <td><a href="bolometer.html">bolometer</a></td>
+            <td>Bolometer diagnostic</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="bremsstrahlung_visible.html">bremsstrahlung_visible</a></td>
+            <td>Diagnostic for measuring the bremsstrahlung from thermal particules in the visible
+               light range, in view of determining the effective charge of the plasma.</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="calorimetry.html">calorimetry</a></td>
+            <td>Calometry measurements on various tokamak subsystems</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="camera_ir.html">camera_ir</a></td>
+            <td>Infrared camera for monitoring of Plasma Facing Components</td>
+            <td>10</td>
+         </tr>
+         <tr>
+            <td><a href="camera_visible.html">camera_visible</a></td>
+            <td>Camera in the visible light range</td>
+            <td>20</td>
+         </tr>
+         <tr>
+            <td><a href="camera_x_rays.html">camera_x_rays</a></td>
+            <td>X-rays imaging camera (can be used for soft or hard X-rays imaging systems)</td>
+            <td>6</td>
+         </tr>
+         <tr>
+            <td><a href="charge_exchange.html">charge_exchange</a></td>
+            <td>Charge exchange spectroscopy diagnostic</td>
+            <td>4</td>
+         </tr>
+         <tr>
+            <td><a href="coils_non_axisymmetric.html">coils_non_axisymmetric</a></td>
+            <td>Non axisymmetric active coils system (e.g. ELM control coils, error field correction
+               coils, ...)</td>
+            <td>5</td>
+         </tr>
+         <tr>
+            <td><a href="controllers.html">controllers</a></td>
+            <td>Feedback and feedforward controllers</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="core_instant_changes.html">core_instant_changes</a></td>
+            <td>Instant changes of the radial core plasma profiles due to pellet, MHD, ... </td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="core_profiles.html">core_profiles</a></td>
+            <td>Core plasma profiles</td>
+            <td>15</td>
+         </tr>
+         <tr>
+            <td><a href="core_sources.html">core_sources</a></td>
+            <td>Core plasma thermal source terms (for the transport equations of the thermal species).
+               Energy terms correspond to the full kinetic energy equation (i.e. the energy flux
+               takes into account the energy transported by the particle flux)</td>
+            <td>15</td>
+         </tr>
+         <tr>
+            <td><a href="core_transport.html">core_transport</a></td>
+            <td>Core plasma transport of particles, energy, momentum and poloidal flux. The transport
+               of particles, energy and momentum is described by diffusion coefficients, D, and convection
+               velocities, v. These are defined by the total fluxes of particles, energy and momentum,
+               across a flux surface given by : V' [-D Y' &lt;|grad(rho_tor_norm)|^2gt; + v Y &lt;|grad(rho_tor_norm)|&gt;],
+               where Y represents the particles, energy and momentum density, respectively, while
+               V is the volume inside a flux surface, the primes denote derivatives with respect
+               to rho_tor_norm and &lt; X &gt; is the flux surface average of a quantity X. This formulation
+               remains valid when changing simultaneously rho_tor_norm into rho_tor in the gradient
+               terms and in the derivatives denoted by the prime. The average flux stored in the
+               IDS as sibling of D and v is the total flux described above divided by the flux surface
+               area V' &lt;|grad(rho_tor_norm)|&gt;. Note that the energy flux includes the energy transported
+               by the particle flux.</td>
+            <td>10</td>
+         </tr>
+         <tr>
+            <td><a href="cryostat.html">cryostat</a></td>
+            <td>Description of the cryostat surrounding the machine (if any)</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="dataset_description.html">dataset_description</a></td>
+            <td>General description of the dataset (collection of all IDSs within the given database
+               entry). Main description text to be put in ids_properties/comment</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="dataset_fair.html">dataset_fair</a></td>
+            <td>FAIR metadata related to the dataset, providing inforrmation on licensing, annotations,
+               references using this dataset, versioning and validity, provenance. This IDS is using
+               Dublin Core metadata standard whenever possible</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="disruption.html">disruption</a></td>
+            <td>Description of physics quantities of specific interest during a disruption, in particular
+               halo currents, etc ...</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="distribution_sources.html">distribution_sources</a></td>
+            <td>Sources of particles for input to kinetic equations, e.g. Fokker-Planck calculation.
+               The sources could originate from e.g. NBI or fusion reactions.</td>
+            <td>4</td>
+         </tr>
+         <tr>
+            <td><a href="distributions.html">distributions</a></td>
+            <td>Distribution function(s) of one or many particle species. This structure is specifically
+               designed to handle non-Maxwellian distribution function generated during heating and
+               current drive, typically solved using a Fokker-Planck calculation perturbed by a heating
+               scheme (e.g. IC, EC, LH, NBI, or alpha heating) and then relaxed by Coloumb collisions.
+               </td>
+            <td>8</td>
+         </tr>
+         <tr>
+            <td><a href="divertors.html">divertors</a></td>
+            <td>Description of divertors</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="ec_launchers.html">ec_launchers</a></td>
+            <td>Launchers for heating and current drive in the electron cyclotron (EC) frequencies.</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="ece.html">ece</a></td>
+            <td>Electron cyclotron emission diagnostic</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="edge_profiles.html">edge_profiles</a></td>
+            <td>Edge plasma profiles (includes the scrape-off layer and possibly part of the confined
+               plasma)</td>
+            <td>10</td>
+         </tr>
+         <tr>
+            <td><a href="edge_sources.html">edge_sources</a></td>
+            <td>Edge plasma sources. Energy terms correspond to the full kinetic energy equation (i.e.
+               the energy flux takes into account the energy transported by the particle flux)</td>
+            <td>10</td>
+         </tr>
+         <tr>
+            <td><a href="edge_transport.html">edge_transport</a></td>
+            <td>Edge plasma transport. Energy terms correspond to the full kinetic energy equation
+               (i.e. the energy flux takes into account the energy transported by the particle flux)</td>
+            <td>10</td>
+         </tr>
+         <tr>
+            <td><a href="em_coupling.html">em_coupling</a></td>
+            <td>Description of the axisymmetric mutual electromagnetics; does not include non-axisymmetric
+               coil systems; the convention is Quantity_Sensor_Source</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="equilibrium.html">equilibrium</a></td>
+            <td>Description of a 2D, axi-symmetric, tokamak equilibrium; result of an equilibrium
+               code.</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="focs.html">focs</a></td>
+            <td>Fiber Optic Current Sensor (FOCS)</td>
+            <td>10</td>
+         </tr>
+         <tr>
+            <td><a href="gas_injection.html">gas_injection</a></td>
+            <td>Gas injection by a system of pipes and valves</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="gas_pumping.html">gas_pumping</a></td>
+            <td>Gas pumping by a set of ducts</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="gyrokinetics.html">gyrokinetics</a></td>
+            <td>Description of a gyrokinetic simulation (delta-f, flux-tube). All quantities within
+               this IDS are normalised (apart from time and from the normalizing quantities structure),
+               thus independent of rhostar, consistently with the local approximation and a spectral
+               representation is assumed in the perpendicular plane (i.e. homogeneous turbulence).</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="hard_x_rays.html">hard_x_rays</a></td>
+            <td>Hard X-rays tomography diagnostic</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="ic_antennas.html">ic_antennas</a></td>
+            <td>Antenna systems for heating and current drive in the ion cyclotron (IC) frequencies.</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="interferometer.html">interferometer</a></td>
+            <td>Interferometer diagnostic</td>
+            <td>5</td>
+         </tr>
+         <tr>
+            <td><a href="iron_core.html">iron_core</a></td>
+            <td>Iron core description</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="langmuir_probes.html">langmuir_probes</a></td>
+            <td>Langmuir probes</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="lh_antennas.html">lh_antennas</a></td>
+            <td>Antenna systems for heating and current drive in the Lower Hybrid (LH) frequencies.
+               In the definitions below, the front (or mouth) of the antenna refers to the plasma
+               facing side of the antenna, while the back refers to the waveguides connected side
+               of the antenna (towards the RF generators).</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="magnetics.html">magnetics</a></td>
+            <td>Magnetic diagnostics for equilibrium identification and plasma shape control.</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="mhd.html">mhd</a></td>
+            <td>Magnetohydrodynamic activity, description of perturbed fields and profiles using the
+               Generic Grid Description.</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="mhd_linear.html">mhd_linear</a></td>
+            <td>Magnetohydronamic linear stability</td>
+            <td>10</td>
+         </tr>
+         <tr>
+            <td><a href="mse.html">mse</a></td>
+            <td>Motional Stark Effect diagnostic</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="nbi.html">nbi</a></td>
+            <td>Neutral Beam Injection systems and description of the fast neutrals that arrive into
+               the torus</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="neutron_diagnostic.html">neutron_diagnostic</a></td>
+            <td>Neutron diagnostic such as DNFM, NFM or MFC</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="ntms.html">ntms</a></td>
+            <td>Description of neoclassical tearing modes</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="pellets.html">pellets</a></td>
+            <td>Description of pellets launched into the plasma</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="pf_active.html">pf_active</a></td>
+            <td>Description of the axisymmetric active poloidal field (PF) coils and supplies; includes
+               the limits of these systems; includes the forces on them; does not include non-axisymmetric
+               coil systems</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="pf_passive.html">pf_passive</a></td>
+            <td>Description of the axisymmetric passive conductors, currents flowing in them</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="plasma_initiation.html">plasma_initiation</a></td>
+            <td>Description the early phases of the plasma, before an equilibrium can be calculated</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="polarimeter.html">polarimeter</a></td>
+            <td>Polarimeter diagnostic</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="pulse_schedule.html">pulse_schedule</a></td>
+            <td>Description of Pulse Schedule, described by subsystems waveform references and an
+               enveloppe around them. The controllers, pulse schedule and SDN are defined in separate
+               IDSs. All names and identifiers of subsystems appearing in the pulse_schedule must
+               be identical to those used in the IDSs describing the related subsystems.</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="radiation.html">radiation</a></td>
+            <td>Radiation emitted by the plasma and neutrals</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="real_time_data.html">real_time_data</a></td>
+            <td>Description of the data bus circulating on the real time data network of the machine.
+               This is typically used (but not only) as an interface to the Plasma Control System
+               (PCS)</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="reflectometer_profile.html">reflectometer_profile</a></td>
+            <td>Profile reflectometer diagnostic. Multiple reflectometers are considered as independent
+               diagnostics to be handled with different occurrence numbers</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="reflectometer_fluctuation.html">reflectometer_fluctuation</a></td>
+            <td>Fluctuation reflectometer diagnostic. Multiple reflectometers are considered as independent
+               diagnostics to be handled with different occurrence numbers</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="refractometer.html">refractometer</a></td>
+            <td>Density profile refractometer diagnostic</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="runaway_electrons.html">runaway_electrons</a></td>
+            <td>Description of runaway electrons</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="sawteeth.html">sawteeth</a></td>
+            <td>Description of sawtooth events. This IDS must be used in homogeneous_time = 1 mode</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="soft_x_rays.html">soft_x_rays</a></td>
+            <td>Soft X-rays tomography diagnostic</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="spectrometer_mass.html">spectrometer_mass</a></td>
+            <td>Mass spectrometer diagnostic</td>
+            <td>4</td>
+         </tr>
+         <tr>
+            <td><a href="spectrometer_uv.html">spectrometer_uv</a></td>
+            <td>Spectrometer in uv light range diagnostic</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="spectrometer_visible.html">spectrometer_visible</a></td>
+            <td>Spectrometer in visible light range diagnostic</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="spectrometer_x_ray_crystal.html">spectrometer_x_ray_crystal</a></td>
+            <td>X-crystal spectrometer diagnostic</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="summary.html">summary</a></td>
+            <td>Summary of physics quantities from a simulation or an experiment. Dynamic quantities
+               are either taken at given time slices (indicated in the "time" vector) or time-averaged
+               over an interval (in such case the "time_width" of the interval is indicated and the
+               "time" vector represents the end of each time interval).</td>
+            <td>1</td>
+         </tr>
+         <tr>
+            <td><a href="temporary.html">temporary</a></td>
+            <td>Storage of undeclared data model components</td>
+            <td>6</td>
+         </tr>
+         <tr>
+            <td><a href="thomson_scattering.html">thomson_scattering</a></td>
+            <td>Thomson scattering diagnostic</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="tf.html">tf</a></td>
+            <td>Toroidal field coils</td>
+            <td>3</td>
+         </tr>
+         <tr>
+            <td><a href="transport_solver_numerics.html">transport_solver_numerics</a></td>
+            <td>Numerical quantities used by transport solvers and convergence details</td>
+            <td>6</td>
+         </tr>
+         <tr>
+            <td><a href="turbulence.html">turbulence</a></td>
+            <td>Description of plasma turbulence</td>
+            <td>2</td>
+         </tr>
+         <tr>
+            <td><a href="wall.html">wall</a></td>
+            <td>Description of the torus wall and its interaction with the plasma</td>
+            <td>5</td>
+         </tr>
+         <tr>
+            <td><a href="waves.html">waves</a></td>
+            <td>RF wave propagation and deposition. Note that current estimates in this IDS are a
+               priori not taking into account synergies between multiple sources (a convergence loop
+               with Fokker-Planck calculations is required to account for such synergies) </td>
+            <td>8</td>
+         </tr>
+         <tr>
+            <td><a href="workflow.html">workflow</a></td>
+            <td>Description of the workflow that has produced this data entry. The workflow IDS can
+               also be used to communicate information about workflow state between workflow components.</td>
+            <td>1</td>
+         </tr>
+      </table>
+      <p class="welcome">List of available Generic Structures</p>
+      <p>Generic structures are data structures that can be found in various places of the
+         Physics Data Model, as they are useful in several contexts. Typical examples are lists
+         of standard spatial coordinates, description of plasma ion species, traceability /
+         provenance information, etc.</p>
+      <p>This list of available generic structures is not restrictive since it can be freely
+         expanded by Data Model designers. Note that the structure name is not the name of
+         a Data Model node, therefore the generic structure names do not appear in the Data
+         Dictionary HTML documentation. They are primarily used for the design of the Data
+         Dictionary, but also they can be used in Fortran codes where they are implemented
+         as derived types.
+         </p>
+      <table border="1">
+         <thead style="color:#ff0000">
+            <td>Generic structure name</td>
+            <td>Description</td>
+         </thead>
+         <tr>
+            <td>identifier</td>
+            <td>Standard type for identifiers (constant). The three fields: name, index and description
+               are all representations of the same information. Associated with each application
+               of this identifier-type, there should be a translation table defining the three fields
+               for all objects to be identified.</td>
+         </tr>
+         <tr>
+            <td>identifier_static</td>
+            <td>Standard type for identifiers (static). The three fields: name, index and description
+               are all representations of the same information. Associated with each application
+               of this identifier-type, there should be a translation table defining the three fields
+               for all objects to be identified.</td>
+         </tr>
+         <tr>
+            <td>identifier_static_1d</td>
+            <td>Standard type for identifiers (static, 1D). The three fields: name, index and description
+               are all representations of the same information. Associated with each application
+               of this identifier-type, there should be a translation table defining the three fields
+               for all objects to be identified.</td>
+         </tr>
+         <tr>
+            <td>identifier_dynamic_aos3_1d</td>
+            <td>Standard type for identifiers (1D arrays for each node), dynamic within type 3 array
+               of structures (index on time). The three fields: name, index and description are all
+               representations of the same information. Associated with each application of this
+               identifier-type, there should be a translation table defining the three fields for
+               all objects to be identified.</td>
+         </tr>
+         <tr>
+            <td>identifier_dynamic_aos3</td>
+            <td>Standard type for identifiers (dynamic within type 3 array of structures (index on
+               time)). The three fields: name, index and description are all representations of the
+               same information. Associated with each application of this identifier-type, there
+               should be a translation table defining the three fields for all objects to be identified.</td>
+         </tr>
+         <tr>
+            <td>data_flt_0d_constant_validity</td>
+            <td>Constant data (FLT_0D) with validity flag</td>
+         </tr>
+         <tr>
+            <td>signal_flt_1d</td>
+            <td>Signal (FLT_1D) with its time base</td>
+         </tr>
+         <tr>
+            <td>signal_flt_1d_units_level_2</td>
+            <td>Signal (FLT_1D) with its time base, data units 2 levels above</td>
+         </tr>
+         <tr>
+            <td>signal_flt_1d_validity</td>
+            <td>Signal (FLT_1D) with its time base and validity flags</td>
+         </tr>
+         <tr>
+            <td>signal_flt_1d_validity_position</td>
+            <td>Signal (FLT_1D) with its time base and validity flags and rho_tor_norm position</td>
+         </tr>
+         <tr>
+            <td>signal_flt_2d</td>
+            <td>Signal (FLT_2D) with its time base</td>
+         </tr>
+         <tr>
+            <td>signal_flt_2d_validity</td>
+            <td>Signal (FLT_2D) with its time base and validity flags</td>
+         </tr>
+         <tr>
+            <td>signal_flt_3d</td>
+            <td>Signal (FLT_3D) with its time base</td>
+         </tr>
+         <tr>
+            <td>signal_flt_4d</td>
+            <td>Signal (FLT_4D) with its time base</td>
+         </tr>
+         <tr>
+            <td>signal_flt_5d</td>
+            <td>Signal (FLT_5D) with its time base</td>
+         </tr>
+         <tr>
+            <td>signal_flt_6d</td>
+            <td>Signal (FLT_6D) with its time base</td>
+         </tr>
+         <tr>
+            <td>signal_int_1d</td>
+            <td>Signal (INT_1D) with its time base</td>
+         </tr>
+         <tr>
+            <td>signal_int_2d</td>
+            <td>Signal (INT_2D) with its time base</td>
+         </tr>
+         <tr>
+            <td>signal_int_3d</td>
+            <td>Signal (INT_3D) with its time base</td>
+         </tr>
+         <tr>
+            <td>physical_quantity_flt_1d_time_1</td>
+            <td>Similar to a signal (FLT_1D) but with time base one level above (NB : since this is
+               described in the utilities section, the timebase must be directly below the closest
+               AoS)</td>
+         </tr>
+         <tr>
+            <td>physical_quantity_flt_2d_time_1</td>
+            <td>Similar to a signal (FLT_2D) but with time base one level above (NB : since this is
+               described in the utilities section, the timebase must be directly below the closest
+               AoS)</td>
+         </tr>
+         <tr>
+            <td>plasma_composition_ion_state_constant</td>
+            <td>Definition of an ion state (when describing the plasma composition) (constant)</td>
+         </tr>
+         <tr>
+            <td>plasma_composition_neutral_state_constant</td>
+            <td>Definition of a neutral state (when describing the plasma composition) (constant)</td>
+         </tr>
+         <tr>
+            <td>plasma_composition_ion_state</td>
+            <td>Definition of an ion state (when describing the plasma composition) (within a type
+               3 AoS)</td>
+         </tr>
+         <tr>
+            <td>plasma_composition_ions_constant</td>
+            <td>Description of plasma ions (constant)</td>
+         </tr>
+         <tr>
+            <td>plasma_composition_neutral_constant</td>
+            <td>Definition of plasma neutral (constant)</td>
+         </tr>
+         <tr>
+            <td>gas_mixture_constant</td>
+            <td>Description of a neutral species within a gas mixture (constant)</td>
+         </tr>
+         <tr>
+            <td>plasma_composition_ions</td>
+            <td>Array of plasma ions (within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>plasma_composition_species</td>
+            <td>Description of simple species (elements) without declaration of their ionisation state</td>
+         </tr>
+         <tr>
+            <td>plasma_composition_neutral_element_constant</td>
+            <td>Element entering in the composition of the neutral atom or molecule (constant)</td>
+         </tr>
+         <tr>
+            <td>plasma_composition_neutral_element</td>
+            <td>Element entering in the composition of the neutral atom or molecule (within a type
+               3 AoS)</td>
+         </tr>
+         <tr>
+            <td>plasma_composition_neutral</td>
+            <td>Definition of a neutral atom or molecule</td>
+         </tr>
+         <tr>
+            <td>reflectometer_profile_position_2d</td>
+            <td>R, Z, Phi, psi, rho_tor_norm and theta positions associated to the electron density
+               reconstruction (2D, dynamic within a type 1 array of structure)</td>
+         </tr>
+         <tr>
+            <td>code_partial_constant</td>
+            <td>Description of code-specific parameters and constant output flag</td>
+         </tr>
+         <tr>
+            <td>code_with_timebase</td>
+            <td>Description of code-specific parameters when they are gathered below an array of structure
+               (e.g. in case of multiple models or sources gathered in a single IDS). The only difference
+               with the generic code element is the existence of a data+time structure for the dynamic
+               signals (output_flag)</td>
+         </tr>
+         <tr>
+            <td>code_constant_noparam</td>
+            <td>Description of code name and version without dynamic output_flag parameter and without
+               code specific parameters</td>
+         </tr>
+         <tr>
+            <td>code_constant</td>
+            <td>Description of code-specific parameters without dynamic output_flag parameter</td>
+         </tr>
+         <tr>
+            <td>library</td>
+            <td>Library used by the code that has produced this IDS</td>
+         </tr>
+         <tr>
+            <td>b_tor_vacuum_1</td>
+            <td>Characteristics of the vacuum toroidal field. Time coordinate at the root of the IDS</td>
+         </tr>
+         <tr>
+            <td>b_tor_vacuum_aos3</td>
+            <td>Characteristics of the vacuum toroidal field, dynamic within a type 3 AoS</td>
+         </tr>
+         <tr>
+            <td>psi_normalization</td>
+            <td>Quantities used to normalize psi, as a function of time</td>
+         </tr>
+         <tr>
+            <td>core_profiles_vector_components_1</td>
+            <td>Vector components in predefined directions for 1D profiles, assuming core_radial_grid
+               one level above</td>
+         </tr>
+         <tr>
+            <td>core_profiles_vector_components_2</td>
+            <td>Vector components in predefined directions for 1D profiles, assuming core_radial_grid
+               two levels above</td>
+         </tr>
+         <tr>
+            <td>core_profiles_vector_components_3</td>
+            <td>Vector components in predefined directions for 1D profiles, assuming core_radial_grid
+               3 levels above</td>
+         </tr>
+         <tr>
+            <td>core_radial_grid</td>
+            <td>1D radial grid for core* IDSs</td>
+         </tr>
+         <tr>
+            <td>core_profiles_1D_fit</td>
+            <td>Core profile fit information</td>
+         </tr>
+         <tr>
+            <td>core_profiles_ions_charge_states2</td>
+            <td>Quantities related to the a given state of the ion species</td>
+         </tr>
+         <tr>
+            <td>core_profile_ions</td>
+            <td>Quantities related to a given ion species</td>
+         </tr>
+         <tr>
+            <td>core_profiles_neutral_state</td>
+            <td>Quantities related to the a given state of the neutral species</td>
+         </tr>
+         <tr>
+            <td>core_profile_neutral</td>
+            <td>Quantities related to a given neutral species</td>
+         </tr>
+         <tr>
+            <td>core_profiles_profiles_1d_electrons</td>
+            <td>Quantities related to electrons</td>
+         </tr>
+         <tr>
+            <td>core_profiles_profiles_1d</td>
+            <td>1D radial profiles for core and edge</td>
+         </tr>
+         <tr>
+            <td>detector_energy_band</td>
+            <td>Detector energy band</td>
+         </tr>
+         <tr>
+            <td>detector_wavelength</td>
+            <td>Detector wavelength range and detection efficiency</td>
+         </tr>
+         <tr>
+            <td>filter_wavelength</td>
+            <td>Spectrocscopy filter wavelength range and detection efficiency</td>
+         </tr>
+         <tr>
+            <td>distribution_markers_orbit_instant</td>
+            <td>Test particles for a given time slice : orbit integrals</td>
+         </tr>
+         <tr>
+            <td>distribution_markers_orbit</td>
+            <td>Test particles for a given time slice : orbit integrals</td>
+         </tr>
+         <tr>
+            <td>distribution_markers</td>
+            <td>Test particles for a given time slice</td>
+         </tr>
+         <tr>
+            <td>distribution_species</td>
+            <td>Description of a species in a distribution function related IDS</td>
+         </tr>
+         <tr>
+            <td>distribution_process_identifier</td>
+            <td>Identifier an NBI or fusion reaction process intervening affecting a distribution
+               function</td>
+         </tr>
+         <tr>
+            <td>generic_grid_scalar_single_position</td>
+            <td>Scalar values at a single position on a generic grid (dynamic within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_scalar_complex</td>
+            <td>Scalar complex values on a generic grid (dynamic within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_scalar</td>
+            <td>Scalar real values on a generic grid (dynamic within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_identifier</td>
+            <td>Identifier values on a generic grid (dynamic within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_vector</td>
+            <td>Vector values on a generic grid (dynamic within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_vector_components</td>
+            <td>Vector components in predefined directions on a generic grid (dynamic within a type
+               3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_matrix</td>
+            <td>Matrix values on a generic grid (dynamic within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_dynamic_space_dimension_object_boundary</td>
+            <td>Generic grid, description of an object boundary and its neighbours (dynamic within
+               a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_dynamic_space_dimension_object</td>
+            <td>Generic grid, list of objects of a given dimension within a space (dynamic within
+               a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_dynamic_space_dimension</td>
+            <td>Generic grid, list of dimensions within a space (dynamic within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_dynamic_space</td>
+            <td>Generic grid space (dynamic within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_dynamic_grid_subset_element_object</td>
+            <td>Generic grid, object part of an element part of a grid_subset (dynamic within a type
+               3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_dynamic_grid_subset_element</td>
+            <td>Generic grid, element part of a grid_subset (dynamic within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_dynamic_grid_subset_metric</td>
+            <td>Generic grid, metric description for a given grid_subset and base (dynamic within
+               a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_dynamic_grid_subset</td>
+            <td>Generic grid grid_subset (dynamic within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_dynamic</td>
+            <td>Generic grid (dynamic within a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>generic_grid_aos3_root</td>
+            <td>Generic grid (being itself the root of a type 3 AoS)</td>
+         </tr>
+         <tr>
+            <td>geometry_matrix_emission</td>
+            <td>Emission grid for the geometry matrix of a detector</td>
+         </tr>
+         <tr>
+            <td>equilibrium_profiles_2d_grid</td>
+            <td>Definition of the 2D grid</td>
+         </tr>
+         <tr>
+            <td>equilibrium_coordinate_system</td>
+            <td>Flux surface coordinate system on a square grid of flux and poloidal angle</td>
+         </tr>
+         <tr>
+            <td>distributions_d_ggd_expansion</td>
+            <td>Expansion of the distribution function for a given time slice, using a GGD representation</td>
+         </tr>
+         <tr>
+            <td>distributions_d_ggd</td>
+            <td>Distribution function for a given time slice, using a GGD representation</td>
+         </tr>
+         <tr>
+            <td>distributions_d_ggd_nogrid</td>
+            <td>Distribution function for a given time slice, using a GGD representation assumed outside
+               of the structure</td>
+         </tr>
+         <tr>
+            <td>delta_rzphi0d_static</td>
+            <td>Structure for R, Z, Phi relative positions (0D, static)</td>
+         </tr>
+         <tr>
+            <td>delta_rzphi1d_static</td>
+            <td>Structure for R, Z, Phi relative positions (1D, static)</td>
+         </tr>
+         <tr>
+            <td>rzphi0d_static</td>
+            <td>Structure for R, Z, Phi positions (0D, static)</td>
+         </tr>
+         <tr>
+            <td>rzphi0d_dynamic_aos3</td>
+            <td>Structure for R, Z, Phi positions (0D, dynamic within a type 3 array of structures
+               (index on time))</td>
+         </tr>
+         <tr>
+            <td>rzphipsirho0d_dynamic_aos3</td>
+            <td>Structure for R, Z, Phi, psi, rho_tor positions (0D, dynamic within a type 3 array
+               of structures (index on time))</td>
+         </tr>
+         <tr>
+            <td>rzphi1d_grid</td>
+            <td>R, Z, Phi structured grid, in which R, Z and phi don't necessarily have the same number
+               of elements</td>
+         </tr>
+         <tr>
+            <td>rzphi1d_static</td>
+            <td>Structure for list of R, Z, Phi positions (1D, static)</td>
+         </tr>
+         <tr>
+            <td>rzphi2d_static</td>
+            <td>Structure for list of R, Z, Phi positions (2D, static)</td>
+         </tr>
+         <tr>
+            <td>rzphi1d_dynamic_aos1</td>
+            <td>Structure for list of R, Z, Phi positions (1D, dynamic within a type 1 array of structures
+               (indexed on objects, data/time structure)</td>
+         </tr>
+         <tr>
+            <td>rzphi1d_dynamic_aos1_common_time</td>
+            <td>Structure for R, Z, Phi positions (1D, dynamic within a type 1 array of structure
+               and with a common time base at the same level)</td>
+         </tr>
+         <tr>
+            <td>rzphirhopsitheta1d_dynamic_aos1</td>
+            <td>Structure for list of R, Z, Phi, rho_tor_norm, psi, theta positions (1D, dynamic within
+               a type 1 array of structures (indexed on objects, data/time structure)</td>
+         </tr>
+         <tr>
+            <td>rzphirhopsitheta1d_dynamic_aos1_common_time_1</td>
+            <td>Structure for list of R, Z, Phi, rho_tor_norm, psi, theta positions (1D, dynamic within
+               a type 1 array of structures, assuming a common time array one level above</td>
+         </tr>
+         <tr>
+            <td>rzphi1d_dynamic_aos1_definition</td>
+            <td>Structure for list of R, Z, Phi positions (1D, dynamic within a type 1 array of structures
+               (indexed on objects, data/time structure), including a definition of the reference
+               point</td>
+         </tr>
+         <tr>
+            <td>rzphi1d_dynamic_aos3</td>
+            <td>Structure for R, Z, Phi positions (1D, dynamic within a type 3 array of structure)</td>
+         </tr>
+         <tr>
+            <td>rzphipsitheta1d_dynamic_aos3</td>
+            <td>Structure for R, Z, Phi, Psi, Theta positions (1D, dynamic within a type 3 array of
+               structures)</td>
+         </tr>
+         <tr>
+            <td>rz1d_constant</td>
+            <td>Structure for list of R, Z positions (1D, constant)</td>
+         </tr>
+         <tr>
+            <td>rz0d_dynamic_aos</td>
+            <td>Structure for scalar R, Z positions, dynamic within a type 3 array of structures (index
+               on time)</td>
+         </tr>
+         <tr>
+            <td>rz1d_dynamic_aos</td>
+            <td>Structure for list of R, Z positions (1D list of Npoints, dynamic within a type 3
+               array of structures (index on time))</td>
+         </tr>
+         <tr>
+            <td>rz1d_dynamic_aos_time</td>
+            <td>Structure for list of R, Z positions (1D list of Npoints, dynamic within a type 3
+               array of structures (index on time), with time as sibling)</td>
+         </tr>
+         <tr>
+            <td>rz1d_dynamic_1</td>
+            <td>Structure for list of R, Z positions (1D, dynamic), time at the root of the IDS</td>
+         </tr>
+         <tr>
+            <td>rz1d_static_closed_flag</td>
+            <td>Structure for list of R, Z positions (1D, constant) and closed flag</td>
+         </tr>
+         <tr>
+            <td>rz1d_static</td>
+            <td>Structure for list of R, Z positions (1D, constant)</td>
+         </tr>
+         <tr>
+            <td>x1x21d_static</td>
+            <td>Structure for list of X1, X2 positions (1D, static)</td>
+         </tr>
+         <tr>
+            <td>xyz0d_static</td>
+            <td>Structure for list of X, Y, Z components (0D, static)</td>
+         </tr>
+         <tr>
+            <td>xyz0d_dynamic_aos3</td>
+            <td>Structure for list of X, Y, Z components (0D, dynamic within an AoS3)</td>
+         </tr>
+         <tr>
+            <td>xyz2d_static</td>
+            <td>Structure for list of X, Y, Z components (2D, static)</td>
+         </tr>
+         <tr>
+            <td>rz0d_static</td>
+            <td>Structure for a single R, Z position (0D, static)</td>
+         </tr>
+         <tr>
+            <td>rz0d_constant</td>
+            <td>Structure for a single R, Z position (0D, constant)</td>
+         </tr>
+         <tr>
+            <td>filter_window</td>
+            <td>Characteristics of the filter window (largely derived from curved_object), with some
+               filter specific additions</td>
+         </tr>
+         <tr>
+            <td>flat_object_orientation_aos3</td>
+            <td>Dynamic description of X1, X2, X3 vectors for a planar object within an AoS type 3</td>
+         </tr>
+         <tr>
+            <td>flat_object_static</td>
+            <td>Static part of the description of a planar object</td>
+         </tr>
+         <tr>
+            <td>detector_aperture</td>
+            <td>Generic description of a plane detector or collimating aperture</td>
+         </tr>
+         <tr>
+            <td>curved_object</td>
+            <td>Generic description of a small plane or curved object (crystal, reflector, ...), using
+               a generalization of the detector_aperture complexType</td>
+         </tr>
+         <tr>
+            <td>curved_surface</td>
+            <td>Curvature of a surface</td>
+         </tr>
+         <tr>
+            <td>fibre_bundle</td>
+            <td>Fibre bundle</td>
+         </tr>
+         <tr>
+            <td>polarizer</td>
+            <td>Generic description of a polarizer (extension of the detector_aperture complex type)</td>
+         </tr>
+         <tr>
+            <td>line_of_sight_2points_rz</td>
+            <td>Generic description of a line of sight, defined by two points, in R and Z only</td>
+         </tr>
+         <tr>
+            <td>line_of_sight_2points</td>
+            <td>Generic description of a line of sight, defined by two points</td>
+         </tr>
+         <tr>
+            <td>line_of_sight_2points_rzphi_2d</td>
+            <td>Generic description of a line of sight, defined by two points</td>
+         </tr>
+         <tr>
+            <td>line_of_sight_2points_dynamic_aos1</td>
+            <td>Generic description of a line of sight, defined by two points, dynamic within an AoS1
+               (1st point fixed, 2nd point is dynamic)</td>
+         </tr>
+         <tr>
+            <td>line_of_sight_2points_dynamic_aos3</td>
+            <td>Generic description of a line of sight, defined by two points, dynamic within a type
+               3 array of structures (index on time)</td>
+         </tr>
+         <tr>
+            <td>line_of_sight_3points</td>
+            <td>Generic description of a line of sight, defined by two points (one way) and an optional
+               third point to indicate the direction of reflection if the second point is e.g. the
+               position of a mirror reflecting the line-of-sight</td>
+         </tr>
+         <tr>
+            <td>camera_geometry</td>
+            <td>Camera geometry. The orientation of the camera is described as follows : pixels are
+               aligned along x1 and x2 unit vectors while x3 is normal to the detector plane.</td>
+         </tr>
+         <tr>
+            <td>optical_element_material</td>
+            <td>Material of an optical element of a camera</td>
+         </tr>
+         <tr>
+            <td>optical_element</td>
+            <td>Optical element of a camera</td>
+         </tr>
+         <tr>
+            <td>entry_tag</td>
+            <td>Tag qualifying an entry or a list of entries</td>
+         </tr>
+         <tr>
+            <td>oblique_static</td>
+            <td>Description of a 2D parallelogram</td>
+         </tr>
+         <tr>
+            <td>thick_line_static</td>
+            <td>2D contour approximated by two points and a thickness (in the direction perpendicular
+               to the segment) in the poloidal cross-section</td>
+         </tr>
+         <tr>
+            <td>arcs_of_circle_static</td>
+            <td>Arcs of circle description of a 2D contour</td>
+         </tr>
+         <tr>
+            <td>rectangle_static</td>
+            <td>Rectangular description of a 2D object</td>
+         </tr>
+         <tr>
+            <td>annulus_static</td>
+            <td>Annulus description (2D object)</td>
+         </tr>
+         <tr>
+            <td>outline_2d_geometry_static</td>
+            <td>Description of 2D geometry</td>
+         </tr>
+         <tr>
+            <td>pf_coils_elements</td>
+            <td>Each PF coil is comprised of a number of cross-section elements described  individually</td>
+         </tr>
+         <tr>
+            <td>temperature_reference</td>
+            <td>Structure describing the reference temperature for which static data are given</td>
+         </tr>
+         <tr>
+            <td>vessel_2d_element</td>
+            <td>2D vessel block element description</td>
+         </tr>
+         <tr>
+            <td>vessel_2d_annular</td>
+            <td>2D vessel annular description</td>
+         </tr>
+         <tr>
+            <td>vessel_2d_unit</td>
+            <td>2D vessel unit description</td>
+         </tr>
+         <tr>
+            <td>vessel_2d</td>
+            <td>2D vessel description</td>
+         </tr>
+         <tr>
+            <td>waves_coherent_wave_identifier</td>
+            <td>Wave identifier</td>
+         </tr>
+         <tr>
+            <td>version_dd_al</td>
+            <td>Version of the access layer package used to PUT this IDS</td>
+         </tr>
+         <tr>
+            <td>data_entry</td>
+            <td>Definition of a data entry</td>
+         </tr>
+         <tr>
+            <td>ids_plugins_node</td>
+            <td>Plugins information for a given node of the IDS</td>
+         </tr>
+         <tr>
+            <td>ids_plugins</td>
+            <td>Information about the plugins used to read/write this IDS</td>
+         </tr>
+         <tr>
+            <td>ids_provenance_node</td>
+            <td>Provenance information for a given node of the IDS</td>
+         </tr>
+         <tr>
+            <td>ids_provenance</td>
+            <td>Provenance information about the IDS</td>
+         </tr>
+         <tr>
+            <td>ids_identification</td>
+            <td>Identifier of an IDS</td>
+         </tr>
+         <tr>
+            <td>plasma_composition</td>
+            <td>Generic declaration of Plasma Composition for a simulation</td>
+         </tr>
+         <tr>
+            <td>code</td>
+            <td>Generic decription of the code-specific parameters for the code that has produced
+               this IDS</td>
+         </tr>
+         <tr>
+            <td>parameters_input</td>
+            <td>Code parameters block passed from the wrapper to the subroutine. Does not appear as
+               such in the data structure. This is inserted in DD_Support.xsd for automatic declaration
+               in the Fortran and C++ type definitions.</td>
+         </tr>
+         <tr>
+            <td>error_description</td>
+            <td>Error description, an array of this structure is passed as argument of the access
+               layer calls (get and put) for handling errorbars. Does not appear as such in the data
+               structure. This is inserted in dd_support.xsd for automatic declaration in the Fortran
+               and C++ type definitions.</td>
+         </tr>
+         <tr>
+            <td>ids_properties</td>
+            <td>Interface Data Structure properties. This element identifies the node above as an
+               IDS</td>
+         </tr>
+         <tr>
+            <td>time</td>
+            <td>Generic time</td>
+         </tr>
+      </table>
+   </body>
+</html>

@@ -1,0 +1,1036 @@
+<html xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Data Dictionary HTML documentation</title>
+      <style type="text/css">
+			p {color:black;font-size:12pt;font-weight:normal;}
+			p.name {color:red;font-size:18pt;font-weight:bold;}
+			p.welcome {color:#3333aa; font-size:20pt; font-weight:bold; text-align:center;}
+			span.head {color:#3333aa; font-size:12pt; font-weight:bold; }
+       </style>
+      <link href="css/jquery.treetable.css" rel="stylesheet" type="text/css">
+      <link href="css/maketree.css" rel="stylesheet">
+   </head>
+   <body>
+      <p class="welcome">ITER Physics Data Model Documentation for b_field_non_axisymmetric</p>
+      <p>Vacuum 3d error magnetic field (the full 3d magnetic field with the axisymmetric components
+         subtracted)</p>
+      <p>Notation of array of structure indices: itime indicates a time index; i1, i2, i3,
+         ... indicate other indices with their depth in the IDS. This notation clarifies the
+         path of a given node, but should not be used to compare indices of different nodes
+         (they may have different meanings).</p>
+      <p>Lifecycle status: alpha since version 3.39.0</p>
+      <p>Last change occured on version: 3.39.0</p>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><button onclick="window.location.href='b_field_non_axisymmetric_flat.html'">Flat display</button><button onclick="ToggleErrorDisplay('body&gt;table')">Show/Hide errorbar nodes</button>  By convention, only the upper error node should be filled in case of symmetrical
+      error bars. The upper and lower errors are absolute and defined positive, and represent
+      one standard deviation of the data. The effective values of the data (within one standard
+      deviation) will be within the interval [data-data_error_lower, data+data_error_upper].
+      Thus whatever the sign of data, data_error_lower relates to the lower bound and data_error_upper
+      to the upper bound of the error bar interval.
+      <br><br><table border="1">
+         <thead style="color:#ff0000">
+            <td>Full path name</td>
+            <td>Description</td>
+            <td>Data Type</td>
+            <td>Coordinates</td>
+         </thead>
+         <tr>
+            <td><span class="pathname">ids_properties</span></td>
+            <td>Interface Data Structure properties. This element identifies the node above as an
+               IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/comment</span></td>
+            <td>Any comment describing the content of this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/homogeneous_time</span></td>
+            <td>This node must be filled (with 0, 1, or 2) for the IDS to be valid. If 1, the time
+               of this IDS is homogeneous, i.e. the time values for this IDS are stored in the time
+               node just below the root of this IDS. If 0, the time values are stored in the various
+               time fields at lower levels in the tree. In the case only constant or static nodes
+               are filled within the IDS, homogeneous_time must be set to 2 {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/source</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.34.0</td>
+            <td>Source of the data (any comment describing the origin of the data : code, path to
+               diagnostic signals, processing method, ...). Superseeded by the new provenance structure. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provider</span></td>
+            <td>Name of the person in charge of producing this data {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/creation_date</span></td>
+            <td>Date at which this data has been produced {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put</span></td>
+            <td>Version of the access layer package used to PUT this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/data_dictionary</span></td>
+            <td>Version of Data Dictionary used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer</span></td>
+            <td>Version of Access Layer used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer_language</span></td>
+            <td>Programming language of the Access Layer high level API used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.34.0</td>
+            <td>Provenance information about this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)</span></td>
+            <td>Set of IDS nodes for which the provenance is given. The provenance information applies
+               to the whole structure below the IDS node. For documenting provenance information
+               for the whole IDS, set the size of this array of structure to 1 and leave the child
+               "path" node empty {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the provenance information applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/sources(:)</span></td>
+            <td>List of sources used to import or calculate this node, identified as explained below.
+               In case the node is the result of of a calculation / data processing, the source is
+               an input to the process described in the "code" structure at the root of the IDS.
+               The source can be an IDS (identified by a URI or a persitent identifier, see syntax
+               in the link below) or non-IDS data imported directly from an non-IMAS database (identified
+               by the command used to import the source, or the persistent identifier of the data
+               source). Often data are obtained by a chain of processes, however only the last process
+               input are recorded here. The full chain of provenance has then to be reconstructed
+               recursively from the provenance information contained in the data sources. Click here for <a href="utilities/IMAS-URI-scheme.md">further documentation</a>. {constant}</td>
+            <td>STR_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.39.0</td>
+            <td>Information about the plugins used to write/read this IDS. This structure is filled
+               automatically by the Access Layer at GET/PUT time, no need to fill it via a user program.. Introduced after DD version 3.38.1</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)</span></td>
+            <td>Set of IDS nodes for which a plugin has been applied {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the plugin applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)</span></td>
+            <td>Plugins used to PUT a node (potentially, multiple plugins can be applied, if so they
+               are listed by order of application)</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)</span></td>
+            <td>Plugins to be used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application) </td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)</span></td>
+            <td>Plugins actually used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application). This information is filled by the plugin
+               infrastructure during the GET operation.</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put</span></td>
+            <td>Plugin infrastructure used to PUT the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get</span></td>
+            <td>Plugin infrastructure used to GET the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">configuration</span></td>
+            <td>In case of a constant (single time slice) b_field description, name of the corresponding
+               scenario/configuration {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">control_surface_names(:)</span></td>
+            <td>List of control surface names, refers to the ../time_slice/control_surface index {constant}</td>
+            <td>STR_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)</span></td>
+            <td>Set of time slices {dynamic}</td>
+            <td>struct_array</td>
+            <td> 
+               1- time_slice(itime)/time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/field_map</span></td>
+            <td>Description of the error field map</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/field_map/grid</span></td>
+            <td>3D grid</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/field_map/grid/r(:)</span></td>
+            <td>Major radius {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/grid/r_error_upper(:)</span></td>
+            <td>Upper error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/grid/r_error_lower(:)</span></td>
+            <td>Lower error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/grid/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/field_map/grid/z(:)</span></td>
+            <td>Height {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/grid/z_error_upper(:)</span></td>
+            <td>Upper error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/grid/z_error_lower(:)</span></td>
+            <td>Lower error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/grid/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/field_map/grid/phi(:)</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {dynamic} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/grid/phi_error_upper(:)</span></td>
+            <td>Upper error for "phi" {dynamic} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/grid/phi_error_lower(:)</span></td>
+            <td>Lower error for "phi" {dynamic} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/grid/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_r(:,:,:)</span></td>
+            <td>R component of the vacuum error magnetic field {dynamic} [T]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/phi<br>
+               3- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_r_error_upper(:,:,:)</span></td>
+            <td>Upper error for "b_field_r" {dynamic} [T]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/phi<br>
+               3- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_r_error_lower(:,:,:)</span></td>
+            <td>Lower error for "b_field_r" {dynamic} [T]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/phi<br>
+               3- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "b_field_r" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_z(:,:,:)</span></td>
+            <td>Z component of the vacuum error magnetic field {dynamic} [T]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/phi<br>
+               3- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_z_error_upper(:,:,:)</span></td>
+            <td>Upper error for "b_field_z" {dynamic} [T]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/phi<br>
+               3- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_z_error_lower(:,:,:)</span></td>
+            <td>Lower error for "b_field_z" {dynamic} [T]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/phi<br>
+               3- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "b_field_z" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_tor(:,:,:)</span></td>
+            <td>Toroidal component of the vacuum error magnetic field {dynamic} [T]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/phi<br>
+               3- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_tor_error_upper(:,:,:)</span></td>
+            <td>Upper error for "b_field_tor" {dynamic} [T]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/phi<br>
+               3- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_tor_error_lower(:,:,:)</span></td>
+            <td>Lower error for "b_field_tor" {dynamic} [T]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/phi<br>
+               3- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/b_field_tor_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "b_field_tor" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/field_map/ripple_amplitude(:,:)</span></td>
+            <td>Value of (b_field_max-b_field_min)/(b_field_max+b_field_min), where b_field_max resp.
+               b_field_min) is the maximum (resp. minimum) of the magnetic field amplitude over a
+               2pi rotation in toroidal angle phi at a given R, Z position.  {dynamic} [-]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/ripple_amplitude_error_upper(:,:)</span></td>
+            <td>Upper error for "ripple_amplitude" {dynamic} [-]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/ripple_amplitude_error_lower(:,:)</span></td>
+            <td>Lower error for "ripple_amplitude" {dynamic} [-]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/field_map/grid/r<br>
+               2- time_slice(itime)/field_map/grid/z<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/field_map/ripple_amplitude_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "ripple_amplitude" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)</span></td>
+            <td>Magnetic field components and Fourier decomposition of the normal components of the
+               magnetic field for a set of given control surfaces </td>
+            <td>struct_array</td>
+            <td> 
+               1- control_surface_names<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/outline</span></td>
+            <td>Set of points defining the surface in a poloidal plane. The surface then extends in
+               the toroidal direction in an axisymmetric way</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/outline/r(:)</span></td>
+            <td>Major radius {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/outline/r_error_upper(:)</span></td>
+            <td>Upper error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/outline/r_error_lower(:)</span></td>
+            <td>Lower error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/outline/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/outline/z(:)</span></td>
+            <td>Height {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/outline/z_error_upper(:)</span></td>
+            <td>Upper error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/outline/z_error_lower(:)</span></td>
+            <td>Lower error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/outline/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/normal_vector</span></td>
+            <td>Components of the normal vector to the surface, given on each point of the surface</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/normal_vector/r(:)</span></td>
+            <td>Major radius {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/normal_vector/r_error_upper(:)</span></td>
+            <td>Upper error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/normal_vector/r_error_lower(:)</span></td>
+            <td>Lower error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/normal_vector/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/normal_vector/z(:)</span></td>
+            <td>Height {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/normal_vector/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/normal_vector/z_error_upper(:)</span></td>
+            <td>Upper error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/normal_vector/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/normal_vector/z_error_lower(:)</span></td>
+            <td>Lower error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/normal_vector/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/normal_vector/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/phi(:)</span></td>
+            <td>Toroidal angle array, on which the Fourier decomposition is carried out {dynamic} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/phi_error_upper(:)</span></td>
+            <td>Upper error for "phi" {dynamic} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/phi_error_lower(:)</span></td>
+            <td>Lower error for "phi" {dynamic} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/n_tor(:)</span></td>
+            <td>Toroidal mode number {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_r(:,:)</span></td>
+            <td>R component of the vacuum error magnetic field on the various surface points {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_r_error_upper(:,:)</span></td>
+            <td>Upper error for "b_field_r" {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_r_error_lower(:,:)</span></td>
+            <td>Lower error for "b_field_r" {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "b_field_r" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_z(:,:)</span></td>
+            <td>Z component of the vacuum error magnetic field on the various surface points {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_z_error_upper(:,:)</span></td>
+            <td>Upper error for "b_field_z" {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_z_error_lower(:,:)</span></td>
+            <td>Lower error for "b_field_z" {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "b_field_z" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_tor(:,:)</span></td>
+            <td>Toroidal component of the vacuum error magnetic field on the various surface points {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_tor_error_upper(:,:)</span></td>
+            <td>Upper error for "b_field_tor" {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_tor_error_lower(:,:)</span></td>
+            <td>Lower error for "b_field_tor" {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_tor_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "b_field_tor" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_normal(:,:)</span></td>
+            <td>Normal component of the vacuum error magnetic field on the various surface points {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_normal_error_upper(:,:)</span></td>
+            <td>Upper error for "b_field_normal" {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_normal_error_lower(:,:)</span></td>
+            <td>Lower error for "b_field_normal" {dynamic} [T]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/phi<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_normal_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "b_field_normal" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_normal_fourier(:,:)</span></td>
+            <td>Fourier coefficients of the normal component of the vacuum error magnetic field on
+               the various surface points {dynamic} [T]</td>
+            <td>CPX_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/n_tor<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_normal_fourier_error_upper(:,:)</span></td>
+            <td>Upper error for "b_field_normal_fourier" {dynamic} [T]</td>
+            <td>CPX_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/n_tor<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_normal_fourier_error_lower(:,:)</span></td>
+            <td>Lower error for "b_field_normal_fourier" {dynamic} [T]</td>
+            <td>CPX_2D</td>
+            <td> 
+               1- time_slice(itime)/control_surface(i1)/outline/r<br>
+               2- time_slice(itime)/control_surface(i1)/n_tor<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/control_surface(i1)/b_field_normal_fourier_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "b_field_normal_fourier" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/time</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code</span></td>
+            <td>Generic decription of the code-specific parameters for the code that has produced
+               this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/name</span></td>
+            <td>Name of software generating IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/output_flag(:)</span></td>
+            <td>Output flag : 0 means the run is successful, other values mean some difficulty has
+               been encountered, the exact meaning is then code specific. Negative values mean the
+               result shall not be used. {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)</span></td>
+            <td>List of external libraries used by the code that has produced this IDS</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/name</span></td>
+            <td>Name of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time(:)</span></td>
+            <td>Generic time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+      </table>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><script src="js/jquery-1.12.4.min.js"></script><script src="js/jquery.treetable.js"></script><script src="js/treeView2.js"></script><script>  makeTree('body>table');  </script></body>
+</html>

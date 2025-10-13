@@ -1,0 +1,230 @@
+{% set BPLI_CONV = "2*{0}:VOLUME/{0}:RBCENT/($MU0*{0}:IPMHD/{0}:BPOLAV)**2".format(AEQDSK) %}
+
+ids_properties:
+  homogeneous_time:
+    {{ IDS_TIME_MODE_HOMOGENEOUS }}
+  provider:
+    {{ PROVIDER }}
+  creation_date: !!str # Prevent implicit conversion to datetime
+    {{ KSTNOW }}
+
+vacuum_toroidal_field:
+  r0:
+    !unique
+      - !mdsget
+        - {{ AEQDSK }}:RBCENT
+  b0:
+    !mdsget
+      - {{ AEQDSK }}:BCENTR
+      - {{ AIDXs | list }}
+
+time_slice:
+{% for AIDX, GIDX in zip(AIDXs, GIDXs) %}
+  -
+    boundary_separatrix:
+      outline:
+        r:
+          !mdsget
+            - {{ GEQDSK }}:RBBBS
+            - {{ GIDX }}
+            - !np.arange
+                - !mdsget
+                    - INT({{ GEQDSK }}:NBDRY)
+                    - {{ GIDX }}
+        z:
+          !mdsget
+            - {{ GEQDSK }}:ZBBBS
+            - {{ GIDX }}
+            - !np.arange
+                - !mdsget
+                    - INT({{ GEQDSK }}:NBDRY)
+                    - {{ GIDX }}
+      geometric_axis:
+        r:
+          !mdsget
+            - {{ AEQDSK }}:RSURF
+            - {{ AIDX }}
+        z:
+          !mdsget
+            - {{ AEQDSK }}:ZSURF
+            - {{ AIDX }}
+      minor_radius:
+        !mdsget
+          - {{ AEQDSK }}:AMINOR
+          - {{ AIDX }}
+      elongation:
+        !mdsget
+          - {{ AEQDSK }}:KAPPA
+          - {{ AIDX }}
+      triangularity_upper:
+        !mdsget
+          - {{ AEQDSK }}:TRITOP
+          - {{ AIDX }}
+      triangularity_lower:
+        !mdsget
+          - {{ AEQDSK }}:TRIBOT
+          - {{ AIDX }}
+      x_point:
+        -
+          r:
+            !mdsget
+              - {{ AEQDSK }}:RXPT1
+              - {{ AIDX }}
+          z:
+            !mdsget
+              - {{ AEQDSK }}:ZXPT1
+              - {{ AIDX }}
+    boundary_secondary_separatrix:
+      x_point:
+        -
+          r:
+            !mdsget
+              - {{ AEQDSK }}:RXPT2
+              - {{ AIDX }}
+          z:
+            !mdsget
+              - {{ AEQDSK }}:ZXPT2
+              - {{ AIDX }}
+
+    global_quantities:
+      beta_pol:
+        !mdsget
+          - {{ BPLI_CONV }}*{{ AEQDSK }}:BETAP
+          - {{ AIDX }}
+      beta_tor:
+        !mdsget
+          - {{ AEQDSK }}:RBCENT/{{ AEQDSK }}:RSURF*{{ AEQDSK }}:BETAT*(1.0D-2)
+          - {{ AIDX }}
+      beta_normal:
+        !mdsget
+          - {{ AEQDSK }}:BETAN
+          - {{ AIDX }}
+      ip: &ip_{{ AIDX }}
+        !mdsget
+          - {{ AEQDSK }}:IPMHD
+          - {{ AIDX }}
+      li_3:
+        !mdsget
+          - {{ BPLI_CONV }}*{{ AEQDSK }}:LI
+          - {{ AIDX }}
+      volume:
+        !mdsget
+          - {{ AEQDSK }}:VOLUME
+          - {{ AIDX }}
+      area:
+        !mdsget
+          - {{ AEQDSK }}:AREA
+          - {{ AIDX }}
+      psi_axis: &psi_axis_{{ AIDX }}
+        !mdsget
+          - {{ AEQDSK }}:PSI0*(-$2PI)
+          - {{ AIDX }}
+      psi_boundary: &psi_boundary_{{ AIDX }}
+        !mdsget
+          - {{ AEQDSK }}:PSIBDY*(-$2PI)
+          - {{ AIDX }}
+      magnetic_axis:
+        r:
+          !mdsget
+            - {{ AEQDSK }}:R0
+            - {{ AIDX }}
+        z:
+          !mdsget
+            - {{ AEQDSK }}:Z0
+            - {{ AIDX }}
+        b_field_tor:
+          !mdsget
+            - {{ AEQDSK }}:BT0
+            - {{ AIDX }}
+      q_axis:
+        !mdsget
+          - {{ AEQDSK }}:Q0
+          - {{ AIDX }}
+      q_95:
+        !mdsget
+          - {{ AEQDSK }}:Q95
+          - {{ AIDX }}
+      q_min:
+        value:
+          !mdsget
+            - {{ AEQDSK }}:QMIN
+            - {{ AIDX }}
+        rho_tor_norm:
+          !mdsget
+            - {{ AEQDSK }}:RHOQMIN
+            - {{ AIDX }}
+      energy_mhd:
+        !mdsget
+          - {{ AEQDSK }}:WMHD
+          - {{ AIDX }}
+
+    profiles_1d:
+      psi: &psi_{{ AIDX }}
+        !np.add
+          - !np.multiply
+              - !mdsget
+                  - {{ GEQDSK }}:PSIN
+              - !np.subtract
+                  - *psi_boundary_{{ AIDX }}
+                  - *psi_axis_{{ AIDX }}
+          - *psi_axis_{{ AIDX }}
+      pressure:
+        !mdsget
+          - {{ GEQDSK }}:PRES
+          - {{ GIDX }}
+      f:
+        !mdsget
+          - {{ GEQDSK }}:FPOL
+          - {{ GIDX }}
+      dpressure_dpsi:
+        !mdsget
+          - {{ GEQDSK }}:PPRIME/(-$2PI)
+          - {{ GIDX }}
+      f_df_dpsi:
+        !mdsget
+          - {{ GEQDSK }}:FFPRIM/(-$2PI)
+          - {{ GIDX }}
+      q:
+        !np.multiply
+          - !mdsget
+              - ABS({{ GEQDSK }}:QPSI)
+              - {{ GIDX }}
+          - !np.multiply
+              - !np.sign
+                  - !mdsget
+                      - {{ AEQDSK }}:BCENTR
+                      - {{ AIDX }}
+              - !np.sign
+                  - *ip_{{ AIDX }}
+      rho_tor_norm:
+        !mdsget
+          - {{ GEQDSK }}:RHOVN
+          - {{ GIDX }}
+
+    profiles_2d:
+      -
+        grid:
+          dim1:
+            !mdsget
+              - {{ GEQDSK }}:R
+          dim2:
+            !mdsget
+              - {{ GEQDSK }}:Z
+        psi:
+          !np.transpose
+            - !mdsget
+                - {{ GEQDSK }}:PSIRZ*(-$2PI)
+                - {{ GIDX }}
+
+    time: &time_{{ AIDX }}
+      !mdsget
+        - {{ AEQDSK }}:ATIME*{{ TIME_CONV }}
+        - {{ AIDX }}
+{% endfor %}
+
+# code:
+
+time:
+  !mdsget
+    - {{ AEQDSK }}:ATIME*{{ TIME_CONV }}
+    - {{ AIDXs | list }}

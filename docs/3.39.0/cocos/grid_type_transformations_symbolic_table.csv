@@ -1,0 +1,29 @@
+IMASgrid_type_index;IMASgrid_type_name;gt_label;label_transformation_dim1;label_transformation_dim2;label_transformation_dim3
+1;rectangular;grid_type_like_1;one_like;one_like;phi_like
+2;inverse rhopolar_polar;grid_type_like_2;one_like;pol_angle_like;phi_like
+11;inverse psi_straight field line;grid_type_like_11;psi_like;pol_angle_like;phi_like
+12;inverse psi_equal arc;grid_type_like_12;psi_like;pol_angle_like;phi_like
+13;inverse psi_polar;grid_type_like_13;psi_like;pol_angle_like;phi_like
+14;inverse psi_hamada_like;grid_type_like_14;psi_like;pol_angle_like;phi_like
+19;inverse psi_chi_general;grid_type_like_19;psi_like;pol_angle_like;phi_like
+21;inverse rhopolnorm_straight field line;grid_type_like_21;one_like;pol_angle_like;phi_like
+22;inverse rhopolnorm_equal arc;grid_type_like_22;one_like;pol_angle_like;phi_like
+23;inverse rhopolnorm_polar;grid_type_like_23;one_like;pol_angle_like;phi_like
+24;inverse rhopolnorm_hamada_like;grid_type_like_24;one_like;pol_angle_like;phi_like
+29;inverse rhopolnorm_chi_general;grid_type_like_29;one_like;pol_angle_like;phi_like
+31;inverse rhotornorm_straight field line;grid_type_like_31;one_like;pol_angle_like;phi_like
+32;inverse rhotornorm_equal arc;grid_type_like_32;one_like;pol_angle_like;phi_like
+33;inverse rhotornorm_polar;grid_type_like_33;one_like;pol_angle_like;phi_like
+34;inverse rhotornorm_hamada_like;grid_type_like_34;one_like;pol_angle_like;phi_like
+39;inverse rhotornorm_chi_general;grid_type_like_39;one_like;pol_angle_like;phi_like
+41;inverse rhopol_straight field line;grid_type_like_41;one_like;pol_angle_like;phi_like
+42;inverse rhopol_equal arc;grid_type_like_42;one_like;pol_angle_like;phi_like
+43;inverse rhopol_polar;grid_type_like_43;one_like;pol_angle_like;phi_like
+44;inverse rhopol_hamada_like;grid_type_like_44;one_like;pol_angle_like;phi_like
+49;inverse rhopol_chi_general;grid_type_like_49;one_like;pol_angle_like;phi_like
+51;inverse rhotor_straight field line;grid_type_like_51;one_like;pol_angle_like;phi_like
+52;inverse rhotor_equal arc;grid_type_like_52;one_like;pol_angle_like;phi_like
+53;inverse rhotor_polar;grid_type_like_53;one_like;pol_angle_like;phi_like
+54;inverse rhotor_hamada_like;grid_type_like_54;one_like;pol_angle_like;phi_like
+59;inverse rhotor_chi_general;grid_type_like_59;one_like;pol_angle_like;phi_like
+91;irregular rz_na;grid_type_like_91;one_like;one_like;phi_like

@@ -1,0 +1,1293 @@
+<html xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Data Dictionary HTML documentation</title>
+      <style type="text/css">
+			p {color:black;font-size:12pt;font-weight:normal;}
+			p.name {color:red;font-size:18pt;font-weight:bold;}
+			p.welcome {color:#3333aa; font-size:20pt; font-weight:bold; text-align:center;}
+			span.head {color:#3333aa; font-size:12pt; font-weight:bold; }
+       </style>
+      <link href="css/jquery.treetable.css" rel="stylesheet" type="text/css">
+      <link href="css/maketree.css" rel="stylesheet">
+   </head>
+   <body>
+      <p class="welcome">ITER Physics Data Model Documentation for turbulence</p>
+      <p>Description of plasma turbulence</p>
+      <p>Notation of array of structure indices: itime indicates a time index; i1, i2, i3,
+         ... indicate other indices with their depth in the IDS. This notation clarifies the
+         path of a given node, but should not be used to compare indices of different nodes
+         (they may have different meanings).</p>
+      <p>Lifecycle status: alpha since version 3.12.1</p>
+      <p>Last change occured on version: 3.12.1</p>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><button onclick="window.location.href='turbulence.html'">Expandable display</button> You are now in flat display mode, note that errorbars are not visible in this mode
+      <br><br><table border="1">
+         <thead style="color:#ff0000">
+            <td>Full path name</td>
+            <td>Description</td>
+            <td>Data Type</td>
+            <td>Coordinates</td>
+         </thead>
+         <tr>
+            <td><span class="pathname">ids_properties</span></td>
+            <td>Interface Data Structure properties. This element identifies the node above as an
+               IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/comment</span></td>
+            <td>Any comment describing the content of this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/homogeneous_time</span></td>
+            <td>This node must be filled (with 0, 1, or 2) for the IDS to be valid. If 1, the time
+               of this IDS is homogeneous, i.e. the time values for this IDS are stored in the time
+               node just below the root of this IDS. If 0, the time values are stored in the various
+               time fields at lower levels in the tree. In the case only constant or static nodes
+               are filled within the IDS, homogeneous_time must be set to 2 {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/source</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.34.0</td>
+            <td>Source of the data (any comment describing the origin of the data : code, path to
+               diagnostic signals, processing method, ...). Superseeded by the new provenance structure. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provider</span></td>
+            <td>Name of the person in charge of producing this data {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/creation_date</span></td>
+            <td>Date at which this data has been produced {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put</span></td>
+            <td>Version of the access layer package used to PUT this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/data_dictionary</span></td>
+            <td>Version of Data Dictionary used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer</span></td>
+            <td>Version of Access Layer used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer_language</span></td>
+            <td>Programming language of the Access Layer high level API used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.34.0</td>
+            <td>Provenance information about this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)</span></td>
+            <td>Set of IDS nodes for which the provenance is given. The provenance information applies
+               to the whole structure below the IDS node. For documenting provenance information
+               for the whole IDS, set the size of this array of structure to 1 and leave the child
+               "path" node empty {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the provenance information applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/sources(:)</span></td>
+            <td>List of sources used to import or calculate this node, identified as explained below.
+               In case the node is the result of of a calculation / data processing, the source is
+               an input to the process described in the "code" structure at the root of the IDS.
+               The source can be an IDS (identified by a URI or a persitent identifier, see syntax
+               in the link below) or non-IDS data imported directly from an non-IMAS database (identified
+               by the command used to import the source, or the persistent identifier of the data
+               source). Often data are obtained by a chain of processes, however only the last process
+               input are recorded here. The full chain of provenance has then to be reconstructed
+               recursively from the provenance information contained in the data sources. Click here for <a href="utilities/IMAS-URI-scheme.md">further documentation</a>. {constant}</td>
+            <td>STR_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.39.0</td>
+            <td>Information about the plugins used to write/read this IDS. This structure is filled
+               automatically by the Access Layer at GET/PUT time, no need to fill it via a user program.. Introduced after DD version 3.38.1</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)</span></td>
+            <td>Set of IDS nodes for which a plugin has been applied {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the plugin applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)</span></td>
+            <td>Plugins used to PUT a node (potentially, multiple plugins can be applied, if so they
+               are listed by order of application)</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)</span></td>
+            <td>Plugins to be used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application) </td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)</span></td>
+            <td>Plugins actually used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application). This information is filled by the plugin
+               infrastructure during the GET operation.</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put</span></td>
+            <td>Plugin infrastructure used to PUT the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get</span></td>
+            <td>Plugin infrastructure used to GET the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">grid_2d_type</span></td>
+            <td>Selection of one of a set of grid types for grid_2d. Available options (refer to the children of this identifier structure) :
+               
+               <table border="1">
+                  <thead>
+                     <td>Name</td>
+                     <td>Index</td>
+                     <td>Description</td>
+                  </thead>
+                  <tr>
+                     <td>rectangular</td>
+                     <td>1</td>
+                     <td>Cylindrical R,Z ala eqdsk (R=dim1, Z=dim2). In this case the position arrays should
+                        not be filled since they are redundant with grid/dim1 and dim2.</td>
+                  </tr>
+                  <tr>
+                     <td>inverse</td>
+                     <td>2</td>
+                     <td>Rhopolar_polar 2D polar coordinates (rho=dim1, theta=dim2) with magnetic axis as centre
+                        of grid; theta and values following the COCOS=11 convention; the polar angle is theta=atan2(z-zaxis,r-raxis)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_straight_field_line</td>
+                     <td>11</td>
+                     <td>Flux surface type with psi as radial label (dim1) and the straight-field line poloidal
+                        angle (mod(index,10)=1) (dim2); could be non-equidistant; magnetic axis as centre
+                        of grid; following the COCOS=11 convention</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_equal_arc</td>
+                     <td>12</td>
+                     <td>Flux surface type with psi as radial label (dim1) and the equal arc poloidal angle
+                        (mod(index,10)=2) (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_polar</td>
+                     <td>13</td>
+                     <td>Flux surface type with psi as radial label (dim1) and the polar poloidal angle (mod(index,10)=3)
+                        (dim2); could be non-equidistant</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_straight_field_line_fourier</td>
+                     <td>14</td>
+                     <td>Flux surface type with psi as radial label (dim1) and Fourier modes in the straight-field
+                        line poloidal angle (mod(index,10)=4) (dim2), could be non-equidistant; magnetic axis
+                        as centre of grid; following the COCOS=11 convention</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_equal_arc_fourier</td>
+                     <td>15</td>
+                     <td>Flux surface type with psi as radial label (dim1) and Fourier modes in the equal arc
+                        poloidal angle (mod(index,10)=5) (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_polar_fourier</td>
+                     <td>16</td>
+                     <td>Flux surface type with psi as radial label (dim1) and Fourier modes in the polar poloidal
+                        angle (mod(index,10)=6) (dim2); could be non-equidistant</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_straight_field_line</td>
+                     <td>21</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_equal_arc</td>
+                     <td>22</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_polar</td>
+                     <td>23</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_straight_field_line_fourier</td>
+                     <td>24</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and Fourier modes in the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_equal_arc_fourier</td>
+                     <td>25</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and Fourier modes in the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_polar_fourier</td>
+                     <td>26</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and Fourier modes in the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_straight_field_line</td>
+                     <td>31</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and the straight-field
+                        line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_equal_arc</td>
+                     <td>32</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and the equal arc poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_polar</td>
+                     <td>33</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and the polar poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_straight_field_line_fourier</td>
+                     <td>34</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and Fourier modes in
+                        the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_equal_arc_fourier</td>
+                     <td>35</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and Fourier modes in
+                        the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_polar_fourier</td>
+                     <td>36</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and Fourier modes in
+                        the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_straight_field_line</td>
+                     <td>41</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and the straight-field
+                        line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_equal_arc</td>
+                     <td>42</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and the equal arc poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_polar</td>
+                     <td>43</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and the polar poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_straight_field_line_fourier</td>
+                     <td>44</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and Fourier modes in
+                        the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_equal_arc_fourier</td>
+                     <td>45</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and Fourier modes in
+                        the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_polar_fourier</td>
+                     <td>46</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and Fourier modes in
+                        the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_straight_field_line</td>
+                     <td>51</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_equal_arc</td>
+                     <td>52</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_polar</td>
+                     <td>53</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_straight_field_line_fourier</td>
+                     <td>54</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and Fourier modes in the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_equal_arc_fourier</td>
+                     <td>55</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and Fourier modes in the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_polar_fourier</td>
+                     <td>56</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and Fourier modes in the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>irregular_rz_na</td>
+                     <td>91</td>
+                     <td>Irregular grid, thus give list of vertices in dim1(1:ndim1), dim2(1:ndim1) and then
+                        all fields are on values(1:ndim1,1)</td>
+                  </tr>
+                  <tr></tr>
+               </table>
+            </td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">grid_2d_type/name</span></td>
+            <td>Short string identifier {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">grid_2d_type/index</span></td>
+            <td>Integer identifier (enumeration index within a list). Private identifier values must
+               be indicated by a negative index. {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">grid_2d_type/description</span></td>
+            <td>Verbose description {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">grid_2d(itime)</span></td>
+            <td>Values for the 2D grid, for various time slices. The timebase of this array of structure
+               must be a subset of the profiles_2d timebase {dynamic}</td>
+            <td>struct_array</td>
+            <td> 
+               1- grid_2d(itime)/time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">grid_2d(itime)/dim1(:)</span></td>
+            <td>First dimension values {dynamic} [mixed]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">grid_2d(itime)/dim1_error_upper(:)</span></td>
+            <td>Upper error for "dim1" {dynamic} [mixed]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">grid_2d(itime)/dim1_error_lower(:)</span></td>
+            <td>Lower error for "dim1" {dynamic} [mixed]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">grid_2d(itime)/dim1_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "dim1" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">grid_2d(itime)/dim2(:)</span></td>
+            <td>Second dimension values {dynamic} [mixed]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">grid_2d(itime)/dim2_error_upper(:)</span></td>
+            <td>Upper error for "dim2" {dynamic} [mixed]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">grid_2d(itime)/dim2_error_lower(:)</span></td>
+            <td>Lower error for "dim2" {dynamic} [mixed]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">grid_2d(itime)/dim2_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "dim2" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">grid_2d(itime)/time</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)</span></td>
+            <td>Fluctuating physical quantities for various time slices {dynamic}</td>
+            <td>struct_array</td>
+            <td> 
+               1- profiles_2d(itime)/time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/electrons</span></td>
+            <td>Quantities related to electrons</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/electrons/temperature(:,:)</span></td>
+            <td>Temperature {dynamic} [eV]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/electrons/temperature_error_upper(:,:)</span></td>
+            <td>Upper error for "temperature" {dynamic} [eV]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/electrons/temperature_error_lower(:,:)</span></td>
+            <td>Lower error for "temperature" {dynamic} [eV]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/electrons/temperature_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "temperature" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/electrons/density(:,:)</span></td>
+            <td>Density (thermal+non-thermal) {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/electrons/density_error_upper(:,:)</span></td>
+            <td>Upper error for "density" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/electrons/density_error_lower(:,:)</span></td>
+            <td>Lower error for "density" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/electrons/density_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "density" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/electrons/density_thermal(:,:)</span></td>
+            <td>Density of thermal particles {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/electrons/density_thermal_error_upper(:,:)</span></td>
+            <td>Upper error for "density_thermal" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/electrons/density_thermal_error_lower(:,:)</span></td>
+            <td>Lower error for "density_thermal" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/electrons/density_thermal_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "density_thermal" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)</span></td>
+            <td>Quantities related to the various ion species</td>
+            <td>struct_array</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)</span></td>
+            <td>List of elements forming the atom or molecule</td>
+            <td>struct_array</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/a</span></td>
+            <td>Mass of atom {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/a_error_upper</span></td>
+            <td>Upper error for "a" {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/a_error_lower</span></td>
+            <td>Lower error for "a" {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/a_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "a" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/z_n</span></td>
+            <td>Nuclear charge {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/z_n_error_upper</span></td>
+            <td>Upper error for "z_n" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/z_n_error_lower</span></td>
+            <td>Lower error for "z_n" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/z_n_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z_n" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/atoms_n</span></td>
+            <td>Number of atoms of this element in the molecule {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/multiplicity</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Multiplicity of the atom {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/multiplicity_error_upper</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Upper error for "multiplicity" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/multiplicity_error_lower</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Lower error for "multiplicity" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/element(i2)/multiplicity_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "multiplicity" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/z_ion</span></td>
+            <td>Ion charge (of the dominant ionisation state; lumped ions are allowed), volume averaged
+               over plasma radius {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/z_ion_error_upper</span></td>
+            <td>Upper error for "z_ion" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/z_ion_error_lower</span></td>
+            <td>Lower error for "z_ion" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/z_ion_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z_ion" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/label</span></td>
+            <td>String identifying ion (e.g. H+, D+, T+, He+2, C+, ...) {dynamic}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/neutral_index</span></td>
+            <td>Index of the corresponding neutral species in the ../../neutral array {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/temperature(:,:)</span></td>
+            <td>Temperature (average over charge states when multiple charge states are considered) {dynamic} [eV]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/temperature_error_upper(:,:)</span></td>
+            <td>Upper error for "temperature" {dynamic} [eV]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/temperature_error_lower(:,:)</span></td>
+            <td>Lower error for "temperature" {dynamic} [eV]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/temperature_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "temperature" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/density(:,:)</span></td>
+            <td>Density (thermal+non-thermal) (sum over charge states when multiple charge states
+               are considered) {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/density_error_upper(:,:)</span></td>
+            <td>Upper error for "density" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/density_error_lower(:,:)</span></td>
+            <td>Lower error for "density" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/density_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "density" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/density_thermal(:,:)</span></td>
+            <td>Density (thermal) (sum over charge states when multiple charge states are considered) {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/density_thermal_error_upper(:,:)</span></td>
+            <td>Upper error for "density_thermal" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/density_thermal_error_lower(:,:)</span></td>
+            <td>Lower error for "density_thermal" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/ion(i1)/density_thermal_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "density_thermal" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)</span></td>
+            <td>Quantities related to the various neutral species</td>
+            <td>struct_array</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)</span></td>
+            <td>List of elements forming the atom or molecule</td>
+            <td>struct_array</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/a</span></td>
+            <td>Mass of atom {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/a_error_upper</span></td>
+            <td>Upper error for "a" {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/a_error_lower</span></td>
+            <td>Lower error for "a" {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/a_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "a" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/z_n</span></td>
+            <td>Nuclear charge {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/z_n_error_upper</span></td>
+            <td>Upper error for "z_n" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/z_n_error_lower</span></td>
+            <td>Lower error for "z_n" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/z_n_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z_n" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/atoms_n</span></td>
+            <td>Number of atoms of this element in the molecule {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/multiplicity</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Multiplicity of the atom {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/multiplicity_error_upper</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Upper error for "multiplicity" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/multiplicity_error_lower</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Lower error for "multiplicity" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/element(i2)/multiplicity_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "multiplicity" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/label</span></td>
+            <td>String identifying ion (e.g. H+, D+, T+, He+2, C+, ...) {dynamic}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/ion_index</span></td>
+            <td>Index of the corresponding ion species in the ../../ion array {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/temperature(:,:)</span></td>
+            <td>Temperature (average over charge states when multiple charge states are considered) {dynamic} [eV]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/temperature_error_upper(:,:)</span></td>
+            <td>Upper error for "temperature" {dynamic} [eV]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/temperature_error_lower(:,:)</span></td>
+            <td>Lower error for "temperature" {dynamic} [eV]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/temperature_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "temperature" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/density(:,:)</span></td>
+            <td>Density (thermal+non-thermal) (sum over charge states when multiple charge states
+               are considered) {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/density_error_upper(:,:)</span></td>
+            <td>Upper error for "density" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/density_error_lower(:,:)</span></td>
+            <td>Lower error for "density" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/density_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "density" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/density_thermal(:,:)</span></td>
+            <td>Density (thermal) (sum over charge states when multiple charge states are considered) {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/density_thermal_error_upper(:,:)</span></td>
+            <td>Upper error for "density_thermal" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/density_thermal_error_lower(:,:)</span></td>
+            <td>Lower error for "density_thermal" {dynamic} [m^-3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- grid_2d(itime)/dim1<br>
+               2- grid_2d(itime)/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/neutral(i1)/density_thermal_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "density_thermal" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/time</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code</span></td>
+            <td>Generic decription of the code-specific parameters for the code that has produced
+               this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/name</span></td>
+            <td>Name of software generating IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/output_flag(:)</span></td>
+            <td>Output flag : 0 means the run is successful, other values mean some difficulty has
+               been encountered, the exact meaning is then code specific. Negative values mean the
+               result shall not be used. {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)</span></td>
+            <td>List of external libraries used by the code that has produced this IDS</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/name</span></td>
+            <td>Name of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time(:)</span></td>
+            <td>Generic time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+      </table>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p>
+   </body>
+</html>

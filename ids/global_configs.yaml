@@ -1,0 +1,5 @@
+SHOT: &SHOT
+  !mdsget
+    - $SHOT
+CAMPAIGN:
+  2025

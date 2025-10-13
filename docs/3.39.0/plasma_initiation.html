@@ -1,0 +1,1803 @@
+<html xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Data Dictionary HTML documentation</title>
+      <style type="text/css">
+			p {color:black;font-size:12pt;font-weight:normal;}
+			p.name {color:red;font-size:18pt;font-weight:bold;}
+			p.welcome {color:#3333aa; font-size:20pt; font-weight:bold; text-align:center;}
+			span.head {color:#3333aa; font-size:12pt; font-weight:bold; }
+       </style>
+      <link href="css/jquery.treetable.css" rel="stylesheet" type="text/css">
+      <link href="css/maketree.css" rel="stylesheet">
+   </head>
+   <body>
+      <p class="welcome">ITER Physics Data Model Documentation for plasma_initiation</p>
+      <p>Description the early phases of the plasma, before an equilibrium can be calculated</p>
+      <p>Notation of array of structure indices: itime indicates a time index; i1, i2, i3,
+         ... indicate other indices with their depth in the IDS. This notation clarifies the
+         path of a given node, but should not be used to compare indices of different nodes
+         (they may have different meanings).</p>
+      <p>Lifecycle status: alpha since version 3.38.0</p>
+      <p>Last change occured on version: 3.39.0</p>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><button onclick="window.location.href='plasma_initiation_flat.html'">Flat display</button><button onclick="ToggleErrorDisplay('body&gt;table')">Show/Hide errorbar nodes</button>  By convention, only the upper error node should be filled in case of symmetrical
+      error bars. The upper and lower errors are absolute and defined positive, and represent
+      one standard deviation of the data. The effective values of the data (within one standard
+      deviation) will be within the interval [data-data_error_lower, data+data_error_upper].
+      Thus whatever the sign of data, data_error_lower relates to the lower bound and data_error_upper
+      to the upper bound of the error bar interval.
+      <br><br><table border="1">
+         <thead style="color:#ff0000">
+            <td>Full path name</td>
+            <td>Description</td>
+            <td>Data Type</td>
+            <td>Coordinates</td>
+         </thead>
+         <tr>
+            <td><span class="pathname">ids_properties</span></td>
+            <td>Interface Data Structure properties. This element identifies the node above as an
+               IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/comment</span></td>
+            <td>Any comment describing the content of this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/homogeneous_time</span></td>
+            <td>This node must be filled (with 0, 1, or 2) for the IDS to be valid. If 1, the time
+               of this IDS is homogeneous, i.e. the time values for this IDS are stored in the time
+               node just below the root of this IDS. If 0, the time values are stored in the various
+               time fields at lower levels in the tree. In the case only constant or static nodes
+               are filled within the IDS, homogeneous_time must be set to 2 {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/source</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.34.0</td>
+            <td>Source of the data (any comment describing the origin of the data : code, path to
+               diagnostic signals, processing method, ...). Superseeded by the new provenance structure. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provider</span></td>
+            <td>Name of the person in charge of producing this data {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/creation_date</span></td>
+            <td>Date at which this data has been produced {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put</span></td>
+            <td>Version of the access layer package used to PUT this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/data_dictionary</span></td>
+            <td>Version of Data Dictionary used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer</span></td>
+            <td>Version of Access Layer used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer_language</span></td>
+            <td>Programming language of the Access Layer high level API used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.34.0</td>
+            <td>Provenance information about this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)</span></td>
+            <td>Set of IDS nodes for which the provenance is given. The provenance information applies
+               to the whole structure below the IDS node. For documenting provenance information
+               for the whole IDS, set the size of this array of structure to 1 and leave the child
+               "path" node empty {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the provenance information applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/sources(:)</span></td>
+            <td>List of sources used to import or calculate this node, identified as explained below.
+               In case the node is the result of of a calculation / data processing, the source is
+               an input to the process described in the "code" structure at the root of the IDS.
+               The source can be an IDS (identified by a URI or a persitent identifier, see syntax
+               in the link below) or non-IDS data imported directly from an non-IMAS database (identified
+               by the command used to import the source, or the persistent identifier of the data
+               source). Often data are obtained by a chain of processes, however only the last process
+               input are recorded here. The full chain of provenance has then to be reconstructed
+               recursively from the provenance information contained in the data sources. Click here for <a href="utilities/IMAS-URI-scheme.md">further documentation</a>. {constant}</td>
+            <td>STR_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.39.0</td>
+            <td>Information about the plugins used to write/read this IDS. This structure is filled
+               automatically by the Access Layer at GET/PUT time, no need to fill it via a user program.. Introduced after DD version 3.38.1</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)</span></td>
+            <td>Set of IDS nodes for which a plugin has been applied {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the plugin applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)</span></td>
+            <td>Plugins used to PUT a node (potentially, multiple plugins can be applied, if so they
+               are listed by order of application)</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)</span></td>
+            <td>Plugins to be used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application) </td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)</span></td>
+            <td>Plugins actually used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application). This information is filled by the plugin
+               infrastructure during the GET operation.</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put</span></td>
+            <td>Plugin infrastructure used to PUT the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get</span></td>
+            <td>Plugin infrastructure used to GET the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities</span></td>
+            <td>Global quantities</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/b_field_stray</span></td>
+            <td>Stray magnetic field at plasma position [T]</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/b_field_stray/data(:)</span></td>
+            <td>Data {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/b_field_stray/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/b_field_stray/data_error_upper(:)</span></td>
+            <td>Upper error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/b_field_stray/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/b_field_stray/data_error_lower(:)</span></td>
+            <td>Lower error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/b_field_stray/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/b_field_stray/data_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "data" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/b_field_stray/time(:)</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/b_field_perpendicular</span></td>
+            <td>Perpendicular magnetic field at plasma position. b_field_perpendicular = sqrt(b_field_stray^2+b_field_eddy^2)
+                [T]</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/b_field_perpendicular/data(:)</span></td>
+            <td>Data {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/b_field_perpendicular/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/b_field_perpendicular/data_error_upper(:)</span></td>
+            <td>Upper error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/b_field_perpendicular/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/b_field_perpendicular/data_error_lower(:)</span></td>
+            <td>Lower error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/b_field_perpendicular/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/b_field_perpendicular/data_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "data" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/b_field_perpendicular/time(:)</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/connection_length</span></td>
+            <td>Average length of open magnetic field lines. In the case of fully closed field lines,
+               connection_length = 1 [m]</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/connection_length/data(:)</span></td>
+            <td>Data {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/connection_length/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/connection_length/data_error_upper(:)</span></td>
+            <td>Upper error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/connection_length/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/connection_length/data_error_lower(:)</span></td>
+            <td>Lower error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/connection_length/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/connection_length/data_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "data" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/connection_length/time(:)</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/coulomb_logarithm</span></td>
+            <td>Coulomb logarithm [-]</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/coulomb_logarithm/data(:)</span></td>
+            <td>Data {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/coulomb_logarithm/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/coulomb_logarithm/data_error_upper(:)</span></td>
+            <td>Upper error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/coulomb_logarithm/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/coulomb_logarithm/data_error_lower(:)</span></td>
+            <td>Lower error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- global_quantities/coulomb_logarithm/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">global_quantities/coulomb_logarithm/data_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "data" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">global_quantities/coulomb_logarithm/time(:)</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)</span></td>
+            <td>Magnetic field line tracing results, given at various time slices {dynamic}</td>
+            <td>struct_array</td>
+            <td> 
+               1- b_field_lines(itime)/time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/grid_type</span></td>
+            <td>Selection of one of a set of grid types. Available options (refer to the children of this identifier structure) :
+               
+               <table border="1">
+                  <thead>
+                     <td>Name</td>
+                     <td>Index</td>
+                     <td>Description</td>
+                  </thead>
+                  <tr>
+                     <td>rectangular</td>
+                     <td>1</td>
+                     <td>Cylindrical R,Z ala eqdsk (R=dim1, Z=dim2). In this case the position arrays should
+                        not be filled since they are redundant with grid/dim1 and dim2.</td>
+                  </tr>
+                  <tr>
+                     <td>inverse</td>
+                     <td>2</td>
+                     <td>Rhopolar_polar 2D polar coordinates (rho=dim1, theta=dim2) with magnetic axis as centre
+                        of grid; theta and values following the COCOS=11 convention; the polar angle is theta=atan2(z-zaxis,r-raxis)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_straight_field_line</td>
+                     <td>11</td>
+                     <td>Flux surface type with psi as radial label (dim1) and the straight-field line poloidal
+                        angle (mod(index,10)=1) (dim2); could be non-equidistant; magnetic axis as centre
+                        of grid; following the COCOS=11 convention</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_equal_arc</td>
+                     <td>12</td>
+                     <td>Flux surface type with psi as radial label (dim1) and the equal arc poloidal angle
+                        (mod(index,10)=2) (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_polar</td>
+                     <td>13</td>
+                     <td>Flux surface type with psi as radial label (dim1) and the polar poloidal angle (mod(index,10)=3)
+                        (dim2); could be non-equidistant</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_straight_field_line_fourier</td>
+                     <td>14</td>
+                     <td>Flux surface type with psi as radial label (dim1) and Fourier modes in the straight-field
+                        line poloidal angle (mod(index,10)=4) (dim2), could be non-equidistant; magnetic axis
+                        as centre of grid; following the COCOS=11 convention</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_equal_arc_fourier</td>
+                     <td>15</td>
+                     <td>Flux surface type with psi as radial label (dim1) and Fourier modes in the equal arc
+                        poloidal angle (mod(index,10)=5) (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_polar_fourier</td>
+                     <td>16</td>
+                     <td>Flux surface type with psi as radial label (dim1) and Fourier modes in the polar poloidal
+                        angle (mod(index,10)=6) (dim2); could be non-equidistant</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_straight_field_line</td>
+                     <td>21</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_equal_arc</td>
+                     <td>22</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_polar</td>
+                     <td>23</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_straight_field_line_fourier</td>
+                     <td>24</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and Fourier modes in the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_equal_arc_fourier</td>
+                     <td>25</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and Fourier modes in the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_polar_fourier</td>
+                     <td>26</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and Fourier modes in the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_straight_field_line</td>
+                     <td>31</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and the straight-field
+                        line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_equal_arc</td>
+                     <td>32</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and the equal arc poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_polar</td>
+                     <td>33</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and the polar poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_straight_field_line_fourier</td>
+                     <td>34</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and Fourier modes in
+                        the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_equal_arc_fourier</td>
+                     <td>35</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and Fourier modes in
+                        the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_polar_fourier</td>
+                     <td>36</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and Fourier modes in
+                        the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_straight_field_line</td>
+                     <td>41</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and the straight-field
+                        line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_equal_arc</td>
+                     <td>42</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and the equal arc poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_polar</td>
+                     <td>43</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and the polar poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_straight_field_line_fourier</td>
+                     <td>44</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and Fourier modes in
+                        the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_equal_arc_fourier</td>
+                     <td>45</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and Fourier modes in
+                        the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_polar_fourier</td>
+                     <td>46</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and Fourier modes in
+                        the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_straight_field_line</td>
+                     <td>51</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_equal_arc</td>
+                     <td>52</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_polar</td>
+                     <td>53</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_straight_field_line_fourier</td>
+                     <td>54</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and Fourier modes in the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_equal_arc_fourier</td>
+                     <td>55</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and Fourier modes in the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_polar_fourier</td>
+                     <td>56</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and Fourier modes in the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>irregular_rz_na</td>
+                     <td>91</td>
+                     <td>Irregular grid, thus give list of vertices in dim1(1:ndim1), dim2(1:ndim1) and then
+                        all fields are on values(1:ndim1,1)</td>
+                  </tr>
+                  <tr></tr>
+               </table>
+            </td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/grid_type/name</span></td>
+            <td>Short string identifier {dynamic}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/grid_type/index</span></td>
+            <td>Integer identifier (enumeration index within a list). Private identifier values must
+               be indicated by a negative index. {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/grid_type/description</span></td>
+            <td>Verbose description {dynamic}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/grid</span></td>
+            <td>Definition of the 2D grid (the content of dim1 and dim2 is defined by the selected
+               grid_type)</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/grid/dim1(:)</span></td>
+            <td>First dimension values {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim1_like</td>
+                     <td>grid_type_transformation(index_grid_type,1)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/grid/dim1_error_upper(:)</span></td>
+            <td>Upper error for "dim1" {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim1_like</td>
+                     <td>grid_type_transformation(index_grid_type,1)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/grid/dim1_error_lower(:)</span></td>
+            <td>Lower error for "dim1" {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim1_like</td>
+                     <td>grid_type_transformation(index_grid_type,1)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/grid/dim1_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "dim1" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/grid/dim2(:)</span></td>
+            <td>Second dimension values {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim2_like</td>
+                     <td>grid_type_transformation(index_grid_type,2)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/grid/dim2_error_upper(:)</span></td>
+            <td>Upper error for "dim2" {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim2_like</td>
+                     <td>grid_type_transformation(index_grid_type,2)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/grid/dim2_error_lower(:)</span></td>
+            <td>Lower error for "dim2" {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim2_like</td>
+                     <td>grid_type_transformation(index_grid_type,2)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/grid/dim2_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "dim2" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/grid/volume_element(:,:)</span></td>
+            <td>Elementary plasma volume of plasma enclosed in the cell formed by the nodes [dim1(i)
+               dim2(j)], [dim1(i+1) dim2(j)], [dim1(i) dim2(j+1)] and [dim1(i+1) dim2(j+1)] {dynamic} [m^3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- b_field_lines(itime)/grid/dim1<br>
+               2- b_field_lines(itime)/grid/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/grid/volume_element_error_upper(:,:)</span></td>
+            <td>Upper error for "volume_element" {dynamic} [m^3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- b_field_lines(itime)/grid/dim1<br>
+               2- b_field_lines(itime)/grid/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/grid/volume_element_error_lower(:,:)</span></td>
+            <td>Lower error for "volume_element" {dynamic} [m^3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- b_field_lines(itime)/grid/dim1<br>
+               2- b_field_lines(itime)/grid/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/grid/volume_element_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "volume_element" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_positions</span></td>
+            <td>List of all R, Z positions along all field lines encoutering Townsend condition or
+               being closed field lines</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_positions/r(:)</span></td>
+            <td>Major radius {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_positions/r_error_upper(:)</span></td>
+            <td>Upper error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_positions/r_error_lower(:)</span></td>
+            <td>Lower error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_positions/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_positions/z(:)</span></td>
+            <td>Height {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/townsend_or_closed_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_positions/z_error_upper(:)</span></td>
+            <td>Upper error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/townsend_or_closed_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_positions/z_error_lower(:)</span></td>
+            <td>Lower error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/townsend_or_closed_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_positions/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_grid_positions</span></td>
+            <td>List of all R, Z grid positions (from ../grid) containing field lines encoutering
+               Townsend condition or being closed field lines</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_grid_positions/r(:)</span></td>
+            <td>Major radius {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_grid_positions/r_error_upper(:)</span></td>
+            <td>Upper error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_grid_positions/r_error_lower(:)</span></td>
+            <td>Lower error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_grid_positions/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_grid_positions/z(:)</span></td>
+            <td>Height {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/townsend_or_closed_grid_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_grid_positions/z_error_upper(:)</span></td>
+            <td>Upper error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/townsend_or_closed_grid_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_grid_positions/z_error_lower(:)</span></td>
+            <td>Lower error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/townsend_or_closed_grid_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/townsend_or_closed_grid_positions/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/starting_positions</span></td>
+            <td>Starting position to initiate field line tracing, for each field line</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/starting_positions/r(:)</span></td>
+            <td>Major radius {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/starting_positions/r_error_upper(:)</span></td>
+            <td>Upper error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/starting_positions/r_error_lower(:)</span></td>
+            <td>Lower error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/starting_positions/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/starting_positions/z(:)</span></td>
+            <td>Height {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/starting_positions/z_error_upper(:)</span></td>
+            <td>Upper error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/starting_positions/z_error_lower(:)</span></td>
+            <td>Lower error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/starting_positions/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/e_field_townsend(:)</span></td>
+            <td>Townsend electric field along each field line {dynamic} [V.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/e_field_townsend_error_upper(:)</span></td>
+            <td>Upper error for "e_field_townsend" {dynamic} [V.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/e_field_townsend_error_lower(:)</span></td>
+            <td>Lower error for "e_field_townsend" {dynamic} [V.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/e_field_townsend_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "e_field_townsend" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/e_field_parallel(:)</span></td>
+            <td>Parallel electric field along each field line {dynamic} [V.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/e_field_parallel_error_upper(:)</span></td>
+            <td>Upper error for "e_field_parallel" {dynamic} [V.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/e_field_parallel_error_lower(:)</span></td>
+            <td>Lower error for "e_field_parallel" {dynamic} [V.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/e_field_parallel_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "e_field_parallel" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/lengths(:)</span></td>
+            <td>Length of each field line {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/lengths_error_upper(:)</span></td>
+            <td>Upper error for "lengths" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/lengths_error_lower(:)</span></td>
+            <td>Lower error for "lengths" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- b_field_lines(itime)/starting_positions/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/lengths_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "lengths" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/pressure</span></td>
+            <td>Prefill gas pressure used in Townsend E field calculation {dynamic} [Pa]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/pressure_error_upper</span></td>
+            <td>Upper error for "pressure" {dynamic} [Pa]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/pressure_error_lower</span></td>
+            <td>Lower error for "pressure" {dynamic} [Pa]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/pressure_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "pressure" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/open_fraction</span></td>
+            <td>Fraction of open field lines : ratio open fields lines / (open+closed field lines) {dynamic} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/open_fraction_error_upper</span></td>
+            <td>Upper error for "open_fraction" {dynamic} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/open_fraction_error_lower</span></td>
+            <td>Lower error for "open_fraction" {dynamic} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">b_field_lines(itime)/open_fraction_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "open_fraction" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">b_field_lines(itime)/time</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)</span></td>
+            <td>2D profiles in the poloidal plane, given at various time slices {dynamic}. Introduced after DD version 3.38.1</td>
+            <td>struct_array</td>
+            <td> 
+               1- profiles_2d(itime)/time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/grid_type</span></td>
+            <td>Selection of one of a set of grid types. Available options (refer to the children of this identifier structure) :
+               
+               <table border="1">
+                  <thead>
+                     <td>Name</td>
+                     <td>Index</td>
+                     <td>Description</td>
+                  </thead>
+                  <tr>
+                     <td>rectangular</td>
+                     <td>1</td>
+                     <td>Cylindrical R,Z ala eqdsk (R=dim1, Z=dim2). In this case the position arrays should
+                        not be filled since they are redundant with grid/dim1 and dim2.</td>
+                  </tr>
+                  <tr>
+                     <td>inverse</td>
+                     <td>2</td>
+                     <td>Rhopolar_polar 2D polar coordinates (rho=dim1, theta=dim2) with magnetic axis as centre
+                        of grid; theta and values following the COCOS=11 convention; the polar angle is theta=atan2(z-zaxis,r-raxis)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_straight_field_line</td>
+                     <td>11</td>
+                     <td>Flux surface type with psi as radial label (dim1) and the straight-field line poloidal
+                        angle (mod(index,10)=1) (dim2); could be non-equidistant; magnetic axis as centre
+                        of grid; following the COCOS=11 convention</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_equal_arc</td>
+                     <td>12</td>
+                     <td>Flux surface type with psi as radial label (dim1) and the equal arc poloidal angle
+                        (mod(index,10)=2) (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_polar</td>
+                     <td>13</td>
+                     <td>Flux surface type with psi as radial label (dim1) and the polar poloidal angle (mod(index,10)=3)
+                        (dim2); could be non-equidistant</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_straight_field_line_fourier</td>
+                     <td>14</td>
+                     <td>Flux surface type with psi as radial label (dim1) and Fourier modes in the straight-field
+                        line poloidal angle (mod(index,10)=4) (dim2), could be non-equidistant; magnetic axis
+                        as centre of grid; following the COCOS=11 convention</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_equal_arc_fourier</td>
+                     <td>15</td>
+                     <td>Flux surface type with psi as radial label (dim1) and Fourier modes in the equal arc
+                        poloidal angle (mod(index,10)=5) (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_psi_polar_fourier</td>
+                     <td>16</td>
+                     <td>Flux surface type with psi as radial label (dim1) and Fourier modes in the polar poloidal
+                        angle (mod(index,10)=6) (dim2); could be non-equidistant</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_straight_field_line</td>
+                     <td>21</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_equal_arc</td>
+                     <td>22</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_polar</td>
+                     <td>23</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_straight_field_line_fourier</td>
+                     <td>24</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and Fourier modes in the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_equal_arc_fourier</td>
+                     <td>25</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and Fourier modes in the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopolnorm_polar_fourier</td>
+                     <td>26</td>
+                     <td>Flux surface type with radial label sqrt[(psi-psi_axis)/(psi_edge-psi_axis)] (dim1)
+                        and Fourier modes in the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_straight_field_line</td>
+                     <td>31</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and the straight-field
+                        line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_equal_arc</td>
+                     <td>32</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and the equal arc poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_polar</td>
+                     <td>33</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and the polar poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_straight_field_line_fourier</td>
+                     <td>34</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and Fourier modes in
+                        the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_equal_arc_fourier</td>
+                     <td>35</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and Fourier modes in
+                        the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotornorm_polar_fourier</td>
+                     <td>36</td>
+                     <td>Flux surface type with radial label sqrt[Phi/Phi_edge] (dim1) and Fourier modes in
+                        the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_straight_field_line</td>
+                     <td>41</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and the straight-field
+                        line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_equal_arc</td>
+                     <td>42</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and the equal arc poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_polar</td>
+                     <td>43</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and the polar poloidal
+                        angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_straight_field_line_fourier</td>
+                     <td>44</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and Fourier modes in
+                        the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_equal_arc_fourier</td>
+                     <td>45</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and Fourier modes in
+                        the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhopol_polar_fourier</td>
+                     <td>46</td>
+                     <td>Flux surface type with radial label sqrt[psi-psi_axis] (dim1) and Fourier modes in
+                        the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_straight_field_line</td>
+                     <td>51</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_equal_arc</td>
+                     <td>52</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_polar</td>
+                     <td>53</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_straight_field_line_fourier</td>
+                     <td>54</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and Fourier modes in the straight-field line poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_equal_arc_fourier</td>
+                     <td>55</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and Fourier modes in the equal arc poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>inverse_rhotor_polar_fourier</td>
+                     <td>56</td>
+                     <td>Flux surface type with radial label sqrt[Phi/pi/B0] (dim1), Phi being toroidal flux,
+                        and Fourier modes in the polar poloidal angle (dim2)</td>
+                  </tr>
+                  <tr>
+                     <td>irregular_rz_na</td>
+                     <td>91</td>
+                     <td>Irregular grid, thus give list of vertices in dim1(1:ndim1), dim2(1:ndim1) and then
+                        all fields are on values(1:ndim1,1)</td>
+                  </tr>
+                  <tr></tr>
+               </table>
+            </td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/grid_type/name</span></td>
+            <td>Short string identifier {dynamic}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/grid_type/index</span></td>
+            <td>Integer identifier (enumeration index within a list). Private identifier values must
+               be indicated by a negative index. {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/grid_type/description</span></td>
+            <td>Verbose description {dynamic}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/grid</span></td>
+            <td>Definition of the 2D grid (the content of dim1 and dim2 is defined by the selected
+               grid_type)</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/grid/dim1(:)</span></td>
+            <td>First dimension values {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim1_like</td>
+                     <td>grid_type_transformation(index_grid_type,1)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/grid/dim1_error_upper(:)</span></td>
+            <td>Upper error for "dim1" {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim1_like</td>
+                     <td>grid_type_transformation(index_grid_type,1)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/grid/dim1_error_lower(:)</span></td>
+            <td>Lower error for "dim1" {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim1_like</td>
+                     <td>grid_type_transformation(index_grid_type,1)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/grid/dim1_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "dim1" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/grid/dim2(:)</span></td>
+            <td>Second dimension values {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim2_like</td>
+                     <td>grid_type_transformation(index_grid_type,2)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/grid/dim2_error_upper(:)</span></td>
+            <td>Upper error for "dim2" {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim2_like</td>
+                     <td>grid_type_transformation(index_grid_type,2)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/grid/dim2_error_lower(:)</span></td>
+            <td>Lower error for "dim2" {dynamic} [mixed]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>grid_type_dim2_like</td>
+                     <td>grid_type_transformation(index_grid_type,2)</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/grid/dim2_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "dim2" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/grid/volume_element(:,:)</span></td>
+            <td>Elementary plasma volume of plasma enclosed in the cell formed by the nodes [dim1(i)
+               dim2(j)], [dim1(i+1) dim2(j)], [dim1(i) dim2(j+1)] and [dim1(i+1) dim2(j+1)] {dynamic} [m^3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- profiles_2d(itime)/grid/dim1<br>
+               2- profiles_2d(itime)/grid/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/grid/volume_element_error_upper(:,:)</span></td>
+            <td>Upper error for "volume_element" {dynamic} [m^3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- profiles_2d(itime)/grid/dim1<br>
+               2- profiles_2d(itime)/grid/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/grid/volume_element_error_lower(:,:)</span></td>
+            <td>Lower error for "volume_element" {dynamic} [m^3]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- profiles_2d(itime)/grid/dim1<br>
+               2- profiles_2d(itime)/grid/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/grid/volume_element_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "volume_element" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/e_field_tor(:,:)</span></td>
+            <td>Toroidal component of the electric field {dynamic} [V.m^-1]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- profiles_2d(itime)/grid/dim1<br>
+               2- profiles_2d(itime)/grid/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/e_field_tor_error_upper(:,:)</span></td>
+            <td>Upper error for "e_field_tor" {dynamic} [V.m^-1]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- profiles_2d(itime)/grid/dim1<br>
+               2- profiles_2d(itime)/grid/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/e_field_tor_error_lower(:,:)</span></td>
+            <td>Lower error for "e_field_tor" {dynamic} [V.m^-1]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- profiles_2d(itime)/grid/dim1<br>
+               2- profiles_2d(itime)/grid/dim2<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_2d(itime)/e_field_tor_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "e_field_tor" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_2d(itime)/time</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code</span></td>
+            <td>Generic decription of the code-specific parameters for the code that has produced
+               this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/name</span></td>
+            <td>Name of software generating IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/output_flag(:)</span></td>
+            <td>Output flag : 0 means the run is successful, other values mean some difficulty has
+               been encountered, the exact meaning is then code specific. Negative values mean the
+               result shall not be used. {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)</span></td>
+            <td>List of external libraries used by the code that has produced this IDS</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/name</span></td>
+            <td>Name of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time(:)</span></td>
+            <td>Generic time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+      </table>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><script src="js/jquery-1.12.4.min.js"></script><script src="js/jquery.treetable.js"></script><script src="js/treeView2.js"></script><script>  makeTree('body>table');  </script></body>
+</html>

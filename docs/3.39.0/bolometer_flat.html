@@ -1,0 +1,1933 @@
+<html xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Data Dictionary HTML documentation</title>
+      <style type="text/css">
+			p {color:black;font-size:12pt;font-weight:normal;}
+			p.name {color:red;font-size:18pt;font-weight:bold;}
+			p.welcome {color:#3333aa; font-size:20pt; font-weight:bold; text-align:center;}
+			span.head {color:#3333aa; font-size:12pt; font-weight:bold; }
+       </style>
+      <link href="css/jquery.treetable.css" rel="stylesheet" type="text/css">
+      <link href="css/maketree.css" rel="stylesheet">
+   </head>
+   <body>
+      <p class="welcome">ITER Physics Data Model Documentation for bolometer</p>
+      <p>Bolometer diagnostic</p>
+      <p>Notation of array of structure indices: itime indicates a time index; i1, i2, i3,
+         ... indicate other indices with their depth in the IDS. This notation clarifies the
+         path of a given node, but should not be used to compare indices of different nodes
+         (they may have different meanings).</p>
+      <p>Lifecycle status: alpha since version 3.7.4</p>
+      <p>Last change occured on version: 3.33.0</p>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><button onclick="window.location.href='bolometer.html'">Expandable display</button> You are now in flat display mode, note that errorbars are not visible in this mode
+      <br><br><table border="1">
+         <thead style="color:#ff0000">
+            <td>Full path name</td>
+            <td>Description</td>
+            <td>Data Type</td>
+            <td>Coordinates</td>
+         </thead>
+         <tr>
+            <td><span class="pathname">ids_properties</span></td>
+            <td>Interface Data Structure properties. This element identifies the node above as an
+               IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/comment</span></td>
+            <td>Any comment describing the content of this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/homogeneous_time</span></td>
+            <td>This node must be filled (with 0, 1, or 2) for the IDS to be valid. If 1, the time
+               of this IDS is homogeneous, i.e. the time values for this IDS are stored in the time
+               node just below the root of this IDS. If 0, the time values are stored in the various
+               time fields at lower levels in the tree. In the case only constant or static nodes
+               are filled within the IDS, homogeneous_time must be set to 2 {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/source</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.34.0</td>
+            <td>Source of the data (any comment describing the origin of the data : code, path to
+               diagnostic signals, processing method, ...). Superseeded by the new provenance structure. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provider</span></td>
+            <td>Name of the person in charge of producing this data {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/creation_date</span></td>
+            <td>Date at which this data has been produced {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put</span></td>
+            <td>Version of the access layer package used to PUT this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/data_dictionary</span></td>
+            <td>Version of Data Dictionary used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer</span></td>
+            <td>Version of Access Layer used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer_language</span></td>
+            <td>Programming language of the Access Layer high level API used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.34.0</td>
+            <td>Provenance information about this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)</span></td>
+            <td>Set of IDS nodes for which the provenance is given. The provenance information applies
+               to the whole structure below the IDS node. For documenting provenance information
+               for the whole IDS, set the size of this array of structure to 1 and leave the child
+               "path" node empty {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the provenance information applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/sources(:)</span></td>
+            <td>List of sources used to import or calculate this node, identified as explained below.
+               In case the node is the result of of a calculation / data processing, the source is
+               an input to the process described in the "code" structure at the root of the IDS.
+               The source can be an IDS (identified by a URI or a persitent identifier, see syntax
+               in the link below) or non-IDS data imported directly from an non-IMAS database (identified
+               by the command used to import the source, or the persistent identifier of the data
+               source). Often data are obtained by a chain of processes, however only the last process
+               input are recorded here. The full chain of provenance has then to be reconstructed
+               recursively from the provenance information contained in the data sources. Click here for <a href="utilities/IMAS-URI-scheme.md">further documentation</a>. {constant}</td>
+            <td>STR_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.39.0</td>
+            <td>Information about the plugins used to write/read this IDS. This structure is filled
+               automatically by the Access Layer at GET/PUT time, no need to fill it via a user program.. Introduced after DD version 3.38.1</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)</span></td>
+            <td>Set of IDS nodes for which a plugin has been applied {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the plugin applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)</span></td>
+            <td>Plugins used to PUT a node (potentially, multiple plugins can be applied, if so they
+               are listed by order of application)</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)</span></td>
+            <td>Plugins to be used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application) </td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)</span></td>
+            <td>Plugins actually used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application). This information is filled by the plugin
+               infrastructure during the GET operation.</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put</span></td>
+            <td>Plugin infrastructure used to PUT the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get</span></td>
+            <td>Plugin infrastructure used to GET the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)</span></td>
+            <td>Set of channels (detector or pixel of a camera)</td>
+            <td>struct_array [max_size=500 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/name</span></td>
+            <td>Name of the channel {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/identifier</span></td>
+            <td>ID of the channel {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector</span></td>
+            <td>Detector description</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/geometry_type</span></td>
+            <td>Type of geometry used to describe the surface of the detector or aperture (1:'outline',
+               2:'circular', 3:'rectangle'). In case of 'outline', the surface is described by an
+               outline of point in a local coordinate system defined by a centre and three unit vectors
+               X1, X2, X3. Note that there is some flexibility here and the data provider should
+               choose the most convenient coordinate system for the object, respecting the definitions
+               of (X1,X2,X3) indicated below. In case of 'circular', the surface is a circle defined
+               by its centre, radius, and normal vector oriented towards the plasma X3.  In case
+               of 'rectangle', the surface is a rectangle defined by its centre, widths in the X1
+               and X2 directions, and normal vector oriented towards the plasma X3. {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/centre</span></td>
+            <td>If geometry_type=2, coordinates of the centre of the circle. If geometry_type=1 or
+               3, coordinates of the origin of the local coordinate system (X1,X2,X3) describing
+               the plane detector/aperture. This origin is located within the detector/aperture area.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/centre/r</span></td>
+            <td>Major radius {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/centre/r_error_upper</span></td>
+            <td>Upper error for "r" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/centre/r_error_lower</span></td>
+            <td>Lower error for "r" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/centre/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/centre/z</span></td>
+            <td>Height {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/centre/z_error_upper</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/centre/z_error_lower</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/centre/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/centre/phi</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/centre/phi_error_upper</span></td>
+            <td>Upper error for "phi" {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/centre/phi_error_lower</span></td>
+            <td>Lower error for "phi" {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/centre/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/radius</span></td>
+            <td>Radius of the circle, used only if geometry_type = 2 {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/radius_error_upper</span></td>
+            <td>Upper error for "radius" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/radius_error_lower</span></td>
+            <td>Lower error for "radius" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/radius_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "radius" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector</span></td>
+            <td>Components of the X1 direction unit vector in the (X,Y,Z) coordinate system, where
+               X is the major radius axis for phi = 0, Y is the major radius axis for phi = pi/2,
+               and Z is the height axis. The X1 vector is more horizontal than X2 (has a smaller
+               abs(Z) component) and oriented in the positive phi direction (counter-clockwise when
+               viewing from above).  Click here for <a href="utilities/detector_aperture_coordinates.svg">further documentation</a>.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/x</span></td>
+            <td>Component along X axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/x_error_upper</span></td>
+            <td>Upper error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/x_error_lower</span></td>
+            <td>Lower error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/x_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/y</span></td>
+            <td>Component along Y axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/y_error_upper</span></td>
+            <td>Upper error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/y_error_lower</span></td>
+            <td>Lower error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/y_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "y" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/z</span></td>
+            <td>Component along Z axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/z_error_upper</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/z_error_lower</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_unit_vector/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector</span></td>
+            <td>Components of the X2 direction unit vector in the (X,Y,Z) coordinate system, where
+               X is the major radius axis for phi = 0, Y is the major radius axis for phi = pi/2,
+               and Z is the height axis. The X2 axis is orthonormal so that uX2 = uX3 x uX1. Click here for <a href="utilities/detector_aperture_coordinates.svg">further documentation</a>.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/x</span></td>
+            <td>Component along X axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/x_error_upper</span></td>
+            <td>Upper error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/x_error_lower</span></td>
+            <td>Lower error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/x_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/y</span></td>
+            <td>Component along Y axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/y_error_upper</span></td>
+            <td>Upper error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/y_error_lower</span></td>
+            <td>Lower error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/y_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "y" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/z</span></td>
+            <td>Component along Z axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/z_error_upper</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/z_error_lower</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_unit_vector/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector</span></td>
+            <td>Components of the X3 direction unit vector in the (X,Y,Z) coordinate system, where
+               X is the major radius axis for phi = 0, Y is the major radius axis for phi = pi/2,
+               and Z is the height axis. The X3 axis is normal to the detector/aperture plane and
+               oriented towards the plasma. Click here for <a href="utilities/detector_aperture_coordinates.svg">further documentation</a>.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/x</span></td>
+            <td>Component along X axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/x_error_upper</span></td>
+            <td>Upper error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/x_error_lower</span></td>
+            <td>Lower error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/x_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/y</span></td>
+            <td>Component along Y axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/y_error_upper</span></td>
+            <td>Upper error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/y_error_lower</span></td>
+            <td>Lower error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/y_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "y" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/z</span></td>
+            <td>Component along Z axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/z_error_upper</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/z_error_lower</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x3_unit_vector/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x1_width</span></td>
+            <td>Full width of the aperture in the X1 direction, used only if geometry_type = 3 {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_width_error_upper</span></td>
+            <td>Upper error for "x1_width" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_width_error_lower</span></td>
+            <td>Lower error for "x1_width" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x1_width_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x1_width" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/x2_width</span></td>
+            <td>Full width of the aperture in the X2 direction, used only if geometry_type = 3 {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_width_error_upper</span></td>
+            <td>Upper error for "x2_width" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_width_error_lower</span></td>
+            <td>Lower error for "x2_width" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/x2_width_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x2_width" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/outline</span></td>
+            <td>Irregular outline of the detector/aperture in the (X1, X2) coordinate system. Do NOT
+               repeat the first point.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/outline/x1(:)</span></td>
+            <td>Positions along x1 axis {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/outline/x1_error_upper(:)</span></td>
+            <td>Upper error for "x1" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/outline/x1_error_lower(:)</span></td>
+            <td>Lower error for "x1" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/outline/x1_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x1" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/outline/x2(:)</span></td>
+            <td>Positions along x2 axis {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- channel(i1)/detector/outline/x1<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/outline/x2_error_upper(:)</span></td>
+            <td>Upper error for "x2" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- channel(i1)/detector/outline/x1<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/outline/x2_error_lower(:)</span></td>
+            <td>Lower error for "x2" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- channel(i1)/detector/outline/x1<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/outline/x2_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x2" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/detector/surface</span></td>
+            <td>Surface of the detector/aperture, derived from the above geometric data {static} [m^2]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/surface_error_upper</span></td>
+            <td>Upper error for "surface" {static} [m^2]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/surface_error_lower</span></td>
+            <td>Lower error for "surface" {static} [m^2]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/detector/surface_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "surface" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)</span></td>
+            <td>Description of a set of collimating apertures</td>
+            <td>struct_array [max_size=5 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/geometry_type</span></td>
+            <td>Type of geometry used to describe the surface of the detector or aperture (1:'outline',
+               2:'circular', 3:'rectangle'). In case of 'outline', the surface is described by an
+               outline of point in a local coordinate system defined by a centre and three unit vectors
+               X1, X2, X3. Note that there is some flexibility here and the data provider should
+               choose the most convenient coordinate system for the object, respecting the definitions
+               of (X1,X2,X3) indicated below. In case of 'circular', the surface is a circle defined
+               by its centre, radius, and normal vector oriented towards the plasma X3.  In case
+               of 'rectangle', the surface is a rectangle defined by its centre, widths in the X1
+               and X2 directions, and normal vector oriented towards the plasma X3. {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre</span></td>
+            <td>If geometry_type=2, coordinates of the centre of the circle. If geometry_type=1 or
+               3, coordinates of the origin of the local coordinate system (X1,X2,X3) describing
+               the plane detector/aperture. This origin is located within the detector/aperture area.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/r</span></td>
+            <td>Major radius {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/r_error_upper</span></td>
+            <td>Upper error for "r" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/r_error_lower</span></td>
+            <td>Lower error for "r" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/z</span></td>
+            <td>Height {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/z_error_upper</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/z_error_lower</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/phi</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/phi_error_upper</span></td>
+            <td>Upper error for "phi" {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/phi_error_lower</span></td>
+            <td>Lower error for "phi" {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/centre/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/radius</span></td>
+            <td>Radius of the circle, used only if geometry_type = 2 {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/radius_error_upper</span></td>
+            <td>Upper error for "radius" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/radius_error_lower</span></td>
+            <td>Lower error for "radius" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/radius_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "radius" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector</span></td>
+            <td>Components of the X1 direction unit vector in the (X,Y,Z) coordinate system, where
+               X is the major radius axis for phi = 0, Y is the major radius axis for phi = pi/2,
+               and Z is the height axis. The X1 vector is more horizontal than X2 (has a smaller
+               abs(Z) component) and oriented in the positive phi direction (counter-clockwise when
+               viewing from above).  Click here for <a href="utilities/detector_aperture_coordinates.svg">further documentation</a>.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/x</span></td>
+            <td>Component along X axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/x_error_upper</span></td>
+            <td>Upper error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/x_error_lower</span></td>
+            <td>Lower error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/x_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/y</span></td>
+            <td>Component along Y axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/y_error_upper</span></td>
+            <td>Upper error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/y_error_lower</span></td>
+            <td>Lower error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/y_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "y" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/z</span></td>
+            <td>Component along Z axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/z_error_upper</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/z_error_lower</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_unit_vector/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector</span></td>
+            <td>Components of the X2 direction unit vector in the (X,Y,Z) coordinate system, where
+               X is the major radius axis for phi = 0, Y is the major radius axis for phi = pi/2,
+               and Z is the height axis. The X2 axis is orthonormal so that uX2 = uX3 x uX1. Click here for <a href="utilities/detector_aperture_coordinates.svg">further documentation</a>.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/x</span></td>
+            <td>Component along X axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/x_error_upper</span></td>
+            <td>Upper error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/x_error_lower</span></td>
+            <td>Lower error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/x_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/y</span></td>
+            <td>Component along Y axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/y_error_upper</span></td>
+            <td>Upper error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/y_error_lower</span></td>
+            <td>Lower error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/y_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "y" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/z</span></td>
+            <td>Component along Z axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/z_error_upper</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/z_error_lower</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_unit_vector/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector</span></td>
+            <td>Components of the X3 direction unit vector in the (X,Y,Z) coordinate system, where
+               X is the major radius axis for phi = 0, Y is the major radius axis for phi = pi/2,
+               and Z is the height axis. The X3 axis is normal to the detector/aperture plane and
+               oriented towards the plasma. Click here for <a href="utilities/detector_aperture_coordinates.svg">further documentation</a>.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/x</span></td>
+            <td>Component along X axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/x_error_upper</span></td>
+            <td>Upper error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/x_error_lower</span></td>
+            <td>Lower error for "x" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/x_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/y</span></td>
+            <td>Component along Y axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/y_error_upper</span></td>
+            <td>Upper error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/y_error_lower</span></td>
+            <td>Lower error for "y" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/y_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "y" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/z</span></td>
+            <td>Component along Z axis {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/z_error_upper</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/z_error_lower</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x3_unit_vector/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_width</span></td>
+            <td>Full width of the aperture in the X1 direction, used only if geometry_type = 3 {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_width_error_upper</span></td>
+            <td>Upper error for "x1_width" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_width_error_lower</span></td>
+            <td>Lower error for "x1_width" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x1_width_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x1_width" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_width</span></td>
+            <td>Full width of the aperture in the X2 direction, used only if geometry_type = 3 {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_width_error_upper</span></td>
+            <td>Upper error for "x2_width" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_width_error_lower</span></td>
+            <td>Lower error for "x2_width" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/x2_width_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x2_width" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/outline</span></td>
+            <td>Irregular outline of the detector/aperture in the (X1, X2) coordinate system. Do NOT
+               repeat the first point.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/outline/x1(:)</span></td>
+            <td>Positions along x1 axis {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/outline/x1_error_upper(:)</span></td>
+            <td>Upper error for "x1" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/outline/x1_error_lower(:)</span></td>
+            <td>Lower error for "x1" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/outline/x1_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x1" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/outline/x2(:)</span></td>
+            <td>Positions along x2 axis {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- channel(i1)/aperture(i2)/outline/x1<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/outline/x2_error_upper(:)</span></td>
+            <td>Upper error for "x2" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- channel(i1)/aperture(i2)/outline/x1<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/outline/x2_error_lower(:)</span></td>
+            <td>Lower error for "x2" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- channel(i1)/aperture(i2)/outline/x1<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/outline/x2_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "x2" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/aperture(i2)/surface</span></td>
+            <td>Surface of the detector/aperture, derived from the above geometric data {static} [m^2]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/surface_error_upper</span></td>
+            <td>Upper error for "surface" {static} [m^2]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/surface_error_lower</span></td>
+            <td>Lower error for "surface" {static} [m^2]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/aperture(i2)/surface_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "surface" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/etendue</span></td>
+            <td>Etendue (geometric extent) of the channel's optical system {static} [m^2.sr]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/etendue_error_upper</span></td>
+            <td>Upper error for "etendue" {static} [m^2.sr]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/etendue_error_lower</span></td>
+            <td>Lower error for "etendue" {static} [m^2.sr]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/etendue_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "etendue" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/etendue_method</span></td>
+            <td>Method used to calculate the etendue. Index = 0 : exact calculation with a 4D integral;
+               1 : approximation with first order formula (detector surface times solid angle subtended
+               by the apertures); 2 : other methods</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/etendue_method/name</span></td>
+            <td>Short string identifier {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/etendue_method/index</span></td>
+            <td>Integer identifier (enumeration index within a list). Private identifier values must
+               be indicated by a negative index. {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/etendue_method/description</span></td>
+            <td>Verbose description {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight</span></td>
+            <td>Description of the reference line of sight of the channel, defined by two points when
+               the beam is not reflected, a third point is added to define the reflected beam path</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point</span></td>
+            <td>Position of the first point</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/r</span></td>
+            <td>Major radius {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/r_error_upper</span></td>
+            <td>Upper error for "r" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/r_error_lower</span></td>
+            <td>Lower error for "r" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/z</span></td>
+            <td>Height {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/z_error_upper</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/z_error_lower</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/phi</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/phi_error_upper</span></td>
+            <td>Upper error for "phi" {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/phi_error_lower</span></td>
+            <td>Lower error for "phi" {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/first_point/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point</span></td>
+            <td>Position of the second point</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/r</span></td>
+            <td>Major radius {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/r_error_upper</span></td>
+            <td>Upper error for "r" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/r_error_lower</span></td>
+            <td>Lower error for "r" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/z</span></td>
+            <td>Height {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/z_error_upper</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/z_error_lower</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/phi</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/phi_error_upper</span></td>
+            <td>Upper error for "phi" {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/phi_error_lower</span></td>
+            <td>Lower error for "phi" {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/second_point/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point</span></td>
+            <td>Position of the third point</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/r</span></td>
+            <td>Major radius {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/r_error_upper</span></td>
+            <td>Upper error for "r" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/r_error_lower</span></td>
+            <td>Lower error for "r" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/z</span></td>
+            <td>Height {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/z_error_upper</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/z_error_lower</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/phi</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/phi_error_upper</span></td>
+            <td>Upper error for "phi" {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/phi_error_lower</span></td>
+            <td>Lower error for "phi" {static} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/line_of_sight/third_point/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/power</span></td>
+            <td>Power received on the detector [W]</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/power/data(:)</span></td>
+            <td>Data {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- channel(i1)/power/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/power/data_error_upper(:)</span></td>
+            <td>Upper error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- channel(i1)/power/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/power/data_error_lower(:)</span></td>
+            <td>Lower error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- channel(i1)/power/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">channel(i1)/power/data_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "data" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/power/time(:)</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/validity_timed</span></td>
+            <td>Indicator of the validity of the channel as a function of time (0 means valid, negative
+               values mean non-valid)</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/validity_timed/data(:)</span></td>
+            <td>Data {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- channel(i1)/validity_timed/time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/validity_timed/time(:)</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">channel(i1)/validity</span></td>
+            <td>Indicator of the validity of the channel for the whole acquisition period (0 means
+               valid, negative values mean non-valid) {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">power_radiated_total(:)</span></td>
+            <td>Total radiated power reconstructed from bolometry data {dynamic} [W]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">power_radiated_total_error_upper(:)</span></td>
+            <td>Upper error for "power_radiated_total" {dynamic} [W]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">power_radiated_total_error_lower(:)</span></td>
+            <td>Lower error for "power_radiated_total" {dynamic} [W]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">power_radiated_total_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "power_radiated_total" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">power_radiated_inside_lcfs(:)</span></td>
+            <td>Radiated power from the plasma inside the Last Closed Flux Surface, reconstructed
+               from bolometry data {dynamic} [W]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">power_radiated_inside_lcfs_error_upper(:)</span></td>
+            <td>Upper error for "power_radiated_inside_lcfs" {dynamic} [W]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">power_radiated_inside_lcfs_error_lower(:)</span></td>
+            <td>Lower error for "power_radiated_inside_lcfs" {dynamic} [W]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">power_radiated_inside_lcfs_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "power_radiated_inside_lcfs" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">power_radiated_validity(:)</span></td>
+            <td>Validity flag related to the radiated power reconstructions {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">latency</span></td>
+            <td>Upper bound of the delay between physical information received by the detector and
+               data available on the real-time (RT) network. {static} [s]. Introduced after DD version 3.32.1</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">latency_error_upper</span></td>
+            <td>Upper error for "latency" {static} [s]. Introduced after DD version 3.32.1</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">latency_error_lower</span></td>
+            <td>Lower error for "latency" {static} [s]. Introduced after DD version 3.32.1</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">latency_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "latency" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code</span></td>
+            <td>Generic decription of the code-specific parameters for the code that has produced
+               this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/name</span></td>
+            <td>Name of software generating IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/output_flag(:)</span></td>
+            <td>Output flag : 0 means the run is successful, other values mean some difficulty has
+               been encountered, the exact meaning is then code specific. Negative values mean the
+               result shall not be used. {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)</span></td>
+            <td>List of external libraries used by the code that has produced this IDS</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/name</span></td>
+            <td>Name of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time(:)</span></td>
+            <td>Generic time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+      </table>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p>
+   </body>
+</html>

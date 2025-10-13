@@ -1,0 +1,1817 @@
+<html xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Data Dictionary HTML documentation</title>
+      <style type="text/css">
+			p {color:black;font-size:12pt;font-weight:normal;}
+			p.name {color:red;font-size:18pt;font-weight:bold;}
+			p.welcome {color:#3333aa; font-size:20pt; font-weight:bold; text-align:center;}
+			span.head {color:#3333aa; font-size:12pt; font-weight:bold; }
+       </style>
+      <link href="css/jquery.treetable.css" rel="stylesheet" type="text/css">
+      <link href="css/maketree.css" rel="stylesheet">
+   </head>
+   <body>
+      <p class="welcome">ITER Physics Data Model Documentation for sawteeth</p>
+      <p>Description of sawtooth events. This IDS must be used in homogeneous_time = 1 mode</p>
+      <p>Notation of array of structure indices: itime indicates a time index; i1, i2, i3,
+         ... indicate other indices with their depth in the IDS. This notation clarifies the
+         path of a given node, but should not be used to compare indices of different nodes
+         (they may have different meanings).</p>
+      <p>Lifecycle status: alpha since version 3.0.4</p>
+      <p>Last change occured on version: 3.10.0</p>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><button onclick="window.location.href='sawteeth_flat.html'">Flat display</button><button onclick="ToggleErrorDisplay('body&gt;table')">Show/Hide errorbar nodes</button>  By convention, only the upper error node should be filled in case of symmetrical
+      error bars. The upper and lower errors are absolute and defined positive, and represent
+      one standard deviation of the data. The effective values of the data (within one standard
+      deviation) will be within the interval [data-data_error_lower, data+data_error_upper].
+      Thus whatever the sign of data, data_error_lower relates to the lower bound and data_error_upper
+      to the upper bound of the error bar interval.
+      <br><br><table border="1">
+         <thead style="color:#ff0000">
+            <td>Full path name</td>
+            <td>Description</td>
+            <td>Data Type</td>
+            <td>Coordinates</td>
+         </thead>
+         <tr>
+            <td><span class="pathname">ids_properties</span></td>
+            <td>Interface Data Structure properties. This element identifies the node above as an
+               IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/comment</span></td>
+            <td>Any comment describing the content of this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/homogeneous_time</span></td>
+            <td>This node must be filled (with 0, 1, or 2) for the IDS to be valid. If 1, the time
+               of this IDS is homogeneous, i.e. the time values for this IDS are stored in the time
+               node just below the root of this IDS. If 0, the time values are stored in the various
+               time fields at lower levels in the tree. In the case only constant or static nodes
+               are filled within the IDS, homogeneous_time must be set to 2 {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/source</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.34.0</td>
+            <td>Source of the data (any comment describing the origin of the data : code, path to
+               diagnostic signals, processing method, ...). Superseeded by the new provenance structure. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provider</span></td>
+            <td>Name of the person in charge of producing this data {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/creation_date</span></td>
+            <td>Date at which this data has been produced {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put</span></td>
+            <td>Version of the access layer package used to PUT this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/data_dictionary</span></td>
+            <td>Version of Data Dictionary used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer</span></td>
+            <td>Version of Access Layer used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer_language</span></td>
+            <td>Programming language of the Access Layer high level API used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.34.0</td>
+            <td>Provenance information about this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)</span></td>
+            <td>Set of IDS nodes for which the provenance is given. The provenance information applies
+               to the whole structure below the IDS node. For documenting provenance information
+               for the whole IDS, set the size of this array of structure to 1 and leave the child
+               "path" node empty {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the provenance information applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/sources(:)</span></td>
+            <td>List of sources used to import or calculate this node, identified as explained below.
+               In case the node is the result of of a calculation / data processing, the source is
+               an input to the process described in the "code" structure at the root of the IDS.
+               The source can be an IDS (identified by a URI or a persitent identifier, see syntax
+               in the link below) or non-IDS data imported directly from an non-IMAS database (identified
+               by the command used to import the source, or the persistent identifier of the data
+               source). Often data are obtained by a chain of processes, however only the last process
+               input are recorded here. The full chain of provenance has then to be reconstructed
+               recursively from the provenance information contained in the data sources. Click here for <a href="utilities/IMAS-URI-scheme.md">further documentation</a>. {constant}</td>
+            <td>STR_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.39.0</td>
+            <td>Information about the plugins used to write/read this IDS. This structure is filled
+               automatically by the Access Layer at GET/PUT time, no need to fill it via a user program.. Introduced after DD version 3.38.1</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)</span></td>
+            <td>Set of IDS nodes for which a plugin has been applied {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the plugin applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)</span></td>
+            <td>Plugins used to PUT a node (potentially, multiple plugins can be applied, if so they
+               are listed by order of application)</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)</span></td>
+            <td>Plugins to be used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application) </td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)</span></td>
+            <td>Plugins actually used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application). This information is filled by the plugin
+               infrastructure during the GET operation.</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put</span></td>
+            <td>Plugin infrastructure used to PUT the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get</span></td>
+            <td>Plugin infrastructure used to GET the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">vacuum_toroidal_field</span></td>
+            <td>Characteristics of the vacuum toroidal field (used in rho_tor definition)</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">vacuum_toroidal_field/r0</span></td>
+            <td>Reference major radius where the vacuum toroidal magnetic field is given (usually
+               a fixed position such as the middle of the vessel at the equatorial midplane) {constant} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">vacuum_toroidal_field/r0_error_upper</span></td>
+            <td>Upper error for "r0" {constant} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">vacuum_toroidal_field/r0_error_lower</span></td>
+            <td>Lower error for "r0" {constant} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">vacuum_toroidal_field/r0_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r0" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">vacuum_toroidal_field/b0(:)</span></td>
+            <td>Vacuum toroidal field at R0 [T]; Positive sign means anti-clockwise when viewing from
+               above. The product R0B0 must be consistent with the b_tor_vacuum_r field of the tf
+               IDS. {dynamic} [T]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>b0_like</td>
+                     <td>.sigma_b0_eff</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">vacuum_toroidal_field/b0_error_upper(:)</span></td>
+            <td>Upper error for "b0" {dynamic} [T]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>b0_like</td>
+                     <td>.sigma_b0_eff</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">vacuum_toroidal_field/b0_error_lower(:)</span></td>
+            <td>Lower error for "b0" {dynamic} [T]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>b0_like</td>
+                     <td>.sigma_b0_eff</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">vacuum_toroidal_field/b0_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "b0" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">crash_trigger(:)</span></td>
+            <td>Flag indicating whether a crash condition has been satisfied : 0 = no crash. N(&gt;0)
+               = crash triggered due to condition N as follows. 1: crash triggered by the ideal kink
+               criterion; 2: crash triggered by the ideal kink criterion including kinetic effects
+               from fast particles; 31: crash triggered by the resistive kink criterion (meeting
+               necessary conditions for reconnection); 32: crash triggered by the resistive kink
+               criterion (resistive kink mode is unstable). The distinction between 31 and 32 only
+               indicates whether (31) or (32) was the last criterion to be satisfied {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)</span></td>
+            <td>Core profiles after sawtooth crash for various time slices {dynamic}</td>
+            <td>struct_array</td>
+            <td> 
+               1- profiles_1d(itime)/time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/grid</span></td>
+            <td>Radial grid</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_tor_norm(:)</span></td>
+            <td>Normalised toroidal flux coordinate. The normalizing value for rho_tor_norm, is the
+               toroidal flux coordinate at the equilibrium boundary (LCFS or 99.x % of the LCFS in
+               case of a fixed boundary equilibium calculation, see time_slice/boundary/b_flux_pol_norm
+               in the equilibrium IDS)  {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_tor_norm_error_upper(:)</span></td>
+            <td>Upper error for "rho_tor_norm" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_tor_norm_error_lower(:)</span></td>
+            <td>Lower error for "rho_tor_norm" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_tor_norm_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "rho_tor_norm" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_tor(:)</span></td>
+            <td>Toroidal flux coordinate. rho_tor = sqrt(b_flux_tor/(pi*b0)) ~ sqrt(pi*r^2*b0/(pi*b0))
+               ~ r [m]. The toroidal field used in its definition is indicated under vacuum_toroidal_field/b0 {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_tor_error_upper(:)</span></td>
+            <td>Upper error for "rho_tor" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_tor_error_lower(:)</span></td>
+            <td>Lower error for "rho_tor" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_tor_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "rho_tor" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_pol_norm(:)</span></td>
+            <td>Normalised poloidal flux coordinate = sqrt((psi(rho)-psi(magnetic_axis)) / (psi(LCFS)-psi(magnetic_axis))) {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_pol_norm_error_upper(:)</span></td>
+            <td>Upper error for "rho_pol_norm" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_pol_norm_error_lower(:)</span></td>
+            <td>Lower error for "rho_pol_norm" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/rho_pol_norm_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "rho_pol_norm" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/grid/psi(:)</span></td>
+            <td>Poloidal magnetic flux {dynamic} [Wb]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>psi_like</td>
+                     <td>.fact_psi</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/psi_error_upper(:)</span></td>
+            <td>Upper error for "psi" {dynamic} [Wb]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>psi_like</td>
+                     <td>.fact_psi</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/psi_error_lower(:)</span></td>
+            <td>Lower error for "psi" {dynamic} [Wb]. This quantity is COCOS-dependent, with the following transformation :
+               
+               <table border="1">
+                  <thead>
+                     <td>Label</td>
+                     <td>Expression</td>
+                  </thead>
+                  <tr>
+                     <td>psi_like</td>
+                     <td>.fact_psi</td>
+                  </tr>
+               </table>
+            </td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/psi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "psi" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/grid/volume(:)</span></td>
+            <td>Volume enclosed inside the magnetic surface {dynamic} [m^3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/volume_error_upper(:)</span></td>
+            <td>Upper error for "volume" {dynamic} [m^3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/volume_error_lower(:)</span></td>
+            <td>Lower error for "volume" {dynamic} [m^3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/volume_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "volume" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/grid/area(:)</span></td>
+            <td>Cross-sectional area of the flux surface {dynamic} [m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/area_error_upper(:)</span></td>
+            <td>Upper error for "area" {dynamic} [m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/area_error_lower(:)</span></td>
+            <td>Lower error for "area" {dynamic} [m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/area_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "area" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/grid/surface(:)</span></td>
+            <td>Surface area of the toroidal flux surface {dynamic} [m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/surface_error_upper(:)</span></td>
+            <td>Upper error for "surface" {dynamic} [m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/surface_error_lower(:)</span></td>
+            <td>Lower error for "surface" {dynamic} [m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/surface_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "surface" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/grid/psi_magnetic_axis</span></td>
+            <td>Value of the poloidal magnetic flux at the magnetic axis (useful to normalize the
+               psi array values when the radial grid doesn't go from the magnetic axis to the plasma
+               boundary) {dynamic} [Wb]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/psi_magnetic_axis_error_upper</span></td>
+            <td>Upper error for "psi_magnetic_axis" {dynamic} [Wb]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/psi_magnetic_axis_error_lower</span></td>
+            <td>Lower error for "psi_magnetic_axis" {dynamic} [Wb]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/psi_magnetic_axis_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "psi_magnetic_axis" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/grid/psi_boundary</span></td>
+            <td>Value of the poloidal magnetic flux at the plasma boundary (useful to normalize the
+               psi array values when the radial grid doesn't go from the magnetic axis to the plasma
+               boundary) {dynamic} [Wb]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/psi_boundary_error_upper</span></td>
+            <td>Upper error for "psi_boundary" {dynamic} [Wb]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/psi_boundary_error_lower</span></td>
+            <td>Lower error for "psi_boundary" {dynamic} [Wb]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/grid/psi_boundary_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "psi_boundary" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/t_e(:)</span></td>
+            <td>Electron temperature {dynamic} [eV]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/t_e_error_upper(:)</span></td>
+            <td>Upper error for "t_e" {dynamic} [eV]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/t_e_error_lower(:)</span></td>
+            <td>Lower error for "t_e" {dynamic} [eV]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/t_e_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "t_e" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/t_i_average(:)</span></td>
+            <td>Ion temperature (averaged on charge states and ion species) {dynamic} [eV]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/t_i_average_error_upper(:)</span></td>
+            <td>Upper error for "t_i_average" {dynamic} [eV]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/t_i_average_error_lower(:)</span></td>
+            <td>Lower error for "t_i_average" {dynamic} [eV]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/t_i_average_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "t_i_average" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/n_e(:)</span></td>
+            <td>Electron density (thermal+non-thermal) {dynamic} [m^-3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/n_e_error_upper(:)</span></td>
+            <td>Upper error for "n_e" {dynamic} [m^-3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/n_e_error_lower(:)</span></td>
+            <td>Lower error for "n_e" {dynamic} [m^-3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/n_e_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "n_e" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/n_e_fast(:)</span></td>
+            <td>Density of fast (non-thermal) electrons {dynamic} [m^-3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/n_e_fast_error_upper(:)</span></td>
+            <td>Upper error for "n_e_fast" {dynamic} [m^-3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/n_e_fast_error_lower(:)</span></td>
+            <td>Lower error for "n_e_fast" {dynamic} [m^-3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/n_e_fast_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "n_e_fast" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/n_i_total_over_n_e(:)</span></td>
+            <td>Ratio of total ion density (sum over species and charge states) over electron density.
+               (thermal+non-thermal) {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/n_i_total_over_n_e_error_upper(:)</span></td>
+            <td>Upper error for "n_i_total_over_n_e" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/n_i_total_over_n_e_error_lower(:)</span></td>
+            <td>Lower error for "n_i_total_over_n_e" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/n_i_total_over_n_e_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "n_i_total_over_n_e" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/momentum_tor(:)</span></td>
+            <td>Total plasma toroidal momentum, summed over ion species and electrons  {dynamic} [kg.m/s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/momentum_tor_error_upper(:)</span></td>
+            <td>Upper error for "momentum_tor" {dynamic} [kg.m/s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/momentum_tor_error_lower(:)</span></td>
+            <td>Lower error for "momentum_tor" {dynamic} [kg.m/s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/momentum_tor_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "momentum_tor" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/zeff(:)</span></td>
+            <td>Effective charge {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/zeff_error_upper(:)</span></td>
+            <td>Upper error for "zeff" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/zeff_error_lower(:)</span></td>
+            <td>Lower error for "zeff" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/zeff_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "zeff" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/p_e(:)</span></td>
+            <td>Electron pressure {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_e_error_upper(:)</span></td>
+            <td>Upper error for "p_e" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_e_error_lower(:)</span></td>
+            <td>Lower error for "p_e" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_e_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "p_e" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/p_e_fast_perpendicular(:)</span></td>
+            <td>Fast (non-thermal) electron perpendicular pressure {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_e_fast_perpendicular_error_upper(:)</span></td>
+            <td>Upper error for "p_e_fast_perpendicular" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_e_fast_perpendicular_error_lower(:)</span></td>
+            <td>Lower error for "p_e_fast_perpendicular" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_e_fast_perpendicular_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "p_e_fast_perpendicular" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/p_e_fast_parallel(:)</span></td>
+            <td>Fast (non-thermal) electron parallel pressure {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_e_fast_parallel_error_upper(:)</span></td>
+            <td>Upper error for "p_e_fast_parallel" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_e_fast_parallel_error_lower(:)</span></td>
+            <td>Lower error for "p_e_fast_parallel" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_e_fast_parallel_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "p_e_fast_parallel" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/p_i_total(:)</span></td>
+            <td>Total ion pressure (sum over the ion species) {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_i_total_error_upper(:)</span></td>
+            <td>Upper error for "p_i_total" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_i_total_error_lower(:)</span></td>
+            <td>Lower error for "p_i_total" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_i_total_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "p_i_total" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/p_i_total_fast_perpendicular(:)</span></td>
+            <td>Fast (non-thermal) total ion (sum over the ion species) perpendicular pressure {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_i_total_fast_perpendicular_error_upper(:)</span></td>
+            <td>Upper error for "p_i_total_fast_perpendicular" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_i_total_fast_perpendicular_error_lower(:)</span></td>
+            <td>Lower error for "p_i_total_fast_perpendicular" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_i_total_fast_perpendicular_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "p_i_total_fast_perpendicular" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/p_i_total_fast_parallel(:)</span></td>
+            <td>Fast (non-thermal) total ion (sum over the ion species) parallel pressure {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_i_total_fast_parallel_error_upper(:)</span></td>
+            <td>Upper error for "p_i_total_fast_parallel" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_i_total_fast_parallel_error_lower(:)</span></td>
+            <td>Lower error for "p_i_total_fast_parallel" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/p_i_total_fast_parallel_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "p_i_total_fast_parallel" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/pressure_thermal(:)</span></td>
+            <td>Thermal pressure (electrons+ions) {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/pressure_thermal_error_upper(:)</span></td>
+            <td>Upper error for "pressure_thermal" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/pressure_thermal_error_lower(:)</span></td>
+            <td>Lower error for "pressure_thermal" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/pressure_thermal_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "pressure_thermal" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/pressure_perpendicular(:)</span></td>
+            <td>Total perpendicular pressure (electrons+ions, thermal+non-thermal) {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/pressure_perpendicular_error_upper(:)</span></td>
+            <td>Upper error for "pressure_perpendicular" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/pressure_perpendicular_error_lower(:)</span></td>
+            <td>Lower error for "pressure_perpendicular" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/pressure_perpendicular_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "pressure_perpendicular" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/pressure_parallel(:)</span></td>
+            <td>Total parallel pressure (electrons+ions, thermal+non-thermal) {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/pressure_parallel_error_upper(:)</span></td>
+            <td>Upper error for "pressure_parallel" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/pressure_parallel_error_lower(:)</span></td>
+            <td>Lower error for "pressure_parallel" {dynamic} [Pa]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/pressure_parallel_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "pressure_parallel" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/j_total(:)</span></td>
+            <td>Total parallel current density = average(jtot.B) / B0, where B0 = Core_Profiles/Vacuum_Toroidal_Field/
+               B0 {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_total_error_upper(:)</span></td>
+            <td>Upper error for "j_total" {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_total_error_lower(:)</span></td>
+            <td>Lower error for "j_total" {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_total_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "j_total" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/j_tor(:)</span></td>
+            <td>Total toroidal current density = average(J_Tor/R) / average(1/R) {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_tor_error_upper(:)</span></td>
+            <td>Upper error for "j_tor" {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_tor_error_lower(:)</span></td>
+            <td>Lower error for "j_tor" {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_tor_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "j_tor" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/j_ohmic(:)</span></td>
+            <td>Ohmic parallel current density = average(J_Ohmic.B) / B0, where B0 = Core_Profiles/Vacuum_Toroidal_Field/
+               B0 {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_ohmic_error_upper(:)</span></td>
+            <td>Upper error for "j_ohmic" {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_ohmic_error_lower(:)</span></td>
+            <td>Lower error for "j_ohmic" {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_ohmic_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "j_ohmic" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/j_non_inductive(:)</span></td>
+            <td>Non-inductive (includes bootstrap) parallel current density = average(jni.B) / B0,
+               where B0 = Core_Profiles/Vacuum_Toroidal_Field/ B0 {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_non_inductive_error_upper(:)</span></td>
+            <td>Upper error for "j_non_inductive" {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_non_inductive_error_lower(:)</span></td>
+            <td>Lower error for "j_non_inductive" {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_non_inductive_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "j_non_inductive" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/j_bootstrap(:)</span></td>
+            <td>Bootstrap current density = average(J_Bootstrap.B) / B0, where B0 = Core_Profiles/Vacuum_Toroidal_Field/
+               B0 {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_bootstrap_error_upper(:)</span></td>
+            <td>Upper error for "j_bootstrap" {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_bootstrap_error_lower(:)</span></td>
+            <td>Lower error for "j_bootstrap" {dynamic} [A/m^2]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/j_bootstrap_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "j_bootstrap" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/conductivity_parallel(:)</span></td>
+            <td>Parallel conductivity {dynamic} [ohm^-1.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/conductivity_parallel_error_upper(:)</span></td>
+            <td>Upper error for "conductivity_parallel" {dynamic} [ohm^-1.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/conductivity_parallel_error_lower(:)</span></td>
+            <td>Lower error for "conductivity_parallel" {dynamic} [ohm^-1.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/conductivity_parallel_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "conductivity_parallel" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/e_field_parallel(:)</span></td>
+            <td>Parallel electric field = average(E.B) / B0, where Core_Profiles/Vacuum_Toroidal_Field/
+               B0 {dynamic} [V.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/e_field_parallel_error_upper(:)</span></td>
+            <td>Upper error for "e_field_parallel" {dynamic} [V.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/e_field_parallel_error_lower(:)</span></td>
+            <td>Lower error for "e_field_parallel" {dynamic} [V.m^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/e_field_parallel_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "e_field_parallel" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/q(:)</span></td>
+            <td>Safety factor {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/q_error_upper(:)</span></td>
+            <td>Upper error for "q" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/q_error_lower(:)</span></td>
+            <td>Lower error for "q" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/q_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "q" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/magnetic_shear(:)</span></td>
+            <td>Magnetic shear, defined as rho_tor/q . dq/drho_tor {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/magnetic_shear_error_upper(:)</span></td>
+            <td>Upper error for "magnetic_shear" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/magnetic_shear_error_lower(:)</span></td>
+            <td>Lower error for "magnetic_shear" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/magnetic_shear_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "magnetic_shear" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/phi(:)</span></td>
+            <td>Toroidal flux {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/phi_error_upper(:)</span></td>
+            <td>Upper error for "phi" {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/phi_error_lower(:)</span></td>
+            <td>Lower error for "phi" {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/psi_star_pre_crash(:)</span></td>
+            <td>Psi* = psi - phi, just before the sawtooth crash {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/psi_star_pre_crash_error_upper(:)</span></td>
+            <td>Upper error for "psi_star_pre_crash" {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/psi_star_pre_crash_error_lower(:)</span></td>
+            <td>Lower error for "psi_star_pre_crash" {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/psi_star_pre_crash_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "psi_star_pre_crash" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/psi_star_post_crash(:)</span></td>
+            <td>Psi* = psi - phi, after the sawtooth crash {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/psi_star_post_crash_error_upper(:)</span></td>
+            <td>Upper error for "psi_star_post_crash" {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/psi_star_post_crash_error_lower(:)</span></td>
+            <td>Lower error for "psi_star_post_crash" {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- profiles_1d(itime)/grid/rho_tor_norm<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">profiles_1d(itime)/psi_star_post_crash_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "psi_star_post_crash" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">profiles_1d(itime)/time</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">diagnostics</span></td>
+            <td>Detailed information about the sawtooth characteristics</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">diagnostics/magnetic_shear_q1(:)</span></td>
+            <td>Magnetic shear at surface q = 1, defined as rho_tor/q . dq/drho_tor {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/magnetic_shear_q1_error_upper(:)</span></td>
+            <td>Upper error for "magnetic_shear_q1" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/magnetic_shear_q1_error_lower(:)</span></td>
+            <td>Lower error for "magnetic_shear_q1" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/magnetic_shear_q1_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "magnetic_shear_q1" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">diagnostics/rho_tor_norm_q1(:)</span></td>
+            <td>Normalised toroidal flux coordinate at surface q = 1 {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/rho_tor_norm_q1_error_upper(:)</span></td>
+            <td>Upper error for "rho_tor_norm_q1" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/rho_tor_norm_q1_error_lower(:)</span></td>
+            <td>Lower error for "rho_tor_norm_q1" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/rho_tor_norm_q1_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "rho_tor_norm_q1" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">diagnostics/rho_tor_norm_inversion(:)</span></td>
+            <td>Normalised toroidal flux coordinate at inversion radius {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/rho_tor_norm_inversion_error_upper(:)</span></td>
+            <td>Upper error for "rho_tor_norm_inversion" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/rho_tor_norm_inversion_error_lower(:)</span></td>
+            <td>Lower error for "rho_tor_norm_inversion" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/rho_tor_norm_inversion_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "rho_tor_norm_inversion" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">diagnostics/rho_tor_norm_mixing(:)</span></td>
+            <td>Normalised toroidal flux coordinate at mixing radius {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/rho_tor_norm_mixing_error_upper(:)</span></td>
+            <td>Upper error for "rho_tor_norm_mixing" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/rho_tor_norm_mixing_error_lower(:)</span></td>
+            <td>Lower error for "rho_tor_norm_mixing" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/rho_tor_norm_mixing_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "rho_tor_norm_mixing" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">diagnostics/previous_crash_trigger(:)</span></td>
+            <td>Previous crash trigger. Flag indicating whether a crash condition has been satisfied
+               : 0 = no crash. N(&gt;0) = crash triggered due to condition N {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">diagnostics/previous_crash_time(:)</span></td>
+            <td>Time at which the previous sawtooth crash occured {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/previous_crash_time_error_upper(:)</span></td>
+            <td>Upper error for "previous_crash_time" {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/previous_crash_time_error_lower(:)</span></td>
+            <td>Lower error for "previous_crash_time" {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/previous_crash_time_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "previous_crash_time" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">diagnostics/previous_period(:)</span></td>
+            <td>Previous sawtooth period {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/previous_period_error_upper(:)</span></td>
+            <td>Upper error for "previous_period" {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/previous_period_error_lower(:)</span></td>
+            <td>Lower error for "previous_period" {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">diagnostics/previous_period_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "previous_period" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code</span></td>
+            <td>Generic decription of the code-specific parameters for the code that has produced
+               this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/name</span></td>
+            <td>Name of software generating IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/output_flag(:)</span></td>
+            <td>Output flag : 0 means the run is successful, other values mean some difficulty has
+               been encountered, the exact meaning is then code specific. Negative values mean the
+               result shall not be used. {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)</span></td>
+            <td>List of external libraries used by the code that has produced this IDS</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/name</span></td>
+            <td>Name of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time(:)</span></td>
+            <td>Generic time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+      </table>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><script src="js/jquery-1.12.4.min.js"></script><script src="js/jquery.treetable.js"></script><script src="js/treeView2.js"></script><script>  makeTree('body>table');  </script></body>
+</html>

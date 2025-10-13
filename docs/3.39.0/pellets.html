@@ -1,0 +1,1358 @@
+<html xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Data Dictionary HTML documentation</title>
+      <style type="text/css">
+			p {color:black;font-size:12pt;font-weight:normal;}
+			p.name {color:red;font-size:18pt;font-weight:bold;}
+			p.welcome {color:#3333aa; font-size:20pt; font-weight:bold; text-align:center;}
+			span.head {color:#3333aa; font-size:12pt; font-weight:bold; }
+       </style>
+      <link href="css/jquery.treetable.css" rel="stylesheet" type="text/css">
+      <link href="css/maketree.css" rel="stylesheet">
+   </head>
+   <body>
+      <p class="welcome">ITER Physics Data Model Documentation for pellets</p>
+      <p>Description of pellets launched into the plasma</p>
+      <p>Notation of array of structure indices: itime indicates a time index; i1, i2, i3,
+         ... indicate other indices with their depth in the IDS. This notation clarifies the
+         path of a given node, but should not be used to compare indices of different nodes
+         (they may have different meanings).</p>
+      <p>Lifecycle status: alpha since version 3.0.4</p>
+      <p>Last change occured on version: 3.33.0</p>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><button onclick="window.location.href='pellets_flat.html'">Flat display</button><button onclick="ToggleErrorDisplay('body&gt;table')">Show/Hide errorbar nodes</button>  By convention, only the upper error node should be filled in case of symmetrical
+      error bars. The upper and lower errors are absolute and defined positive, and represent
+      one standard deviation of the data. The effective values of the data (within one standard
+      deviation) will be within the interval [data-data_error_lower, data+data_error_upper].
+      Thus whatever the sign of data, data_error_lower relates to the lower bound and data_error_upper
+      to the upper bound of the error bar interval.
+      <br><br><table border="1">
+         <thead style="color:#ff0000">
+            <td>Full path name</td>
+            <td>Description</td>
+            <td>Data Type</td>
+            <td>Coordinates</td>
+         </thead>
+         <tr>
+            <td><span class="pathname">ids_properties</span></td>
+            <td>Interface Data Structure properties. This element identifies the node above as an
+               IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/comment</span></td>
+            <td>Any comment describing the content of this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/homogeneous_time</span></td>
+            <td>This node must be filled (with 0, 1, or 2) for the IDS to be valid. If 1, the time
+               of this IDS is homogeneous, i.e. the time values for this IDS are stored in the time
+               node just below the root of this IDS. If 0, the time values are stored in the various
+               time fields at lower levels in the tree. In the case only constant or static nodes
+               are filled within the IDS, homogeneous_time must be set to 2 {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/source</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.34.0</td>
+            <td>Source of the data (any comment describing the origin of the data : code, path to
+               diagnostic signals, processing method, ...). Superseeded by the new provenance structure. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provider</span></td>
+            <td>Name of the person in charge of producing this data {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/creation_date</span></td>
+            <td>Date at which this data has been produced {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put</span></td>
+            <td>Version of the access layer package used to PUT this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/data_dictionary</span></td>
+            <td>Version of Data Dictionary used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer</span></td>
+            <td>Version of Access Layer used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer_language</span></td>
+            <td>Programming language of the Access Layer high level API used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.34.0</td>
+            <td>Provenance information about this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)</span></td>
+            <td>Set of IDS nodes for which the provenance is given. The provenance information applies
+               to the whole structure below the IDS node. For documenting provenance information
+               for the whole IDS, set the size of this array of structure to 1 and leave the child
+               "path" node empty {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the provenance information applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/sources(:)</span></td>
+            <td>List of sources used to import or calculate this node, identified as explained below.
+               In case the node is the result of of a calculation / data processing, the source is
+               an input to the process described in the "code" structure at the root of the IDS.
+               The source can be an IDS (identified by a URI or a persitent identifier, see syntax
+               in the link below) or non-IDS data imported directly from an non-IMAS database (identified
+               by the command used to import the source, or the persistent identifier of the data
+               source). Often data are obtained by a chain of processes, however only the last process
+               input are recorded here. The full chain of provenance has then to be reconstructed
+               recursively from the provenance information contained in the data sources. Click here for <a href="utilities/IMAS-URI-scheme.md">further documentation</a>. {constant}</td>
+            <td>STR_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.39.0</td>
+            <td>Information about the plugins used to write/read this IDS. This structure is filled
+               automatically by the Access Layer at GET/PUT time, no need to fill it via a user program.. Introduced after DD version 3.38.1</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)</span></td>
+            <td>Set of IDS nodes for which a plugin has been applied {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the plugin applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)</span></td>
+            <td>Plugins used to PUT a node (potentially, multiple plugins can be applied, if so they
+               are listed by order of application)</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)</span></td>
+            <td>Plugins to be used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application) </td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)</span></td>
+            <td>Plugins actually used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application). This information is filled by the plugin
+               infrastructure during the GET operation.</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put</span></td>
+            <td>Plugin infrastructure used to PUT the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get</span></td>
+            <td>Plugin infrastructure used to GET the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)</span></td>
+            <td>Description of the pellets launched at various time slices. The time of this structure
+               corresponds to the full ablation of the pellet inside the plasma. {dynamic}</td>
+            <td>struct_array</td>
+            <td> 
+               1- time_slice(itime)/time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)</span></td>
+            <td>Set of pellets ablated in the plasma at a given time</td>
+            <td>struct_array</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/shape</span></td>
+            <td>Initial shape of a pellet at launch</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/shape/type</span></td>
+            <td>Identifier structure for the shape type: 1-spherical; 2-cylindrical; 3-rectangular</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/shape/type/name</span></td>
+            <td>Short string identifier {dynamic}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/shape/type/index</span></td>
+            <td>Integer identifier (enumeration index within a list). Private identifier values must
+               be indicated by a negative index. {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/shape/type/description</span></td>
+            <td>Verbose description {dynamic}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/shape/size(:)</span></td>
+            <td>Size of the pellet in the various dimensions, depending on the shape type. Spherical
+               pellets: size(1) is the radius of the pellet. Cylindrical pellets: size(1) is the
+               radius and size(2) is the height of the cylinder. Rectangular pellets: size(1) is
+               the height, size(2) is the width and size(3) is the length {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/shape/size_error_upper(:)</span></td>
+            <td>Upper error for "size" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/shape/size_error_lower(:)</span></td>
+            <td>Lower error for "size" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/shape/size_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "size" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)</span></td>
+            <td>Set of atomic species included in the pellet composition</td>
+            <td>struct_array</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/a</span></td>
+            <td>Mass of atom {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/a_error_upper</span></td>
+            <td>Upper error for "a" {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/a_error_lower</span></td>
+            <td>Lower error for "a" {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/a_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "a" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/z_n</span></td>
+            <td>Nuclear charge {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/z_n_error_upper</span></td>
+            <td>Upper error for "z_n" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/z_n_error_lower</span></td>
+            <td>Lower error for "z_n" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/z_n_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z_n" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/label</span></td>
+            <td>String identifying the species (e.g. H, D, T, ...) {dynamic}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/density</span></td>
+            <td>Material density of the species in the pellet {dynamic} [atoms.m^-3]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/density_error_upper</span></td>
+            <td>Upper error for "density" {dynamic} [atoms.m^-3]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/density_error_lower</span></td>
+            <td>Lower error for "density" {dynamic} [atoms.m^-3]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/density_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "density" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/fraction</span></td>
+            <td>Atomic fraction of the species in the pellet {dynamic} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/fraction_error_upper</span></td>
+            <td>Upper error for "fraction" {dynamic} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/fraction_error_lower</span></td>
+            <td>Lower error for "fraction" {dynamic} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/fraction_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "fraction" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/sublimation_energy</span></td>
+            <td>Sublimation energy per atom {dynamic} [eV]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/sublimation_energy_error_upper</span></td>
+            <td>Upper error for "sublimation_energy" {dynamic} [eV]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/sublimation_energy_error_lower</span></td>
+            <td>Lower error for "sublimation_energy" {dynamic} [eV]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/species(i2)/sublimation_energy_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "sublimation_energy" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/velocity_initial</span></td>
+            <td>Initial velocity of the pellet as it enters the vaccum chamber {dynamic} [m.s^-1]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/velocity_initial_error_upper</span></td>
+            <td>Upper error for "velocity_initial" {dynamic} [m.s^-1]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/velocity_initial_error_lower</span></td>
+            <td>Lower error for "velocity_initial" {dynamic} [m.s^-1]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/velocity_initial_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "velocity_initial" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry</span></td>
+            <td>Geometry of the pellet path in the vaccuum chamber</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point</span></td>
+            <td>Position of the first point</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/r</span></td>
+            <td>Major radius {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/r_error_upper</span></td>
+            <td>Upper error for "r" {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/r_error_lower</span></td>
+            <td>Lower error for "r" {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/z</span></td>
+            <td>Height {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/z_error_upper</span></td>
+            <td>Upper error for "z" {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/z_error_lower</span></td>
+            <td>Lower error for "z" {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/phi</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {dynamic} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/phi_error_upper</span></td>
+            <td>Upper error for "phi" {dynamic} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/phi_error_lower</span></td>
+            <td>Lower error for "phi" {dynamic} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/first_point/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point</span></td>
+            <td>Position of the second point</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/r</span></td>
+            <td>Major radius {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/r_error_upper</span></td>
+            <td>Upper error for "r" {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/r_error_lower</span></td>
+            <td>Lower error for "r" {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/z</span></td>
+            <td>Height {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/z_error_upper</span></td>
+            <td>Upper error for "z" {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/z_error_lower</span></td>
+            <td>Lower error for "z" {dynamic} [m]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/phi</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {dynamic} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/phi_error_upper</span></td>
+            <td>Upper error for "phi" {dynamic} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/phi_error_lower</span></td>
+            <td>Lower error for "phi" {dynamic} [rad]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_geometry/second_point/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles</span></td>
+            <td>1-D profiles of plasma and pellet along the pellet path </td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/distance(:)</span></td>
+            <td>Distance along the pellet path, with the origin taken at path_geometry/first_point.
+               Used as the main coordinate for the path_profiles structure  {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/distance_error_upper(:)</span></td>
+            <td>Upper error for "distance" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/distance_error_lower(:)</span></td>
+            <td>Lower error for "distance" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/distance_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "distance" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/rho_tor_norm(:)</span></td>
+            <td>Normalised toroidal coordinate along the pellet path  {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/rho_tor_norm_error_upper(:)</span></td>
+            <td>Upper error for "rho_tor_norm" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/rho_tor_norm_error_lower(:)</span></td>
+            <td>Lower error for "rho_tor_norm" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/rho_tor_norm_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "rho_tor_norm" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/psi(:)</span></td>
+            <td>Poloidal flux along the pellet path  {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/psi_error_upper(:)</span></td>
+            <td>Upper error for "psi" {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/psi_error_lower(:)</span></td>
+            <td>Lower error for "psi" {dynamic} [Wb]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/psi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "psi" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/velocity(:)</span></td>
+            <td>Pellet velocity along the pellet path  {dynamic} [m.s^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/velocity_error_upper(:)</span></td>
+            <td>Upper error for "velocity" {dynamic} [m.s^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/velocity_error_lower(:)</span></td>
+            <td>Lower error for "velocity" {dynamic} [m.s^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/velocity_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "velocity" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/n_e(:)</span></td>
+            <td>Electron density along the pellet path  {dynamic} [m^-3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/n_e_error_upper(:)</span></td>
+            <td>Upper error for "n_e" {dynamic} [m^-3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/n_e_error_lower(:)</span></td>
+            <td>Lower error for "n_e" {dynamic} [m^-3]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/n_e_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "n_e" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/t_e(:)</span></td>
+            <td>Electron temperature along the pellet path  {dynamic} [eV]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/t_e_error_upper(:)</span></td>
+            <td>Upper error for "t_e" {dynamic} [eV]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/t_e_error_lower(:)</span></td>
+            <td>Lower error for "t_e" {dynamic} [eV]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/t_e_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "t_e" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/ablation_rate(:)</span></td>
+            <td>Ablation rate (electrons) along the pellet path  {dynamic} [s^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/ablation_rate_error_upper(:)</span></td>
+            <td>Upper error for "ablation_rate" {dynamic} [s^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/ablation_rate_error_lower(:)</span></td>
+            <td>Lower error for "ablation_rate" {dynamic} [s^-1]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/ablation_rate_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "ablation_rate" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/ablated_particles(:)</span></td>
+            <td>Number of ablated particles (electrons) along the pellet path  {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/ablated_particles_error_upper(:)</span></td>
+            <td>Upper error for "ablated_particles" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/ablated_particles_error_lower(:)</span></td>
+            <td>Lower error for "ablated_particles" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/ablated_particles_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "ablated_particles" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/rho_tor_norm_drift(:)</span></td>
+            <td>Difference to due ExB drifts between the ablation and the final deposition locations,
+               in terms of the normalised toroidal flux coordinate {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/rho_tor_norm_drift_error_upper(:)</span></td>
+            <td>Upper error for "rho_tor_norm_drift" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/rho_tor_norm_drift_error_lower(:)</span></td>
+            <td>Lower error for "rho_tor_norm_drift" {dynamic} [-]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/distance<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/rho_tor_norm_drift_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "rho_tor_norm_drift" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position</span></td>
+            <td>Position along the pellet path</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/r(:)</span></td>
+            <td>Major radius {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/r_error_upper(:)</span></td>
+            <td>Upper error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/r_error_lower(:)</span></td>
+            <td>Lower error for "r" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/z(:)</span></td>
+            <td>Height {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/position/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/z_error_upper(:)</span></td>
+            <td>Upper error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/position/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/z_error_lower(:)</span></td>
+            <td>Lower error for "z" {dynamic} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/position/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/phi(:)</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {dynamic} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/position/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/phi_error_upper(:)</span></td>
+            <td>Upper error for "phi" {dynamic} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/position/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/phi_error_lower(:)</span></td>
+            <td>Lower error for "phi" {dynamic} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- time_slice(itime)/pellet(i1)/path_profiles/position/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/path_profiles/position/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas</span></td>
+            <td>Propellant gas</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)</span></td>
+            <td>List of elements forming the gas molecule</td>
+            <td>struct_array [max_size=5 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/a</span></td>
+            <td>Mass of atom {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/a_error_upper</span></td>
+            <td>Upper error for "a" {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/a_error_lower</span></td>
+            <td>Lower error for "a" {dynamic} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/a_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "a" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/z_n</span></td>
+            <td>Nuclear charge {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/z_n_error_upper</span></td>
+            <td>Upper error for "z_n" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/z_n_error_lower</span></td>
+            <td>Lower error for "z_n" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/z_n_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z_n" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/atoms_n</span></td>
+            <td>Number of atoms of this element in the molecule {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/multiplicity</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Multiplicity of the atom {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/multiplicity_error_upper</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Upper error for "multiplicity" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/multiplicity_error_lower</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Lower error for "multiplicity" {dynamic} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/element(i2)/multiplicity_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "multiplicity" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/label</span></td>
+            <td>String identifying the neutral molecule (e.g. H2, D2, T2, N2, ...) {dynamic}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/molecules_n</span></td>
+            <td>Number of molecules of the propellant gas injected in the vacuum vessel when launching
+               the pellet {dynamic} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/molecules_n_error_upper</span></td>
+            <td>Upper error for "molecules_n" {dynamic} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/molecules_n_error_lower</span></td>
+            <td>Lower error for "molecules_n" {dynamic} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">time_slice(itime)/pellet(i1)/propellant_gas/molecules_n_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "molecules_n" {dynamic}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time_slice(itime)/time</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">latency</span></td>
+            <td>Upper bound of the delay between input command received from the RT network and actuator
+               starting to react. Applies globally to the system described by this IDS unless specific
+               latencies (e.g. channel-specific or antenna-specific) are provided at a deeper level
+               in the IDS structure. {static} [s]. Introduced after DD version 3.32.1</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">latency_error_upper</span></td>
+            <td>Upper error for "latency" {static} [s]. Introduced after DD version 3.32.1</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">latency_error_lower</span></td>
+            <td>Lower error for "latency" {static} [s]. Introduced after DD version 3.32.1</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">latency_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "latency" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code</span></td>
+            <td>Generic decription of the code-specific parameters for the code that has produced
+               this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/name</span></td>
+            <td>Name of software generating IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/output_flag(:)</span></td>
+            <td>Output flag : 0 means the run is successful, other values mean some difficulty has
+               been encountered, the exact meaning is then code specific. Negative values mean the
+               result shall not be used. {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)</span></td>
+            <td>List of external libraries used by the code that has produced this IDS</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/name</span></td>
+            <td>Name of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time(:)</span></td>
+            <td>Generic time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+      </table>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><script src="js/jquery-1.12.4.min.js"></script><script src="js/jquery.treetable.js"></script><script src="js/treeView2.js"></script><script>  makeTree('body>table');  </script></body>
+</html>

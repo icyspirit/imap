@@ -1,0 +1,1225 @@
+<html xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Data Dictionary HTML documentation</title>
+      <style type="text/css">
+			p {color:black;font-size:12pt;font-weight:normal;}
+			p.name {color:red;font-size:18pt;font-weight:bold;}
+			p.welcome {color:#3333aa; font-size:20pt; font-weight:bold; text-align:center;}
+			span.head {color:#3333aa; font-size:12pt; font-weight:bold; }
+       </style>
+      <link href="css/jquery.treetable.css" rel="stylesheet" type="text/css">
+      <link href="css/maketree.css" rel="stylesheet">
+   </head>
+   <body>
+      <p class="welcome">ITER Physics Data Model Documentation for coils_non_axisymmetric</p>
+      <p>Non axisymmetric active coils system (e.g. ELM control coils, error field correction
+         coils, ...)</p>
+      <p>Notation of array of structure indices: itime indicates a time index; i1, i2, i3,
+         ... indicate other indices with their depth in the IDS. This notation clarifies the
+         path of a given node, but should not be used to compare indices of different nodes
+         (they may have different meanings).</p>
+      <p>Lifecycle status: alpha since version 3.19.1</p>
+      <p>Last change occured on version: 3.33.0</p>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><button onclick="window.location.href='coils_non_axisymmetric_flat.html'">Flat display</button><button onclick="ToggleErrorDisplay('body&gt;table')">Show/Hide errorbar nodes</button>  By convention, only the upper error node should be filled in case of symmetrical
+      error bars. The upper and lower errors are absolute and defined positive, and represent
+      one standard deviation of the data. The effective values of the data (within one standard
+      deviation) will be within the interval [data-data_error_lower, data+data_error_upper].
+      Thus whatever the sign of data, data_error_lower relates to the lower bound and data_error_upper
+      to the upper bound of the error bar interval.
+      <br><br><table border="1">
+         <thead style="color:#ff0000">
+            <td>Full path name</td>
+            <td>Description</td>
+            <td>Data Type</td>
+            <td>Coordinates</td>
+         </thead>
+         <tr>
+            <td><span class="pathname">ids_properties</span></td>
+            <td>Interface Data Structure properties. This element identifies the node above as an
+               IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/comment</span></td>
+            <td>Any comment describing the content of this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/homogeneous_time</span></td>
+            <td>This node must be filled (with 0, 1, or 2) for the IDS to be valid. If 1, the time
+               of this IDS is homogeneous, i.e. the time values for this IDS are stored in the time
+               node just below the root of this IDS. If 0, the time values are stored in the various
+               time fields at lower levels in the tree. In the case only constant or static nodes
+               are filled within the IDS, homogeneous_time must be set to 2 {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/source</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.34.0</td>
+            <td>Source of the data (any comment describing the origin of the data : code, path to
+               diagnostic signals, processing method, ...). Superseeded by the new provenance structure. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provider</span></td>
+            <td>Name of the person in charge of producing this data {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/creation_date</span></td>
+            <td>Date at which this data has been produced {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put</span></td>
+            <td>Version of the access layer package used to PUT this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/data_dictionary</span></td>
+            <td>Version of Data Dictionary used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer</span></td>
+            <td>Version of Access Layer used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer_language</span></td>
+            <td>Programming language of the Access Layer high level API used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.34.0</td>
+            <td>Provenance information about this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)</span></td>
+            <td>Set of IDS nodes for which the provenance is given. The provenance information applies
+               to the whole structure below the IDS node. For documenting provenance information
+               for the whole IDS, set the size of this array of structure to 1 and leave the child
+               "path" node empty {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the provenance information applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/sources(:)</span></td>
+            <td>List of sources used to import or calculate this node, identified as explained below.
+               In case the node is the result of of a calculation / data processing, the source is
+               an input to the process described in the "code" structure at the root of the IDS.
+               The source can be an IDS (identified by a URI or a persitent identifier, see syntax
+               in the link below) or non-IDS data imported directly from an non-IMAS database (identified
+               by the command used to import the source, or the persistent identifier of the data
+               source). Often data are obtained by a chain of processes, however only the last process
+               input are recorded here. The full chain of provenance has then to be reconstructed
+               recursively from the provenance information contained in the data sources. Click here for <a href="utilities/IMAS-URI-scheme.md">further documentation</a>. {constant}</td>
+            <td>STR_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.39.0</td>
+            <td>Information about the plugins used to write/read this IDS. This structure is filled
+               automatically by the Access Layer at GET/PUT time, no need to fill it via a user program.. Introduced after DD version 3.38.1</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)</span></td>
+            <td>Set of IDS nodes for which a plugin has been applied {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the plugin applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)</span></td>
+            <td>Plugins used to PUT a node (potentially, multiple plugins can be applied, if so they
+               are listed by order of application)</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)</span></td>
+            <td>Plugins to be used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application) </td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)</span></td>
+            <td>Plugins actually used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application). This information is filled by the plugin
+               infrastructure during the GET operation.</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put</span></td>
+            <td>Plugin infrastructure used to PUT the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get</span></td>
+            <td>Plugin infrastructure used to GET the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)</span></td>
+            <td>Set of coils {static}</td>
+            <td>struct_array [max_size=32 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/name</span></td>
+            <td>Name of the coil {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/identifier</span></td>
+            <td>Alphanumeric identifier of coil {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)</span></td>
+            <td>Set of conductors inside the coil. The structure can be used with size 1 for a simplified
+               description as a single conductor. A conductor is composed of several elements, serially
+               connected, i.e. transporting the same current. {static}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements</span></td>
+            <td>Set of geometrical elements (line segments and/or arcs of a circle) describing the
+               contour of the conductor centre</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/names(:)</span></td>
+            <td>Name or description of every element {static}</td>
+            <td>STR_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/types(:)</span></td>
+            <td>Type of every element: 1: line segment, its ends are given by the start and end points;
+               index = 2: arc of a circle; index = 3: full circle {static}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/names<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points</span></td>
+            <td>Position of the start point of every element</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/r(:)</span></td>
+            <td>Major radius {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/r_error_upper(:)</span></td>
+            <td>Upper error for "r" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/r_error_lower(:)</span></td>
+            <td>Lower error for "r" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/z(:)</span></td>
+            <td>Height {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/start_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/z_error_upper(:)</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/start_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/z_error_lower(:)</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/start_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/phi(:)</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/start_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/phi_error_upper(:)</span></td>
+            <td>Upper error for "phi" {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/start_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/phi_error_lower(:)</span></td>
+            <td>Lower error for "phi" {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/start_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/start_points/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points</span></td>
+            <td>Position of an intermediate point along the arc of circle, for every element, providing
+               the orientation of the element (must define with the corresponding start point an
+               aperture angle strictly inferior to PI). Meaningful only if type/index = 2, fill with
+               default/empty value otherwise</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/r(:)</span></td>
+            <td>Major radius {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/r_error_upper(:)</span></td>
+            <td>Upper error for "r" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/r_error_lower(:)</span></td>
+            <td>Lower error for "r" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/z(:)</span></td>
+            <td>Height {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/intermediate_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/z_error_upper(:)</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/intermediate_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/z_error_lower(:)</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/intermediate_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/phi(:)</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/intermediate_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/phi_error_upper(:)</span></td>
+            <td>Upper error for "phi" {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/intermediate_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/phi_error_lower(:)</span></td>
+            <td>Lower error for "phi" {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/intermediate_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/intermediate_points/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points</span></td>
+            <td>Position of the end point of every element. Meaningful only if type/index = 1 or 2,
+               fill with default/empty value otherwise</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/r(:)</span></td>
+            <td>Major radius {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/r_error_upper(:)</span></td>
+            <td>Upper error for "r" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/r_error_lower(:)</span></td>
+            <td>Lower error for "r" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/z(:)</span></td>
+            <td>Height {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/end_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/z_error_upper(:)</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/end_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/z_error_lower(:)</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/end_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/phi(:)</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/end_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/phi_error_upper(:)</span></td>
+            <td>Upper error for "phi" {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/end_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/phi_error_lower(:)</span></td>
+            <td>Lower error for "phi" {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/end_points/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/end_points/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres</span></td>
+            <td>Position of the centre of the arc of a circle of every element (meaningful only if
+               type/index = 2 or 3, fill with default/empty value otherwise)</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/r(:)</span></td>
+            <td>Major radius {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/r_error_upper(:)</span></td>
+            <td>Upper error for "r" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/r_error_lower(:)</span></td>
+            <td>Lower error for "r" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "r" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/z(:)</span></td>
+            <td>Height {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/centres/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/z_error_upper(:)</span></td>
+            <td>Upper error for "z" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/centres/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/z_error_lower(:)</span></td>
+            <td>Lower error for "z" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/centres/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/phi(:)</span></td>
+            <td>Toroidal angle (oriented counter-clockwise when viewing from above) {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/centres/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/phi_error_upper(:)</span></td>
+            <td>Upper error for "phi" {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/centres/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/phi_error_lower(:)</span></td>
+            <td>Lower error for "phi" {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/elements/centres/r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/elements/centres/phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "phi" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section</span></td>
+            <td>The cross-section perpendicular to the conductor contour is described by a series
+               of contour points, given by their relative position with respect to the start point
+               of the first element. This cross-section is assumed constant for all elements.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_r(:)</span></td>
+            <td>Major radii (relative to a reference point) {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_r_error_upper(:)</span></td>
+            <td>Upper error for "delta_r" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_r_error_lower(:)</span></td>
+            <td>Lower error for "delta_r" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_r_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "delta_r" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_z(:)</span></td>
+            <td>Heights (relative to a reference point) {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/cross_section/delta_r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_z_error_upper(:)</span></td>
+            <td>Upper error for "delta_z" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/cross_section/delta_r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_z_error_lower(:)</span></td>
+            <td>Lower error for "delta_z" {static} [m]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/cross_section/delta_r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_z_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "delta_z" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_phi(:)</span></td>
+            <td>Toroidal angles (relative to a reference point) {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/cross_section/delta_r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_phi_error_upper(:)</span></td>
+            <td>Upper error for "delta_phi" {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/cross_section/delta_r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_phi_error_lower(:)</span></td>
+            <td>Lower error for "delta_phi" {static} [rad]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/cross_section/delta_r<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/cross_section/delta_phi_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "delta_phi" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/resistance</span></td>
+            <td>conductor resistance {static} [Ohm]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/resistance_error_upper</span></td>
+            <td>Upper error for "resistance" {static} [Ohm]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/resistance_error_lower</span></td>
+            <td>Lower error for "resistance" {static} [Ohm]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/resistance_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "resistance" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/current</span></td>
+            <td>Current in the conductor (positive when it flows from the first to the last element) [A]</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/current/data(:)</span></td>
+            <td>Data {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/current/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/current/data_error_upper(:)</span></td>
+            <td>Upper error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/current/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/current/data_error_lower(:)</span></td>
+            <td>Lower error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/current/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/current/data_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "data" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/current/time(:)</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/voltage</span></td>
+            <td>Voltage on the conductor terminals [V]</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/voltage/data(:)</span></td>
+            <td>Data {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/voltage/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/voltage/data_error_upper(:)</span></td>
+            <td>Upper error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/voltage/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/voltage/data_error_lower(:)</span></td>
+            <td>Lower error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/conductor(i2)/voltage/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/conductor(i2)/voltage/data_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "data" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/conductor(i2)/voltage/time(:)</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/turns</span></td>
+            <td>Number of total turns in the coil. May be a fraction when describing the coil connections. {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/turns_error_upper</span></td>
+            <td>Upper error for "turns" {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/turns_error_lower</span></td>
+            <td>Lower error for "turns" {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/turns_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "turns" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/resistance</span></td>
+            <td>Coil resistance {static} [Ohm]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/resistance_error_upper</span></td>
+            <td>Upper error for "resistance" {static} [Ohm]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/resistance_error_lower</span></td>
+            <td>Lower error for "resistance" {static} [Ohm]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/resistance_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "resistance" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/current</span></td>
+            <td>Current in one turn of the coil (to be multiplied by the number of turns to calculate
+               the magnetic field generated). Sign convention : a positive current generates a positive
+               radial magnetic field [A]</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/current/data(:)</span></td>
+            <td>Data {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/current/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/current/data_error_upper(:)</span></td>
+            <td>Upper error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/current/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/current/data_error_lower(:)</span></td>
+            <td>Lower error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/current/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/current/data_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "data" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/current/time(:)</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/voltage</span></td>
+            <td>Voltage on the coil terminals. Sign convention : a positive power supply voltage (and
+               power supply current) generates a positive radial magnetic field [V]</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/voltage/data(:)</span></td>
+            <td>Data {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/voltage/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/voltage/data_error_upper(:)</span></td>
+            <td>Upper error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/voltage/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/voltage/data_error_lower(:)</span></td>
+            <td>Lower error for "data" {dynamic} [as_parent]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coil(i1)/voltage/time<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coil(i1)/voltage/data_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "data" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coil(i1)/voltage/time(:)</span></td>
+            <td>Time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">latency</span></td>
+            <td>Upper bound of the delay between input command received from the RT network and actuator
+               starting to react. Applies globally to the system described by this IDS unless specific
+               latencies (e.g. channel-specific or antenna-specific) are provided at a deeper level
+               in the IDS structure. {static} [s]. Introduced after DD version 3.32.1</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">latency_error_upper</span></td>
+            <td>Upper error for "latency" {static} [s]. Introduced after DD version 3.32.1</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">latency_error_lower</span></td>
+            <td>Lower error for "latency" {static} [s]. Introduced after DD version 3.32.1</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">latency_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "latency" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code</span></td>
+            <td>Generic decription of the code-specific parameters for the code that has produced
+               this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/name</span></td>
+            <td>Name of software generating IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/output_flag(:)</span></td>
+            <td>Output flag : 0 means the run is successful, other values mean some difficulty has
+               been encountered, the exact meaning is then code specific. Negative values mean the
+               result shall not be used. {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)</span></td>
+            <td>List of external libraries used by the code that has produced this IDS</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/name</span></td>
+            <td>Name of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time(:)</span></td>
+            <td>Generic time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+      </table>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><script src="js/jquery-1.12.4.min.js"></script><script src="js/jquery.treetable.js"></script><script src="js/treeView2.js"></script><script>  makeTree('body>table');  </script></body>
+</html>

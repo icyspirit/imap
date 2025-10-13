@@ -1,0 +1,1464 @@
+<html xmlns:fn="http://www.w3.org/2005/02/xpath-functions">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Data Dictionary HTML documentation</title>
+      <style type="text/css">
+			p {color:black;font-size:12pt;font-weight:normal;}
+			p.name {color:red;font-size:18pt;font-weight:bold;}
+			p.welcome {color:#3333aa; font-size:20pt; font-weight:bold; text-align:center;}
+			span.head {color:#3333aa; font-size:12pt; font-weight:bold; }
+       </style>
+      <link href="css/jquery.treetable.css" rel="stylesheet" type="text/css">
+      <link href="css/maketree.css" rel="stylesheet">
+   </head>
+   <body>
+      <p class="welcome">ITER Physics Data Model Documentation for amns_data</p>
+      <p>Atomic, molecular, nuclear and surface physics data. Each occurrence contains the
+         data for a given element (nuclear charge), describing various physical processes.
+         For each process, data tables are organized by charge states. The coordinate system
+         used by the data tables is described under the coordinate_system node.</p>
+      <p>Notation of array of structure indices: itime indicates a time index; i1, i2, i3,
+         ... indicate other indices with their depth in the IDS. This notation clarifies the
+         path of a given node, but should not be used to compare indices of different nodes
+         (they may have different meanings).</p>
+      <p>Lifecycle status: alpha since version 3.0.0</p>
+      <p>Last change occured on version: 3.21.0</p>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p><button onclick="window.location.href='amns_data.html'">Expandable display</button> You are now in flat display mode, note that errorbars are not visible in this mode
+      <br><br><table border="1">
+         <thead style="color:#ff0000">
+            <td>Full path name</td>
+            <td>Description</td>
+            <td>Data Type</td>
+            <td>Coordinates</td>
+         </thead>
+         <tr>
+            <td><span class="pathname">ids_properties</span></td>
+            <td>Interface Data Structure properties. This element identifies the node above as an
+               IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/comment</span></td>
+            <td>Any comment describing the content of this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/homogeneous_time</span></td>
+            <td>This node must be filled (with 0, 1, or 2) for the IDS to be valid. If 1, the time
+               of this IDS is homogeneous, i.e. the time values for this IDS are stored in the time
+               node just below the root of this IDS. If 0, the time values are stored in the various
+               time fields at lower levels in the tree. In the case only constant or static nodes
+               are filled within the IDS, homogeneous_time must be set to 2 {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/source</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.34.0</td>
+            <td>Source of the data (any comment describing the origin of the data : code, path to
+               diagnostic signals, processing method, ...). Superseeded by the new provenance structure. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provider</span></td>
+            <td>Name of the person in charge of producing this data {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/creation_date</span></td>
+            <td>Date at which this data has been produced {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put</span></td>
+            <td>Version of the access layer package used to PUT this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/data_dictionary</span></td>
+            <td>Version of Data Dictionary used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer</span></td>
+            <td>Version of Access Layer used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/version_put/access_layer_language</span></td>
+            <td>Programming language of the Access Layer high level API used to PUT this IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.34.0</td>
+            <td>Provenance information about this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)</span></td>
+            <td>Set of IDS nodes for which the provenance is given. The provenance information applies
+               to the whole structure below the IDS node. For documenting provenance information
+               for the whole IDS, set the size of this array of structure to 1 and leave the child
+               "path" node empty {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the provenance information applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/provenance/node(i1)/sources(:)</span></td>
+            <td>List of sources used to import or calculate this node, identified as explained below.
+               In case the node is the result of of a calculation / data processing, the source is
+               an input to the process described in the "code" structure at the root of the IDS.
+               The source can be an IDS (identified by a URI or a persitent identifier, see syntax
+               in the link below) or non-IDS data imported directly from an non-IMAS database (identified
+               by the command used to import the source, or the persistent identifier of the data
+               source). Often data are obtained by a chain of processes, however only the last process
+               input are recorded here. The full chain of provenance has then to be reconstructed
+               recursively from the provenance information contained in the data sources. Click here for <a href="utilities/IMAS-URI-scheme.md">further documentation</a>. {constant}</td>
+            <td>STR_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins</span><br>Lifecycle status: <font color="red">alpha</font> since version 3.39.0</td>
+            <td>Information about the plugins used to write/read this IDS. This structure is filled
+               automatically by the Access Layer at GET/PUT time, no need to fill it via a user program.. Introduced after DD version 3.38.1</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)</span></td>
+            <td>Set of IDS nodes for which a plugin has been applied {constant}</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/path</span></td>
+            <td>Path of the node within the IDS, following the syntax given in the link below. If
+               empty, means the plugin applies to the whole IDS. Click here for <a href="utilities/IDS-path-syntax.md">further documentation</a>. {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)</span></td>
+            <td>Plugins used to PUT a node (potentially, multiple plugins can be applied, if so they
+               are listed by order of application)</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/put_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)</span></td>
+            <td>Plugins to be used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application) </td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/readback(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)</span></td>
+            <td>Plugins actually used to read back a node (potentially, multiple plugins can be applied,
+               listed in reverse order of application). This information is filled by the plugin
+               infrastructure during the GET operation.</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/node(i1)/get_operation(i2)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put</span></td>
+            <td>Plugin infrastructure used to PUT the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_put/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get</span></td>
+            <td>Plugin infrastructure used to GET the data</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/name</span></td>
+            <td>Name of software used {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">ids_properties/plugins/infrastructure_get/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">z_n</span></td>
+            <td>Nuclear charge {static} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">z_n_error_upper</span></td>
+            <td>Upper error for "z_n" {static} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">z_n_error_lower</span></td>
+            <td>Lower error for "z_n" {static} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">z_n_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z_n" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">a</span></td>
+            <td>Mass of atom {static} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">a_error_upper</span></td>
+            <td>Upper error for "a" {static} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">a_error_lower</span></td>
+            <td>Lower error for "a" {static} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">a_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "a" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)</span></td>
+            <td>Description and data for a set of physical processes.</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/source</span></td>
+            <td>Filename or subroutine name used to provide this data {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/provider</span></td>
+            <td>Name of the person in charge of producing this data {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/citation</span></td>
+            <td>Reference to publication(s) {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/label</span></td>
+            <td>String identifying the process (e.g. EI, RC, ...) {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)</span></td>
+            <td>Set of reactants involved in this process</td>
+            <td>struct_array [max_size=5 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/label</span></td>
+            <td>String identifying reaction participant (e.g. "D", "e", "W", "CD4", "photon", "n") {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)</span></td>
+            <td>List of elements forming the atom (in such case, this array should be of size 1) or
+               molecule. Mass of atom and nuclear charge should be set to 0 for photons and electrons.
+               The mass of atom shouldn't be set for an atomic process that is not isotope dependent.</td>
+            <td>struct_array [max_size=5 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/a</span></td>
+            <td>Mass of atom {constant} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/a_error_upper</span></td>
+            <td>Upper error for "a" {constant} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/a_error_lower</span></td>
+            <td>Lower error for "a" {constant} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/a_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "a" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/z_n</span></td>
+            <td>Nuclear charge {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/z_n_error_upper</span></td>
+            <td>Upper error for "z_n" {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/z_n_error_lower</span></td>
+            <td>Lower error for "z_n" {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/z_n_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z_n" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/atoms_n</span></td>
+            <td>Number of atoms of this element in the molecule {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/multiplicity</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Multiplicity of the atom {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/multiplicity_error_upper</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Upper error for "multiplicity" {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/multiplicity_error_lower</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Lower error for "multiplicity" {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/element(i3)/multiplicity_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "multiplicity" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/role</span></td>
+            <td>Identifier for the role of this paricipant in the reaction. For surface reactions
+               distinguish between projectile and wall.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/role/name</span></td>
+            <td>Short string identifier {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/role/index</span></td>
+            <td>Integer identifier (enumeration index within a list). Private identifier values must
+               be indicated by a negative index. {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/role/description</span></td>
+            <td>Verbose description {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/mass</span></td>
+            <td>Mass of the participant {static} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/mass_error_upper</span></td>
+            <td>Upper error for "mass" {static} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/mass_error_lower</span></td>
+            <td>Lower error for "mass" {static} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/mass_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "mass" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/charge</span></td>
+            <td>Charge number of the participant {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/charge_error_upper</span></td>
+            <td>Upper error for "charge" {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/charge_error_lower</span></td>
+            <td>Lower error for "charge" {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/charge_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "charge" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/relative_charge</span></td>
+            <td>This is a flag indicating that charges are absolute (if set to 0), relative (if 1)
+               or irrelevant (-1); relative would be used to categorize the ionization reactions
+               from i to i+1 for all charge states; in the case of bundles, the +1 relative indicates
+               the next bundle {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/multiplicity</span></td>
+            <td>Multiplicity in the reaction {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/multiplicity_error_upper</span></td>
+            <td>Upper error for "multiplicity" {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/multiplicity_error_lower</span></td>
+            <td>Lower error for "multiplicity" {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/reactants(i2)/multiplicity_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "multiplicity" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/metastable(:)</span></td>
+            <td>An array identifying the metastable; if zero-length, then not a metastable; if of
+               length 1, then the value indicates the electronic level for the metastable (mostly
+               used for atoms/ions); if of length 2, then the 1st would indicate the electronic level
+               and the second the vibrational level for the metastable (mostly used for molecules
+               and molecular ions); if of length 3, then the 1st would indicate the electronic level,
+               the second the vibrational level and the third the rotational level for the metastable
+               (mostly used for molecules and molecular ions) {static}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/reactants(i2)/metastable_label</span></td>
+            <td>Label identifying in text form the metastable {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)</span></td>
+            <td>Set of products resulting of this process</td>
+            <td>struct_array [max_size=5 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/label</span></td>
+            <td>String identifying reaction participant (e.g. "D", "e", "W", "CD4", "photon", "n") {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)</span></td>
+            <td>List of elements forming the atom (in such case, this array should be of size 1) or
+               molecule. Mass of atom and nuclear charge should be set to 0 for photons and electrons.
+               The mass of atom shouldn't be set for an atomic process that is not isotope dependent.</td>
+            <td>struct_array [max_size=5 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/a</span></td>
+            <td>Mass of atom {constant} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/a_error_upper</span></td>
+            <td>Upper error for "a" {constant} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/a_error_lower</span></td>
+            <td>Lower error for "a" {constant} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/a_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "a" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/z_n</span></td>
+            <td>Nuclear charge {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/z_n_error_upper</span></td>
+            <td>Upper error for "z_n" {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/z_n_error_lower</span></td>
+            <td>Lower error for "z_n" {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/z_n_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z_n" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/atoms_n</span></td>
+            <td>Number of atoms of this element in the molecule {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/multiplicity</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Multiplicity of the atom {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/multiplicity_error_upper</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Upper error for "multiplicity" {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/multiplicity_error_lower</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.15.0</td>
+            <td>Lower error for "multiplicity" {constant} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/element(i3)/multiplicity_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "multiplicity" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/role</span></td>
+            <td>Identifier for the role of this paricipant in the reaction. For surface reactions
+               distinguish between projectile and wall.</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/role/name</span></td>
+            <td>Short string identifier {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/role/index</span></td>
+            <td>Integer identifier (enumeration index within a list). Private identifier values must
+               be indicated by a negative index. {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/role/description</span></td>
+            <td>Verbose description {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/mass</span></td>
+            <td>Mass of the participant {static} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/mass_error_upper</span></td>
+            <td>Upper error for "mass" {static} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/mass_error_lower</span></td>
+            <td>Lower error for "mass" {static} [Atomic Mass Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/mass_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "mass" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/charge</span></td>
+            <td>Charge number of the participant {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/charge_error_upper</span></td>
+            <td>Upper error for "charge" {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/charge_error_lower</span></td>
+            <td>Lower error for "charge" {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/charge_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "charge" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/relative_charge</span></td>
+            <td>This is a flag indicating that charges are absolute (if set to 0), relative (if 1)
+               or irrelevant (-1); relative would be used to categorize the ionization reactions
+               from i to i+1 for all charge states; in the case of bundles, the +1 relative indicates
+               the next bundle {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/multiplicity</span></td>
+            <td>Multiplicity in the reaction {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/multiplicity_error_upper</span></td>
+            <td>Upper error for "multiplicity" {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/multiplicity_error_lower</span></td>
+            <td>Lower error for "multiplicity" {static} [-]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/products(i2)/multiplicity_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "multiplicity" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/metastable(:)</span></td>
+            <td>An array identifying the metastable; if zero-length, then not a metastable; if of
+               length 1, then the value indicates the electronic level for the metastable (mostly
+               used for atoms/ions); if of length 2, then the 1st would indicate the electronic level
+               and the second the vibrational level for the metastable (mostly used for molecules
+               and molecular ions); if of length 3, then the 1st would indicate the electronic level,
+               the second the vibrational level and the third the rotational level for the metastable
+               (mostly used for molecules and molecular ions) {static}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/products(i2)/metastable_label</span></td>
+            <td>Label identifying in text form the metastable {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/table_dimension</span></td>
+            <td>Table dimensionality of the process (1 to 6), valid for all charge states. Indicates
+               which of the tables is filled (below the charge_state node) {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/coordinate_index</span></td>
+            <td>Index in tables_coord, specifying what coordinate systems to use for this process
+               (valid for all tables) {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/result_label</span></td>
+            <td>Description of the process result (rate, cross section, sputtering yield, ...) {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/result_units</span></td>
+            <td>Units of the process result {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/result_transformation</span></td>
+            <td>Transformation of the process result. Integer flag: 0=no transformation; 1=10^; 2=exp() {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/charge_state(i2)</span></td>
+            <td>Process tables for a set of charge states. Only one table is used for that process,
+               defined by process(:)/table_dimension</td>
+            <td>struct_array [max_size=75 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/charge_state(i2)/label</span></td>
+            <td>String identifying charge state (e.g. C+, C+2 , C+3, C+4, C+5, C+6, ...) {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/charge_state(i2)/z_min</span></td>
+            <td>Minimum Z of the charge state bundle {static} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/z_min_error_upper</span></td>
+            <td>Upper error for "z_min" {static} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/z_min_error_lower</span></td>
+            <td>Lower error for "z_min" {static} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/z_min_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z_min" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/charge_state(i2)/z_max</span></td>
+            <td>Maximum Z of the charge state bundle (equal to z_min if no bundle) {static} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/z_max_error_upper</span></td>
+            <td>Upper error for "z_max" {static} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/z_max_error_lower</span></td>
+            <td>Lower error for "z_max" {static} [Elementary Charge Unit]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/z_max_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "z_max" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_0d</span></td>
+            <td>0D table describing the process data {static} [units given by process(:)/results_units]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_0d_error_upper</span></td>
+            <td>Upper error for "table_0d" {static} [units given by process(:)/results_units]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_0d_error_lower</span></td>
+            <td>Lower error for "table_0d" {static} [units given by process(:)/results_units]</td>
+            <td>FLT_0D</td>
+            <td></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_0d_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "table_0d" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_1d(:)</span></td>
+            <td>1D table describing the process data {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_1d_error_upper(:)</span></td>
+            <td>Upper error for "table_1d" {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_1d_error_lower(:)</span></td>
+            <td>Lower error for "table_1d" {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_1d_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "table_1d" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_2d(:,:)</span></td>
+            <td>2D table describing the process data {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_2d_error_upper(:,:)</span></td>
+            <td>Upper error for "table_2d" {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_2d_error_lower(:,:)</span></td>
+            <td>Lower error for "table_2d" {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_2D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_2d_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "table_2d" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_3d(:,:,:)</span></td>
+            <td>3D table describing the process data {static} [units given by process(:)/results_units]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_3d_error_upper(:,:,:)</span></td>
+            <td>Upper error for "table_3d" {static} [units given by process(:)/results_units]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_3d_error_lower(:,:,:)</span></td>
+            <td>Lower error for "table_3d" {static} [units given by process(:)/results_units]</td>
+            <td>FLT_3D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_3d_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "table_3d" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_4d(:,:,:,:)</span></td>
+            <td>4D table describing the process data {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_4D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br>
+               4- coordinate_system(process(i1)/coordinate_index)/coordinate(4)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_4d_error_upper(:,:,:,:)</span></td>
+            <td>Upper error for "table_4d" {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_4D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br>
+               4- coordinate_system(process(i1)/coordinate_index)/coordinate(4)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_4d_error_lower(:,:,:,:)</span></td>
+            <td>Lower error for "table_4d" {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_4D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br>
+               4- coordinate_system(process(i1)/coordinate_index)/coordinate(4)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_4d_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "table_4d" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_5d(:,:,:,:,:)</span></td>
+            <td>5D table describing the process data {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_5D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br>
+               4- coordinate_system(process(i1)/coordinate_index)/coordinate(4)/values<br>
+               5- coordinate_system(process(i1)/coordinate_index)/coordinate(5)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_5d_error_upper(:,:,:,:,:)</span></td>
+            <td>Upper error for "table_5d" {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_5D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br>
+               4- coordinate_system(process(i1)/coordinate_index)/coordinate(4)/values<br>
+               5- coordinate_system(process(i1)/coordinate_index)/coordinate(5)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_5d_error_lower(:,:,:,:,:)</span></td>
+            <td>Lower error for "table_5d" {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_5D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br>
+               4- coordinate_system(process(i1)/coordinate_index)/coordinate(4)/values<br>
+               5- coordinate_system(process(i1)/coordinate_index)/coordinate(5)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_5d_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "table_5d" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_6d(:,:,:,:,:,:)</span></td>
+            <td>6D table describing the process data {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_6D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br>
+               4- coordinate_system(process(i1)/coordinate_index)/coordinate(4)/values<br>
+               5- coordinate_system(process(i1)/coordinate_index)/coordinate(5)/values<br>
+               6- coordinate_system(process(i1)/coordinate_index)/coordinate(6)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_6d_error_upper(:,:,:,:,:,:)</span></td>
+            <td>Upper error for "table_6d" {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_6D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br>
+               4- coordinate_system(process(i1)/coordinate_index)/coordinate(4)/values<br>
+               5- coordinate_system(process(i1)/coordinate_index)/coordinate(5)/values<br>
+               6- coordinate_system(process(i1)/coordinate_index)/coordinate(6)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_6d_error_lower(:,:,:,:,:,:)</span></td>
+            <td>Lower error for "table_6d" {static} [units given by process(i1)/results_units]</td>
+            <td>FLT_6D</td>
+            <td> 
+               1- coordinate_system(process(i1)/coordinate_index)/coordinate(1)/values<br>
+               2- coordinate_system(process(i1)/coordinate_index)/coordinate(2)/values<br>
+               3- coordinate_system(process(i1)/coordinate_index)/coordinate(3)/values<br>
+               4- coordinate_system(process(i1)/coordinate_index)/coordinate(4)/values<br>
+               5- coordinate_system(process(i1)/coordinate_index)/coordinate(5)/values<br>
+               6- coordinate_system(process(i1)/coordinate_index)/coordinate(6)/values<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">process(i1)/charge_state(i2)/table_6d_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "table_6d" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coordinate_system(i1)</span></td>
+            <td>Array of possible coordinate systems for process tables</td>
+            <td>struct_array [max_size=20 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)</span></td>
+            <td>Set of coordinates for that coordinate system. A coordinate an be either a range of
+               real values or a set of discrete values (if interpolation_type=0)</td>
+            <td>struct_array [max_size=6 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)/label</span></td>
+            <td>Description of coordinate (e.g. "Electron temperature") {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)/values(:)</span></td>
+            <td>Coordinate values {static} [units given by coordinate_system(:)/coordinate(:)/units]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)/values_error_upper(:)</span></td>
+            <td>Upper error for "values" {static} [units given by coordinate_system(:)/coordinate(:)/units]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)/values_error_lower(:)</span></td>
+            <td>Lower error for "values" {static} [units given by coordinate_system(:)/coordinate(:)/units]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr class="errorbar" style="display:none;">
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)/values_error_index</span><br>Lifecycle status: <font color="red">obsolescent</font> since version 3.39.0</td>
+            <td>Index in the error_description list for "values" {constant}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)/interpolation_type</span></td>
+            <td>Interpolation strategy in this coordinate direction. Integer flag: 0=discrete (no
+               interpolation); 1=linear; ... {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)/extrapolation_type(:)</span></td>
+            <td>Extrapolation strategy when leaving the domain. The first value of the vector describes
+               the behaviour at lower bound, the second describes the at upper bound. Possible values:
+               0=none, report error; 1=boundary value; 2=linear extrapolation {static}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- 1...2<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)/value_labels(:)</span></td>
+            <td>String description of discrete coordinate values (if interpolation_type=0). E.g.,
+               for spectroscopic lines, the spectroscopic description of the transition. {static}</td>
+            <td>STR_1D</td>
+            <td> 
+               1- coordinate_system(i1)/coordinate(i2)/values<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)/units</span></td>
+            <td>Units of coordinate (e.g. eV) {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)/transformation</span></td>
+            <td>Coordinate transformation applied to coordinate values stored in coord. Integer flag:
+               0=none; 1=log10; 2=ln {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">coordinate_system(i1)/coordinate(i2)/spacing</span></td>
+            <td>Flag for specific coordinate spacing (for optimization purposes). Integer flag: 0=undefined;
+               1=uniform; ... {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">release(i1)</span></td>
+            <td>List of available releases of the AMNS data; each element contains information about
+               the AMNS data that is included in the release. This part of the IDS is filled and
+               stored only into shot/run=0/1, playing the role of a catalogue.</td>
+            <td>struct_array [max_size=100 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">release(i1)/description</span></td>
+            <td>Description of this release {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">release(i1)/date</span></td>
+            <td>Date of this release {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">release(i1)/data_entry(i2)</span></td>
+            <td>For this release, list of each data item (i.e. shot/run pair containing the actual
+               data) included in this release</td>
+            <td>struct_array [max_size=30 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">release(i1)/data_entry(i2)/description</span></td>
+            <td>Description of this data entry {static}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">release(i1)/data_entry(i2)/shot</span></td>
+            <td>Shot number = Mass*1000+Nuclear_charge {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">release(i1)/data_entry(i2)/run</span></td>
+            <td>Which run number is the active run number for this version {static}</td>
+            <td>INT_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code</span></td>
+            <td>Generic decription of the code-specific parameters for the code that has produced
+               this IDS</td>
+            <td>structure</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/name</span></td>
+            <td>Name of software generating IDS {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/output_flag(:)</span></td>
+            <td>Output flag : 0 means the run is successful, other values mean some difficulty has
+               been encountered, the exact meaning is then code specific. Negative values mean the
+               result shall not be used. {dynamic}</td>
+            <td>INT_1D</td>
+            <td> 
+               1- time<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)</span></td>
+            <td>List of external libraries used by the code that has produced this IDS</td>
+            <td>struct_array [max_size=10 (limited in MDS+ backend only)]</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/name</span></td>
+            <td>Name of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/description</span></td>
+            <td>Short description of the software (type, purpose) {constant}. Introduced after DD version 3.38.1</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/commit</span></td>
+            <td>Unique commit reference of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/version</span></td>
+            <td>Unique version (tag) of software {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/repository</span></td>
+            <td>URL of software repository {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">code/library(i1)/parameters</span></td>
+            <td>List of the code specific parameters in XML format {constant}</td>
+            <td>STR_0D</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td><span class="pathname">time(:)</span></td>
+            <td>Generic time {dynamic} [s]</td>
+            <td>FLT_1D</td>
+            <td> 
+               1- 1...N<br></td>
+         </tr>
+      </table>
+      <p><a href="html_documentation.html">Back to top IDS list</a></p>
+   </body>
+</html>

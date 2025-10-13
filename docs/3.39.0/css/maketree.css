@@ -1,0 +1,32 @@
+
+table tr, table td {
+     border:1px solid;    
+}
+
+table td {    
+    padding: 0 15px 5px 15px;
+}
+
+.treetable>tbody>tr>td{
+    max-width: 1100px;
+}
+
+.treetable>tbody>tr>td:first-child{  
+    white-space: nowrap;
+}
+
+.treetable>tbody>tr:hover{  
+    background-color:aliceblue ;
+}
+
+tr.expanded span.indenter a {
+    background-image: url(../img/arrow_low.png);
+}
+
+tr.collapsed.selected span.indenter a {
+    background-image:  url(../img/arrow_right.png);
+}
+
+.treetable.hide-error tr.error-elem {
+    display: none !important;
+}    

@@ -1,0 +1,48 @@
+{% if TREE == "" %}
+{% set TREE = "EFIT01" %}
+{% endif %}
+
+{% set GEQDSK = "EFIT:{0}:RESULTS:GEQDSK".format(TREE) %}
+{% set AEQDSK = "EFIT:{0}:RESULTS:AEQDSK".format(TREE) %}
+
+# TODO: Check this time conversion and complete for all EFIT trees
+{% if TREE == "EFITRT1" %}
+{% set TIME_CONV = "1.0D0" %}
+{% else %}
+{% set TIME_CONV = "1.0D-3" %}
+{% endif %}
+
+GEQDSK:
+  {{ GEQDSK }}
+
+AEQDSK:
+  {{ AEQDSK }}
+
+TIME_CONV:
+  {{ TIME_CONV }}
+
+_ATIME: &ATIME
+  !mdsget
+    - {{ AEQDSK }}:ATIME*{{ TIME_CONV }}
+
+AIDXs: &AIDXs
+  !np.arange
+    - !np.searchsorted
+        - *ATIME
+        - {{ TBEGIN }}
+    - !np.searchsorted
+        - *ATIME
+        - {{ TEND }}
+
+# GTIME is a superset of ATIME
+_GTIME: &GTIME
+  !mdsget
+    - {{ GEQDSK }}:GTIME*{{ TIME_CONV }}
+
+# Find indices of GTIME that has the same value with ATIME[AIDXs]
+GIDXs:
+  !np.searchsorted
+    - *GTIME
+    - !np.take
+        - *ATIME
+        - *AIDXs
