@@ -40,8 +40,8 @@ def plot_2d_unit(unit, color=None):
         tangency_point,
         x1_unit_vector,
         x2_unit_vector,
-        beamlets_group.width_horizontal*(1 - beamlets_group.width_horizontal/beamlets_group.focus.focal_length_horizontal),
-        beamlets_group.width_vertical*(1 - beamlets_group.width_vertical/beamlets_group.focus.focal_length_vertical),
+        beamlets_group.width_horizontal*(1 - lbsctan/beamlets_group.focus.focal_length_horizontal),
+        beamlets_group.width_vertical*(1 - lbsctan/beamlets_group.focus.focal_length_vertical),
         color,
     )
 
@@ -99,8 +99,8 @@ def plot_3d_unit(unit, color=None):
         tangency_point,
         x1_unit_vector,
         x2_unit_vector,
-        beamlets_group.width_horizontal*(1 - beamlets_group.width_horizontal/beamlets_group.focus.focal_length_horizontal),
-        beamlets_group.width_vertical*(1 - beamlets_group.width_vertical/beamlets_group.focus.focal_length_vertical),
+        beamlets_group.width_horizontal*(1 - lbsctan/beamlets_group.focus.focal_length_horizontal),
+        beamlets_group.width_vertical*(1 - lbsctan/beamlets_group.focus.focal_length_vertical),
         color,
     )
 
