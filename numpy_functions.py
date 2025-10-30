@@ -19,6 +19,7 @@ numpy_functions = {
     "multiply": np.multiply,
     "ones": np.ones,
     "ones_like": np.ones_like,
+    "ravel": np.ravel,
     "searchsorted": np.searchsorted,
     "sign": np.sign,
     "sin": np.sin,

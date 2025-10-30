@@ -4,11 +4,15 @@ from imas import ids_defs
 
 
 def get_global_config_template(env):
-    return env.get_template("ids/global_configs.yaml")
+    return env.get_template("global_configs.yaml")
 
 
 def get_local_config_template(env, ids_name):
-    return env.get_template(f"ids/{ids_name}/local_configs.yaml")
+    return env.get_template('/'.join([ids_name, "local_configs.yaml"]))
+
+
+def get_mapping_template(env, ids_name):
+    return env.get_template('/'.join([ids_name, "mappings.yaml"]))
 
 
 def get_ids_defs():
