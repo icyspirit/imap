@@ -1,18 +1,10 @@
-
-import os
 import inspect
 from ruamel.yaml import YAML
-import datetime
-import zoneinfo
-import jinja2
 import imas
 from loader import add_custom_constructor
 from cached_connection import CachedConnection
-from config import get_global_config_template, get_local_config_template, get_mapping_template, get_ids_defs
+from config import get_global_config_template, get_local_config_template, get_mapping_template, get_ids_defs, get_env
 import postprocessing
-import numpy as np
-import functools
-from numpy_functions import numpy_functions
 import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -73,16 +65,7 @@ def update_object(obj, data):
 
 
 def get_mapping(device, ids_name, shot, tbegin=None, tend=None, dd_version="3.39.0", tree=""):
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader('/'.join([os.path.dirname(__file__), "mappings", device])))
-    env.globals["zip"] = zip
-    env.globals["np"] = numpy_functions
-
-    env.globals["DD_VERSION"] = dd_version
-    env.globals["TREE"] = tree.upper()
-    env.globals["KSTNOW"] = datetime.datetime.now(zoneinfo.ZoneInfo("Asia/Seoul"))
-    env.globals["PROVIDER"] = "Korea Institute of Fusion Energy"
-    env.globals["FLOAT_TYPE"] = "float64"
-    env.globals["PI"] = np.pi
+    env = get_env(device, dd_version, tree)
 
     connection.openTree("KSTAR", shot)
     connection.get(f"SetTimeContext({fortran_double(tbegin)}, {fortran_double(tend)})")

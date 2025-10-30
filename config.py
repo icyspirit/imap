@@ -1,6 +1,11 @@
-
+import os
 import types
 from imas import ids_defs
+import numpy as np
+import datetime
+import zoneinfo
+import jinja2
+from numpy_functions import numpy_functions
 
 
 def get_global_config_template(env):
@@ -24,3 +29,17 @@ def get_ids_defs():
            not isinstance(value, types.ModuleType)
     }
 
+
+def get_env(device, dd_version="3.39.0", tree=""):
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader('/'.join([os.path.dirname(__file__), "mappings", device])))
+    env.globals["zip"] = zip
+    env.globals["np"] = numpy_functions
+
+    env.globals["DD_VERSION"] = dd_version
+    env.globals["TREE"] = tree.upper()
+    env.globals["KSTNOW"] = datetime.datetime.now(zoneinfo.ZoneInfo("Asia/Seoul"))
+    env.globals["PROVIDER"] = "Korea Institute of Fusion Energy"
+    env.globals["FLOAT_TYPE"] = "float64"
+    env.globals["PI"] = np.pi
+
+    return env
