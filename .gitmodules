@@ -1,0 +1,3 @@
+[submodule "mappings/kstar"]
+	path = mappings/kstar
+	url = https://gitlab.nfri.re.kr/imas-kstar/imap.git
