@@ -51,10 +51,11 @@ def update_object(obj, data):
 
         if isinstance(value, dict):
             update_object(getattr(obj, key), value)
-        elif isinstance(value, list) and all(map(lambda v: isinstance(v, (dict, list)), value)):
+        elif isinstance(value, list) and all(map(lambda v: isinstance(v, (dict, list, type(None))), value)):
             getattr(obj, key).resize(len(value))
             for o, d in zip(getattr(obj, key), value):
-                update_object(o, d)
+                if d is not None:
+                    update_object(o, d)
         else:
             try:
                 setattr(obj, key, value)
