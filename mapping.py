@@ -1,4 +1,3 @@
-import inspect
 from ruamel.yaml import YAML
 import imas
 from loader import add_custom_constructor
@@ -88,49 +87,11 @@ def get_mapping(device, ids_name, shot, tbegin=None, tend=None, dd_version="3.39
     return yaml.load(mapping_template.render(**ids_defs, **global_configs, **local_configs, **kwargs))
 
 
-def generate_mapping(device, ids_url, shot, tbegin=None, tend=None, dd_version="3.39.0"):
-    ids_name, postprocess, tree = parse_url(ids_url)
-
+def generate_mapping(device, ids_name, shot, tbegin=None, tend=None, dd_version="3.39.0", tree=""):
     mapping = get_mapping(device, ids_name, shot, tbegin, tend, dd_version, tree)
+
     factory = imas.IDSFactory(dd_version)
     ids = getattr(factory, ids_name)()
     update_object(ids, mapping)
 
-    if postprocess:
-        f = getattr(postprocessing, ids_name).postprocess
-        ads = [
-            generate_mapping(device, ads_name, shot, tbegin, tend, dd_version)
-            for ads_name in inspect.signature(f).parameters.keys() if factory.exists(ads_name) and ads_name != ids_name
-        ]
-        f(ids, *ads)
-
     return ids
-
-
-if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--shot", type=int, required=True, help="Shot number")
-    parser.add_argument("-b", "--tbegin", type=float, default=None, help="Start time")
-    parser.add_argument("-e", "--tend", type=float, default=None, help="End time")
-    parser.add_argument("-v", "--dd_version", type=str, default="3.39.0", help="Data dictionary version")
-    parser.add_argument("-p", "--path", type=str, default=None, help="IDS data path")
-    parser.add_argument("-d", "--device", type=str, default="template", help="Mapping device")
-    parser.add_argument("--backend", choices=["hdf5", "mdsplus", "netcdf"], default="hdf5", help="IMAS API backend")
-    parser.add_argument("ids", nargs="+", help="List of IDSs")
-
-    args = parser.parse_args()
-
-    if args.path:
-        uri = (
-            ('.'.join([args.path, "nc"]) if not args.path.endswith(".nc") else args.path)
-            if args.backend == "netcdf" else
-            f"imas:{args.backend}?path={args.path}"
-        )
-        with imas.DBEntry(uri, 'w', dd_version=args.dd_version) as db:
-            for ids_url in args.ids:
-                db.put(generate_mapping(args.device, ids_url, args.shot, args.tbegin, args.tend, args.dd_version))
-
-    else:
-        for ids_url in args.ids:
-            imas.util.print_tree(generate_mapping(args.device, ids_url, args.shot, args.tbegin, args.tend, args.dd_version))

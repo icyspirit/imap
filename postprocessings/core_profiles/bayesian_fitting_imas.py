@@ -23,7 +23,7 @@ def bayesian_fitting_imas(
     thomson_scattering,
     charge_exchange,
     equilibrium,
-    time=3.1,
+    time,
     n=129,
     average_time=0.1,
     tci_average_time=0.04,
@@ -47,6 +47,7 @@ def bayesian_fitting_imas(
 
     # Set normalized psi grid and update core_profiles IDS using equilibrium IDS
     x = np.linspace(0.0, 1.0, n)
+    core_profiles.profiles_1d[0].grid.rho_pol_norm = x**0.5
     core_profiles.profiles_1d[0].grid.psi = x*(psi_boundary - psi_axis) + psi_axis
     core_profiles.profiles_1d[0].grid.rho_tor_norm = make_interp_spline(
         (profiles_1d.psi - psi_axis)/(psi_boundary - psi_axis),
